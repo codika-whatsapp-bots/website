@@ -1,14 +1,15 @@
 ---
-import { getLangFromLocale, useTranslations, getLocalePath, getAlternateLang } from '../i18n/utils';
+import { getLangFromLocale, useTranslations, getLocalePath, getAlternateLanguages, getLanguageFlag, getLanguageLabel } from '../i18n/utils';
 
 const lang = getLangFromLocale(Astro.currentLocale);
 const t = useTranslations(lang);
-const altLang = getAlternateLang(lang);
+const altLangs = getAlternateLanguages(lang);
+const currentFlag = getLanguageFlag(lang);
 ---
 
 <header class="nav-wrapper" id="main-nav">
 	<nav class="nav-container" aria-label="Main navigation">
-		<a href={getLocalePath(lang)} class="nav-logo" aria-label="WhatsApp Bots by Codika — Home">
+		<a href={getLocalePath(lang)} class="nav-logo" aria-label="WhatsApp Bots by Codika">
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
 				<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="currentColor"/>
 				<path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.11-1.14l-.29-.174-3.01.79.8-2.93-.19-.3A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z" fill="currentColor"/>
@@ -23,7 +24,19 @@ const altLang = getAlternateLang(lang);
 		</div>
 
 		<div class="nav-actions">
-			<a href={getLocalePath(altLang)} class="lang-switch">{t('lang.switch')}</a>
+			<div class="lang-selector" id="lang-selector">
+				<button class="lang-btn" id="lang-btn" aria-label="Change language" aria-expanded="false" aria-haspopup="true">
+					<img src={currentFlag} alt="" width="30" height="21" class="lang-flag" />
+				</button>
+				<div class="lang-popover" id="lang-popover" role="menu">
+					{altLangs.map((l) => (
+						<a href={getLocalePath(l)} class="lang-option" role="menuitem">
+							<img src={getLanguageFlag(l)} alt="" width="20" height="14" class="lang-flag" />
+							<span>{getLanguageLabel(l)}</span>
+						</a>
+					))}
+				</div>
+			</div>
 			<a href="mailto:hello@codika.io" class="nav-cta">{t('nav.cta')}</a>
 		</div>
 
@@ -40,7 +53,13 @@ const altLang = getAlternateLang(lang);
 		<a href="#features">{t('nav.features')}</a>
 		<a href="#how-it-works">{t('nav.howItWorks')}</a>
 		<a href="#use-cases">{t('nav.useCases')}</a>
-		<a href={getLocalePath(altLang)} class="lang-switch">{t('lang.switch')}</a>
+		<div class="mobile-lang-row">
+			{altLangs.map((l) => (
+				<a href={getLocalePath(l)} class="mobile-lang-btn" aria-label={getLanguageLabel(l)}>
+					<img src={getLanguageFlag(l)} alt="" width="24" height="17" class="lang-flag" />
+				</a>
+			))}
+		</div>
 		<a href="mailto:hello@codika.io" class="nav-cta">{t('nav.cta')}</a>
 	</div>
 </header>
@@ -49,26 +68,71 @@ const altLang = getAlternateLang(lang);
 	const nav = document.getElementById('main-nav');
 	const toggle = document.getElementById('mobile-toggle');
 	const menu = document.getElementById('mobile-menu');
-	let lastScroll = 0;
+	const langBtn = document.getElementById('lang-btn');
+	const langPopover = document.getElementById('lang-popover');
 	let ticking = false;
+
+	function parseRgb(color: string): [number, number, number, number] | null {
+		const m = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+		if (m) return [+m[1], +m[2], +m[3], m[4] !== undefined ? +m[4] : 1];
+		return null;
+	}
+
+	function isDark(r: number, g: number, b: number): boolean {
+		return (r * 299 + g * 587 + b * 114) / 1000 < 128;
+	}
+
+	// Default page bg: #F7F7F2
+	const defaultBg: [number, number, number] = [247, 247, 242];
+
+	function updateNavBg() {
+		if (!nav) return;
+		const currentScroll = window.scrollY;
+
+		if (currentScroll > 50) {
+			nav.classList.add('scrolled');
+		} else {
+			nav.classList.remove('scrolled');
+		}
+
+		// Find which section the nav overlaps
+		const navHeight = nav.offsetHeight;
+		const probeY = currentScroll + navHeight / 2;
+		const sections = document.querySelectorAll('section, footer');
+		let rgb = defaultBg;
+		let dark = false;
+
+		for (const section of sections) {
+			const el = section as HTMLElement;
+			const top = el.offsetTop;
+			const bottom = top + el.offsetHeight;
+			if (probeY >= top && probeY < bottom) {
+				// Check for explicit data attribute first (for gradient sections)
+				const dataBg = el.dataset.navBg;
+				if (dataBg) {
+					const parsed = parseRgb(dataBg);
+					if (parsed) rgb = [parsed[0], parsed[1], parsed[2]];
+				} else {
+					const computed = getComputedStyle(el).backgroundColor;
+					const parsed = parseRgb(computed);
+					// Only use if not transparent
+					if (parsed && parsed[3] > 0) {
+						rgb = [parsed[0], parsed[1], parsed[2]];
+					}
+				}
+				dark = isDark(rgb[0], rgb[1], rgb[2]);
+				break;
+			}
+		}
+
+		nav.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.85)`;
+		nav.classList.toggle('dark-bg', dark);
+	}
 
 	function onScroll() {
 		if (!ticking) {
 			requestAnimationFrame(() => {
-				const currentScroll = window.scrollY;
-				if (nav) {
-					if (currentScroll > 50) {
-						nav.classList.add('scrolled');
-					} else {
-						nav.classList.remove('scrolled');
-					}
-					if (currentScroll > 100 && currentScroll > lastScroll) {
-						nav.classList.add('hidden');
-					} else {
-						nav.classList.remove('hidden');
-					}
-				}
-				lastScroll = currentScroll;
+				updateNavBg();
 				ticking = false;
 			});
 			ticking = true;
@@ -76,6 +140,23 @@ const altLang = getAlternateLang(lang);
 	}
 
 	window.addEventListener('scroll', onScroll, { passive: true });
+	updateNavBg();
+
+	// Language popover toggle
+	langBtn?.addEventListener('click', (e) => {
+		e.stopPropagation();
+		const isOpen = langPopover?.classList.contains('open');
+		langPopover?.classList.toggle('open');
+		langBtn?.setAttribute('aria-expanded', String(!isOpen));
+	});
+
+	// Close popover on click outside
+	document.addEventListener('click', (e) => {
+		if (langPopover?.classList.contains('open') && !langPopover.contains(e.target as Node) && e.target !== langBtn) {
+			langPopover.classList.remove('open');
+			langBtn?.setAttribute('aria-expanded', 'false');
+		}
+	});
 
 	toggle?.addEventListener('click', () => {
 		const expanded = toggle.getAttribute('aria-expanded') === 'true';
@@ -99,18 +180,37 @@ const altLang = getAlternateLang(lang);
 		left: 0;
 		right: 0;
 		z-index: 100;
-		transition: transform var(--transition-normal), background-color var(--transition-normal), box-shadow var(--transition-normal);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		transition: background-color var(--transition-normal), box-shadow var(--transition-normal), color var(--transition-normal);
 	}
 
 	.nav-wrapper.scrolled {
-		background-color: rgba(247, 247, 242, 0.85);
-		backdrop-filter: blur(20px);
-		-webkit-backdrop-filter: blur(20px);
 		box-shadow: var(--shadow-sm);
 	}
 
-	.nav-wrapper.hidden {
-		transform: translateY(-100%);
+	.nav-wrapper.dark-bg {
+		color: var(--color-text-on-dark);
+	}
+
+	.nav-wrapper.dark-bg .nav-logo {
+		color: var(--color-text-on-dark);
+	}
+
+	.nav-wrapper.dark-bg .nav-links a {
+		color: var(--color-text-on-dark-secondary);
+	}
+
+	.nav-wrapper.dark-bg .nav-links a:hover {
+		color: var(--color-text-on-dark);
+	}
+
+	.nav-wrapper.dark-bg .lang-btn {
+		border-color: var(--color-border-dark);
+	}
+
+	.nav-wrapper.dark-bg .mobile-toggle {
+		color: var(--color-text-on-dark);
 	}
 
 	.nav-container {
@@ -143,7 +243,7 @@ const altLang = getAlternateLang(lang);
 		font-size: var(--font-size-sm);
 		font-weight: 500;
 		color: var(--color-text-secondary);
-		transition: color var(--transition-fast);
+		transition: color 0.3s ease;
 	}
 
 	.nav-links a:hover {
@@ -156,19 +256,76 @@ const altLang = getAlternateLang(lang);
 		gap: var(--space-sm);
 	}
 
-	.lang-switch {
-		padding: 6px 12px;
-		border: 1px solid var(--color-border-strong);
-		border-radius: var(--radius-sm);
-		font-size: var(--font-size-xs);
-		font-weight: 600;
-		letter-spacing: var(--letter-spacing-wide);
-		color: var(--color-text-secondary);
-		transition: background-color var(--transition-fast), color var(--transition-fast);
+	/* Language selector */
+	.lang-selector {
+		position: relative;
 	}
 
-	.lang-switch:hover {
+	.lang-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 4px 6px;
+		border: 1px solid var(--color-border-strong);
+		border-radius: var(--radius-sm);
+		cursor: pointer;
+		transition: background-color 0.3s ease, border-color 0.3s ease;
+	}
+
+	.lang-btn:hover {
 		background-color: var(--color-bg-alt);
+	}
+
+	.lang-flag {
+		width: 30px;
+		height: 21px;
+		border-radius: 2px;
+		object-fit: cover;
+	}
+
+	.lang-popover {
+		position: absolute;
+		top: calc(100% + 6px);
+		right: 0;
+		min-width: 160px;
+		background-color: var(--color-bg-alt);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		box-shadow: var(--shadow-md);
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-4px);
+		transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+		z-index: 110;
+	}
+
+	.lang-popover.open {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+
+	.lang-option {
+		display: flex;
+		align-items: center;
+		gap: var(--space-xs);
+		padding: 8px 12px;
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		color: var(--color-text-secondary);
+		transition: background-color 0.15s ease, color 0.15s ease;
+	}
+
+	.lang-option:first-child {
+		border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+	}
+
+	.lang-option:last-child {
+		border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+	}
+
+	.lang-option:hover {
+		background-color: var(--color-bg-subtle);
 		color: var(--color-text-primary);
 	}
 
@@ -179,7 +336,7 @@ const altLang = getAlternateLang(lang);
 		border-radius: var(--radius-full);
 		font-size: var(--font-size-sm);
 		font-weight: 600;
-		transition: background-color var(--transition-fast), transform var(--transition-fast);
+		transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 	}
 
 	.nav-cta:hover {
@@ -194,13 +351,23 @@ const altLang = getAlternateLang(lang);
 	}
 
 	.mobile-menu {
-		display: none;
+		display: flex;
 		flex-direction: column;
 		gap: var(--space-sm);
-		padding: var(--space-sm) var(--space-md) var(--space-md);
+		padding: 0 var(--space-md);
 		background-color: rgba(247, 247, 242, 0.95);
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
+		max-height: 0;
+		overflow: hidden;
+		opacity: 0;
+		transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, padding 0.35s ease;
+	}
+
+	.mobile-menu.open {
+		max-height: 400px;
+		opacity: 1;
+		padding: var(--space-sm) var(--space-md) var(--space-md);
 	}
 
 	.mobile-menu a {
@@ -208,6 +375,11 @@ const altLang = getAlternateLang(lang);
 		font-weight: 500;
 		color: var(--color-text-secondary);
 		padding: var(--space-xs) 0;
+		transition: color 0.3s ease;
+	}
+
+	.mobile-menu a:hover {
+		color: var(--color-text-primary);
 	}
 
 	.mobile-menu .nav-cta {
@@ -215,7 +387,27 @@ const altLang = getAlternateLang(lang);
 		margin-top: var(--space-xs);
 	}
 
-	@media (max-width: 768px) {
+	.mobile-lang-row {
+		display: flex;
+		gap: var(--space-xs);
+		padding: var(--space-xs) 0;
+	}
+
+	.mobile-lang-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 6px 8px;
+		border: 1px solid var(--color-border-strong);
+		border-radius: var(--radius-sm);
+		transition: background-color 0.2s ease;
+	}
+
+	.mobile-lang-btn:hover {
+		background-color: var(--color-bg-alt);
+	}
+
+	@media (max-width: 900px) {
 		.nav-links,
 		.nav-actions {
 			display: none;
@@ -225,9 +417,17 @@ const altLang = getAlternateLang(lang);
 			display: block;
 			margin-left: auto;
 		}
+	}
 
-		.mobile-menu.open {
-			display: flex;
+	@media (min-width: 901px) {
+		.mobile-menu {
+			display: none !important;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.mobile-menu {
+			transition: none;
 		}
 	}
 </style>

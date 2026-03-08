@@ -1,4 +1,4 @@
-import { ui, defaultLang, type Lang } from './ui';
+import { ui, defaultLang, languages, languageFlags, type Lang } from './ui';
 
 /**
  * Get the current language from an Astro locale string.
@@ -35,8 +35,29 @@ export function getLocalePath(lang: Lang, path: string = ''): string {
 }
 
 /**
- * Get the alternate locale (for language switcher with 2 languages).
+ * Get all supported language codes.
  */
-export function getAlternateLang(lang: Lang): Lang {
-	return lang === 'en' ? 'fr' : 'en';
+export function getAllLanguages(): Lang[] {
+	return Object.keys(languages) as Lang[];
+}
+
+/**
+ * Get all languages except the given one (for language selector).
+ */
+export function getAlternateLanguages(lang: Lang): Lang[] {
+	return getAllLanguages().filter((l) => l !== lang);
+}
+
+/**
+ * Get the flag image path for a language.
+ */
+export function getLanguageFlag(lang: Lang): string {
+	return languageFlags[lang];
+}
+
+/**
+ * Get the display name for a language.
+ */
+export function getLanguageLabel(lang: Lang): string {
+	return languages[lang];
 }

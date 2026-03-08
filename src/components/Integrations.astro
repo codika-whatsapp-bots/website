@@ -1,0 +1,528 @@
+---
+import { getLangFromLocale, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const dataSources = [
+	{ name: 'Notion', logo: '/integrations/notion.svg' },
+	{ name: 'Google Drive', logo: '/integrations/google_drive.svg' },
+	{ name: 'Google Sheets', logo: '/integrations/google_sheets.svg' },
+	{ name: 'Airtable', logo: '/integrations/airtable.svg' },
+	{ name: 'Salesforce', logo: '/integrations/salesforce.svg' },
+	{ name: 'Dropbox', logo: '/integrations/dropbox.svg' },
+];
+const dataSourcesExtra = 30;
+
+const actionIntegrations = [
+	{ name: 'Google Calendar', logo: '/integrations/google_calendar.svg' },
+	{ name: 'Slack', logo: '/integrations/slack.svg' },
+	{ name: 'Gmail', logo: '/integrations/google_gmail.svg' },
+	{ name: 'Stripe', logo: '/integrations/stripe.svg' },
+	{ name: 'Calendly', logo: '/integrations/calendly.svg' },
+	{ name: 'Pipedrive', logo: '/integrations/pipedrive.svg' },
+	{ name: 'Linear', logo: '/integrations/linear.svg' },
+];
+const actionsExtra = 50;
+
+const aiModels = [
+	{ name: 'Claude', logo: '/integrations/anthropic.svg' },
+	{ name: 'OpenAI', logo: '/integrations/openai.svg' },
+	{ name: 'Mistral', logo: '/integrations/mistral.svg' },
+	{ name: 'DeepSeek', logo: '/integrations/deepseek.svg' },
+];
+---
+
+<section class="integrations" id="integrations">
+	<div class="container">
+		<div class="section-header reveal">
+			<p class="eyebrow">{t('integrations.eyebrow')}</p>
+			<h2>{t('integrations.title')}</h2>
+			<p class="section-subtitle">{t('integrations.subtitle')}</p>
+		</div>
+
+		<div class="constellation" data-constellation>
+			<!-- SVG beams layer -->
+			<svg class="beams" aria-hidden="true">
+				{dataSources.map((_, i) => <path class="beam" data-beam={`ds-${i}`} />)}
+				<path class="beam" data-beam="ds-more" />
+				{actionIntegrations.map((_, i) => <path class="beam" data-beam={`ac-${i}`} />)}
+				<path class="beam" data-beam="ac-more" />
+				</svg>
+
+			<!-- AI models above the hub -->
+			<div class="ai-row reveal reveal-delay-1">
+				<span class="ai-tag">{t('integrations.poweredBy')}</span>
+				<div class="ai-tiles">
+					{aiModels.map((item, i) => (
+						<div class={`tile tile-ai tile-ai-${i}`} title={item.name}>
+							<img src={item.logo} alt={item.name} loading="lazy" />
+						</div>
+					))}
+				</div>
+			</div>
+
+			<!-- Central WhatsApp hub -->
+			<div class="hub reveal reveal-delay-2" data-hub>
+				<div class="hub-glow" aria-hidden="true"></div>
+				<div class="hub-ring" aria-hidden="true"></div>
+				<div class="hub-circle">
+					<img src="/integrations/whatsapp.svg" alt="WhatsApp" width="48" height="48" />
+				</div>
+				<span class="hub-label">{t('integrations.hub')}</span>
+			</div>
+
+			<!-- Left side: Data Sources scattered -->
+			<div class="side side-left reveal reveal-delay-1">
+				<p class="side-tag">{t('integrations.dataSources')}</p>
+				{dataSources.map((item, i) => (
+					<div class={`tile tile-ds tile-ds-${i}`} title={item.name} data-node={`ds-${i}`}>
+						<img src={item.logo} alt={item.name} loading="lazy" />
+					</div>
+				))}
+				<div class="tile tile-ds tile-more tile-ds-more" data-node="ds-more">
+					<span class="more-num">+{dataSourcesExtra}</span>
+				</div>
+			</div>
+
+			<!-- Right side: Actions scattered -->
+			<div class="side side-right reveal reveal-delay-3">
+				<p class="side-tag side-tag-right">{t('integrations.actions')}</p>
+				{actionIntegrations.map((item, i) => (
+					<div class={`tile tile-ac tile-ac-${i}`} title={item.name} data-node={`ac-${i}`}>
+						<img src={item.logo} alt={item.name} loading="lazy" />
+					</div>
+				))}
+				<div class="tile tile-ac tile-more tile-ac-more" data-node="ac-more">
+					<span class="more-num">+{actionsExtra}</span>
+				</div>
+			</div>
+
+			<!-- Floating chat bubbles -->
+			<div class="bubbles" aria-hidden="true">
+				<div class="bubble bbl-1"><div class="msg msg-user">{t('integrations.chat.user1')}</div></div>
+				<div class="bubble bbl-2"><div class="msg msg-bot">{t('integrations.chat.bot1')}</div></div>
+				<div class="bubble bbl-3"><div class="msg msg-user">{t('integrations.chat.user2')}</div></div>
+				<div class="bubble bbl-4"><div class="msg msg-bot">{t('integrations.chat.bot2')}</div></div>
+				<div class="bubble bbl-5"><div class="msg msg-bot">{t('integrations.chat.bot3')}</div></div>
+				<div class="bubble bbl-6"><div class="msg msg-user">{t('integrations.chat.user4')}</div></div>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<script>
+function drawBeams() {
+	const root = document.querySelector('[data-constellation]') as HTMLElement;
+	if (!root) return;
+	const svg = root.querySelector('.beams') as SVGSVGElement;
+	const hubEl = root.querySelector('[data-hub]') as HTMLElement;
+	if (!svg || !hubEl) return;
+
+	const box = root.getBoundingClientRect();
+	svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+
+	const hubCircle = hubEl.querySelector('.hub-circle') as HTMLElement;
+	const hb = hubCircle.getBoundingClientRect();
+	const hx = hb.left + hb.width / 2 - box.left;
+	const hy = hb.top + hb.height / 2 - box.top;
+
+	root.querySelectorAll('[data-node]').forEach(el => {
+		const node = el as HTMLElement;
+		const key = node.dataset.node!;
+		const beam = svg.querySelector(`[data-beam="${key}"]`) as SVGPathElement;
+		if (!beam) return;
+
+		const nb = node.getBoundingClientRect();
+		const isLeft = key.startsWith('ds');
+		// Connect from center of tile
+		const nx = nb.left + nb.width / 2 - box.left;
+		const ny = nb.top + nb.height / 2 - box.top;
+
+		// Simple smooth curve from tile center to hub center
+		const cp1x = nx + (hx - nx) * 0.5;
+		const cp1y = ny;
+		const cp2x = hx + (nx - hx) * 0.15;
+		const cp2y = hy + (ny - hy) * 0.15;
+
+		beam.setAttribute('d', `M${nx},${ny} C${cp1x},${cp1y} ${cp2x},${cp2y} ${hx},${hy}`);
+	});
+
+	svg.style.opacity = '1';
+}
+
+// Only draw beams after reveal animations settle (600ms transition)
+let drawn = false;
+const obs = new IntersectionObserver((entries) => {
+	if (entries[0].isIntersecting && !drawn) {
+		drawn = true;
+		setTimeout(drawBeams, 700);
+		obs.disconnect();
+	}
+}, { threshold: 0.3 });
+
+const root = document.querySelector('[data-constellation]');
+if (root) obs.observe(root);
+
+let t: ReturnType<typeof setTimeout>;
+window.addEventListener('resize', () => { if (drawn) { clearTimeout(t); t = setTimeout(drawBeams, 80); } });
+</script>
+
+<style>
+	.integrations {
+		padding: var(--space-2xl) var(--space-md);
+		background: var(--color-bg);
+		overflow: hidden;
+	}
+
+	.container { max-width: 900px; margin: 0 auto; }
+
+	.section-header { text-align: center; margin-bottom: var(--space-xl); }
+	.eyebrow { margin-bottom: var(--space-sm); }
+	h2 { font-size: var(--font-size-3xl); margin-bottom: var(--space-sm); }
+
+	.section-subtitle {
+		font-size: var(--font-size-base);
+		color: var(--color-text-secondary);
+		max-width: 600px;
+		margin: 0 auto;
+		line-height: var(--line-height-relaxed);
+	}
+
+	/* ── Constellation ── */
+	.constellation {
+		position: relative;
+		height: 620px;
+		margin-bottom: var(--space-lg);
+	}
+
+	/* ── SVG beams ── */
+	.beams {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 0.4s ease;
+	}
+
+	.beam {
+		fill: none;
+		stroke: rgba(7, 94, 84, 0.1);
+		stroke-width: 1.5;
+		stroke-dasharray: 6 4;
+		transition: stroke 0.3s;
+	}
+
+	.constellation:hover .beam { stroke: rgba(7, 94, 84, 0.2); }
+
+	/* ── Hub (centered) ── */
+	.hub {
+		position: absolute;
+		left: 50%;
+		top: 46%;
+		transform: translate(-50%, -50%);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--space-xs);
+		z-index: 10;
+	}
+
+	.hub-glow {
+		position: absolute;
+		width: 240px;
+		height: 240px;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(37, 211, 102, 0.1) 0%, transparent 70%);
+		top: 50%; left: 50%;
+		transform: translate(-50%, -55%);
+		z-index: -1;
+	}
+
+	.hub-ring {
+		position: absolute;
+		width: 140px;
+		height: 140px;
+		border-radius: 50%;
+		border: 1.5px solid rgba(7, 94, 84, 0.08);
+		top: 50%; left: 50%;
+		transform: translate(-50%, -55%);
+		z-index: -1;
+		animation: pulse-ring 3s ease-in-out infinite;
+	}
+
+	@keyframes pulse-ring {
+		0%, 100% { transform: translate(-50%, -55%) scale(1); opacity: 1; }
+		50% { transform: translate(-50%, -55%) scale(1.2); opacity: 0.2; }
+	}
+
+	.hub-circle {
+		width: 104px;
+		height: 104px;
+		border-radius: 50%;
+		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 8px 36px rgba(7, 94, 84, 0.25), 0 0 0 6px rgba(7, 94, 84, 0.06);
+	}
+
+	.hub-circle img { filter: brightness(0) invert(1); }
+
+	.hub-label {
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+		color: var(--color-primary);
+		text-transform: uppercase;
+		letter-spacing: var(--letter-spacing-wide);
+	}
+
+	/* ── Sides (absolute positioned areas) ── */
+	.side {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		z-index: 5;
+	}
+
+	.side-left { left: 0; width: 42%; }
+	.side-right { right: 0; width: 42%; }
+
+	.side-tag {
+		position: absolute;
+		top: 0;
+		left: 0;
+		font-family: var(--font-body);
+		font-weight: 600;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-tertiary);
+		text-transform: uppercase;
+		letter-spacing: var(--letter-spacing-wide);
+	}
+
+	.side-tag-right {
+		left: auto;
+		right: 0;
+	}
+
+	/* ── Tiles (square logo cards) ── */
+	.tile {
+		position: absolute;
+		width: 84px;
+		height: 84px;
+		border-radius: var(--radius-lg);
+		background: var(--color-bg-alt);
+		border: 1px solid var(--color-border);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+		cursor: default;
+		z-index: 5;
+	}
+
+	.tile:hover {
+		box-shadow: 0 6px 20px rgba(7, 94, 84, 0.12);
+		transform: scale(1.08);
+		border-color: rgba(7, 94, 84, 0.2);
+	}
+
+	.tile img {
+		width: 48px;
+		height: 48px;
+		object-fit: contain;
+	}
+
+	.tile-more {
+		background: var(--color-bg-alt);
+		border-style: dashed;
+	}
+
+	.tile-more:hover {
+		box-shadow: none;
+		transform: none;
+		border-color: rgba(7, 94, 84, 0.3);
+	}
+
+	.more-num {
+		font-size: 1.15rem;
+		font-weight: 700;
+		color: var(--color-primary);
+	}
+
+	/* ── Left tiles (data sources) — 3 rows, 2 per row, staggered ── */
+	.tile-ds-0 { top: 4%;   left: 8%; }
+	.tile-ds-1 { top: 8%;   left: 50%; }
+	.tile-ds-2 { top: 28%;  left: 0%; }
+	.tile-ds-3 { top: 32%;  left: 44%; }
+	.tile-ds-4 { top: 52%;  left: 10%; }
+	.tile-ds-5 { top: 56%;  left: 52%; }
+	.tile-ds-more { top: 78%; left: 24%; }
+
+	/* ── Right tiles (actions) — mirrored, 3.5 rows staggered ── */
+	.tile-ac-0 { top: 2%;   left: 30%; }
+	.tile-ac-1 { top: 6%;   right: 8%; }
+	.tile-ac-2 { top: 24%;  left: 36%; }
+	.tile-ac-3 { top: 28%;  right: 4%; }
+	.tile-ac-4 { top: 46%;  left: 30%; }
+	.tile-ac-5 { top: 50%;  right: 6%; }
+	.tile-ac-6 { top: 68%;  left: 36%; }
+	.tile-ac-more { top: 72%; right: 10%; }
+
+	/* ── Chat bubbles ── */
+	.bubbles {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		z-index: 6;
+	}
+
+	.bubble {
+		position: absolute;
+		animation: float-y 5s ease-in-out infinite;
+	}
+
+	.msg {
+		padding: 8px 14px;
+		border-radius: 14px;
+		font-size: 0.72rem;
+		line-height: 1.4;
+		white-space: nowrap;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+	}
+
+	.msg-user {
+		background: var(--color-bg-alt);
+		color: var(--color-text-primary);
+		border: 1px solid var(--color-border);
+		border-bottom-right-radius: 4px;
+	}
+
+	.msg-bot {
+		background: #DCF8C6;
+		color: var(--color-text-primary);
+		border-bottom-left-radius: 4px;
+	}
+
+	.bbl-1 { top: 16%;  left: 6%;   animation-delay: 0s; }
+	.bbl-2 { top: 10%;  right: 10%; animation-delay: 1.4s; }
+	.bbl-3 { top: 44%;  left: 2%;   animation-delay: 2.6s; }
+	.bbl-4 { top: 48%;  right: 6%;  animation-delay: 0.8s; }
+	.bbl-5 { bottom: 16%; left: 6%; animation-delay: 2s; }
+	.bbl-6 { bottom: 6%; right: 10%; animation-delay: 3s; }
+
+	@keyframes float-y {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-10px); }
+	}
+
+	/* ── AI row (above hub) ── */
+	.ai-row {
+		position: absolute;
+		bottom: 16px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+		z-index: 8;
+	}
+
+	.ai-tag {
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+		color: var(--color-text-tertiary);
+		text-transform: uppercase;
+		letter-spacing: var(--letter-spacing-wide);
+	}
+
+	.ai-tiles {
+		display: flex;
+		gap: 12px;
+	}
+
+	.tile-ai {
+		position: relative;
+	}
+
+/* ── Tablet ── */
+	@media (max-width: 1024px) {
+		.constellation {
+			height: auto;
+			display: flex;
+			flex-direction: column;
+			gap: var(--space-lg);
+			align-items: center;
+		}
+
+		.side {
+			position: relative;
+			width: 100%;
+			top: auto;
+			bottom: auto;
+			left: auto;
+			right: auto;
+		}
+
+		.side-tag {
+			position: relative;
+			margin-bottom: var(--space-sm);
+		}
+
+		.tile {
+			position: relative;
+			display: inline-flex;
+		}
+
+		.side-left, .side-right {
+			display: flex;
+			flex-wrap: wrap;
+			gap: var(--space-xs);
+			align-items: center;
+		}
+
+		.ai-row {
+			position: relative;
+			left: auto;
+			top: auto;
+			transform: none;
+			order: -2;
+			flex-direction: row;
+			gap: var(--space-sm);
+		}
+
+		.ai-tiles { gap: var(--space-xs); }
+
+		.hub {
+			position: relative;
+			left: auto;
+			top: auto;
+			transform: none;
+			order: -1;
+			flex-direction: row;
+			gap: var(--space-sm);
+		}
+
+		.hub-circle { width: 64px; height: 64px; }
+		.hub-circle img { width: 32px; height: 32px; }
+		.hub-glow, .hub-ring { display: none; }
+
+		.beams, .bubbles { display: none; }
+	}
+
+	/* ── Mobile ── */
+	@media (max-width: 640px) {
+		h2 { font-size: var(--font-size-2xl); }
+.tile { width: 56px; height: 56px; }
+		.tile img { width: 32px; height: 32px; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.bubble, .hub-ring { animation: none; }
+	}
+</style>

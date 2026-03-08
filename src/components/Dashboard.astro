@@ -280,19 +280,25 @@ const bullets = [
 		50%, 100% { left: 100%; }
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 900px) {
 		.container {
 			grid-template-columns: 1fr;
 			gap: var(--space-lg);
 		}
 
+		.dashboard-placeholder {
+			max-width: 500px;
+			margin: 0 auto;
+		}
+	}
+
+	@media (max-width: 640px) {
 		h2 {
 			font-size: var(--font-size-2xl);
 		}
 
 		.dashboard-placeholder {
-			max-width: 400px;
-			margin: 0 auto;
+			max-width: 100%;
 		}
 	}
 

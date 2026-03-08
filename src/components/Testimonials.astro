@@ -1,0 +1,185 @@
+---
+// TODO: Replace placeholder testimonials with real client quotes, photos, and company names
+import { getLangFromLocale, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const testimonials = [
+	{
+		quote: t('testimonials.1.quote'),
+		name: t('testimonials.1.name'),
+		role: t('testimonials.1.role'),
+		org: t('testimonials.1.org'),
+		initials: 'SM',
+		accent: 'var(--color-primary)',
+	},
+	{
+		quote: t('testimonials.2.quote'),
+		name: t('testimonials.2.name'),
+		role: t('testimonials.2.role'),
+		org: t('testimonials.2.org'),
+		initials: 'TL',
+		accent: 'var(--color-primary-light)',
+	},
+	{
+		quote: t('testimonials.3.quote'),
+		name: t('testimonials.3.name'),
+		role: t('testimonials.3.role'),
+		org: t('testimonials.3.org'),
+		initials: 'MD',
+		accent: 'var(--color-primary-accent)',
+	},
+];
+---
+
+<section class="testimonials">
+	<div class="container">
+		<div class="section-header reveal">
+			<p class="eyebrow">{t('testimonials.eyebrow')}</p>
+			<h2>{t('testimonials.title')}</h2>
+		</div>
+		<div class="testimonials-grid">
+			{testimonials.map((item, i) => (
+				<div class={`testimonial-card reveal reveal-delay-${i + 1}`}>
+					<svg class="quote-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+						<path d="M8 16h4c0-4-2-6-4-8l2-2c4 4 6 6 6 12v6H8V16zm12 0h4c0-4-2-6-4-8l2-2c4 4 6 6 6 12v6h-8V16z" fill="currentColor" opacity="0.08" />
+					</svg>
+					<blockquote>{item.quote}</blockquote>
+					<div class="testimonial-author">
+						<div class="author-avatar" style={`background-color: ${item.accent}`}>
+							<span>{item.initials}</span>
+						</div>
+						<div class="author-info">
+							<span class="author-name">{item.name}</span>
+							<span class="author-role">{item.role}, {item.org}</span>
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.testimonials {
+		padding: var(--space-2xl) var(--space-md);
+		background-color: var(--color-bg-subtle);
+	}
+
+	.container {
+		max-width: 1100px;
+		margin: 0 auto;
+	}
+
+	.section-header {
+		margin-bottom: var(--space-xl);
+		text-align: center;
+	}
+
+	.eyebrow {
+		margin-bottom: var(--space-sm);
+	}
+
+	h2 {
+		font-size: var(--font-size-3xl);
+	}
+
+	.testimonials-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-md);
+	}
+
+	.testimonial-card {
+		background: var(--color-bg-alt);
+		border-radius: var(--radius-lg);
+		padding: var(--space-lg) var(--space-md);
+		border: 1px solid var(--color-border);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+		position: relative;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.testimonial-card:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-lg);
+	}
+
+	.quote-icon {
+		color: var(--color-primary);
+	}
+
+	blockquote {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-relaxed);
+		flex: 1;
+	}
+
+	.testimonial-author {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+		padding-top: var(--space-sm);
+		border-top: 1px solid var(--color-border);
+	}
+
+	.author-avatar {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.author-avatar span {
+		font-size: var(--font-size-xs);
+		font-weight: 700;
+		color: var(--color-text-on-dark);
+		letter-spacing: 0.02em;
+	}
+
+	.author-info {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.author-name {
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		color: var(--color-text-primary);
+	}
+
+	.author-role {
+		font-size: var(--font-size-xs);
+		color: var(--color-text-tertiary);
+	}
+
+	@media (max-width: 768px) {
+		.testimonials-grid {
+			grid-template-columns: 1fr;
+			gap: var(--space-sm);
+		}
+
+		h2 {
+			font-size: var(--font-size-2xl);
+		}
+	}
+
+	@media (min-width: 769px) and (max-width: 1024px) {
+		.testimonials-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.testimonial-card:last-child {
+			grid-column: 1 / -1;
+			max-width: 50%;
+			margin: 0 auto;
+		}
+	}
+</style>

@@ -1,18 +1,31 @@
 export const languages = {
 	en: 'English',
 	fr: 'Francais',
+	nl: 'Nederlands',
+	es: 'Espanol',
+	it: 'Italiano',
+	de: 'Deutsch',
 } as const;
 
 export const defaultLang = 'en' as const;
 
 export type Lang = keyof typeof languages;
 
+export const languageFlags: Record<Lang, string> = {
+	en: '/flags/gb.svg',
+	fr: '/flags/fr.svg',
+	nl: '/flags/nl.svg',
+	es: '/flags/es.svg',
+	it: '/flags/it.svg',
+	de: '/flags/de.svg',
+};
+
 export const ui = {
 	en: {
 		// Site
-		'site.title': 'WhatsApp Bots by Codika — AI-Powered Community Management',
+		'site.title': 'WhatsApp Bots by Codika | AI-Powered Community Management',
 		'site.description':
-			'Custom AI-powered WhatsApp bots for community management. Automate messaging, events, members, and more — with a full admin dashboard.',
+			'Custom AI-powered WhatsApp bots for community management. Automate messaging, events, members, and more, with a full admin dashboard.',
 
 		// Navigation
 		'nav.home': 'Home',
@@ -20,15 +33,15 @@ export const ui = {
 		'nav.howItWorks': 'How it works',
 		'nav.useCases': 'Use cases',
 		'nav.cta': 'Book a demo',
-		'lang.switch': 'FR',
 
 		// Hero
-		'hero.title.line1': 'Your community,',
-		'hero.title.line2': 'automated on WhatsApp',
+		'hero.title.line1': 'Stop managing your community manually.',
+		'hero.title.line2': 'Let an AI bot do it on WhatsApp.',
 		'hero.subtitle':
-			'We build custom AI-powered WhatsApp bots that manage your members, answer questions, handle events, and send notifications — so you can focus on what matters.',
+			'We build your bot, configure it with your knowledge base, and hand you a full admin dashboard. You focus on your community. The bot handles the rest.',
 		'hero.cta': 'Book a demo',
 		'hero.cta.secondary': 'See how it works',
+		'hero.trustSignal': 'Trusted by community managers across Europe',
 
 		// Hero chat mockup
 		'hero.chat.user1': 'When is the next community event?',
@@ -37,83 +50,187 @@ export const ui = {
 		'hero.chat.bot2': "Done! You're registered. I'll send you a reminder the day before.",
 
 		// Social proof
-		'socialProof.stat1.number': '30+',
-		'socialProof.stat1.label': 'AI-powered tools',
-		'socialProof.stat2.number': '59',
-		'socialProof.stat2.label': 'Automated workflows',
-		'socialProof.stat3.number': '100%',
-		'socialProof.stat3.label': 'Official WhatsApp API',
+		'socialProof.stat1.number': '2B+',
+		'socialProof.stat1.label': 'WhatsApp users worldwide',
+		'socialProof.stat2.number': '98%',
+		'socialProof.stat2.label': 'Message open rate',
+		'socialProof.stat3.number': '< 2 weeks',
+		'socialProof.stat3.label': 'From idea to live bot',
+
+		// Problem statement
+		'problem.eyebrow': 'Sound familiar?',
+		'problem.title': 'Running a community on WhatsApp shouldn\'t feel like this',
+		'problem.pain1.label': 'Repetitive questions',
+		'problem.pain1': 'The same questions come up daily, and someone has to answer every time.',
+		'problem.pain2.label': 'Missed reminders',
+		'problem.pain2': 'Event announcements get buried in chat. People forget, or never see them.',
+		'problem.pain3.label': 'No member visibility',
+		'problem.pain3': 'You can\'t tell who\'s active, who\'s new, or who already left.',
+		'problem.pain4.label': 'Manual follow-ups',
+		'problem.pain4': 'Hours each week spent on messages that could be automated.',
 
 		// Features
 		'features.eyebrow': 'Features',
 		'features.title': 'Everything your community needs, built into WhatsApp',
-		'features.1.title': 'AI-Powered Bot',
+		'features.1.title': 'Every member gets instant, accurate answers',
 		'features.1.description':
-			'Intelligent agents that understand context, remember conversations, and route queries based on member roles — admin, resident, or community.',
-		'features.2.title': 'Community Management',
+			'Intelligent agents that understand context, remember conversations, and route queries based on member roles: admin, resident, or community.',
+		'features.2.title': 'Members, events, and organizations, organized',
 		'features.2.description':
-			'Manage members, organizations, events, invitations, and feedback — all through natural WhatsApp conversations with the bot.',
-		'features.3.title': 'Smart Knowledge Base',
+			'Manage members, organizations, events, invitations, and feedback, all through natural WhatsApp conversations with the bot.',
+		'features.3.title': 'Your bot learns from your existing docs',
 		'features.3.description':
 			'Connect your Notion docs, Google Drive, or any data source. The bot answers questions by searching your synced knowledge base automatically.',
-		'features.4.title': 'Admin Dashboard',
+		'features.4.title': 'See everything, control everything',
 		'features.4.description':
 			'A full management interface to oversee members, messages, broadcasts, events, templates, and community analytics.',
-		'features.5.title': 'Official WhatsApp API',
+		'features.5.title': 'Official, legal, and production-ready',
 		'features.5.description':
 			'Built on Twilio and Meta\'s official WhatsApp Business API. Legal, stable, and production-ready with template messaging and broadcast support.',
-		'features.6.title': 'Group Chat Support',
+		'features.6.title': 'Works in group chats too',
 		'features.6.description':
 			'Optionally extend the bot to WhatsApp groups with our self-hosted connector. The bot responds when mentioned, right in your group conversations.',
 
 		// How it works
 		'howItWorks.eyebrow': 'How it works',
 		'howItWorks.title': 'From idea to live bot in days, not months',
+		'howItWorks.timeline': 'Live in under 2 weeks',
 		'howItWorks.1.number': '01',
-		'howItWorks.1.title': 'Tell us about your community',
+		'howItWorks.1.title': 'Share your community\'s needs',
 		'howItWorks.1.description':
-			'We understand your members, your workflows, and the questions they ask. You share your knowledge base and we map out the bot\'s capabilities.',
+			'A 30-minute call to understand your members, workflows, and the questions they ask. You share your knowledge base and we map out the bot\'s capabilities.',
 		'howItWorks.2.number': '02',
-		'howItWorks.2.title': 'We build your bot',
+		'howItWorks.2.title': 'We build and configure your bot',
 		'howItWorks.2.description':
-			'Our platform generates a custom AI agent with your knowledge base, tools, and member roles. We set up the workflows, the dashboard, and the WhatsApp integration.',
+			'Our platform generates a custom AI agent with your knowledge base, tools, and member roles. We configure the workflows, the dashboard, and the WhatsApp integration. Delivered in days.',
 		'howItWorks.3.number': '03',
-		'howItWorks.3.title': 'Launch and manage',
+		'howItWorks.3.title': 'Launch and manage from your dashboard',
 		'howItWorks.3.description':
-			'Your bot goes live on your official WhatsApp Business number. You control everything from the admin dashboard — members, messages, events, and more.',
+			'Your bot goes live on your official WhatsApp Business number. You control everything from the admin dashboard: members, messages, events, and more.',
 
 		// Use cases
 		'useCases.eyebrow': 'Use cases',
 		'useCases.title': 'Built for communities of all kinds',
 		'useCases.1.title': 'Associations & Nonprofits',
+		'useCases.1.description': 'Automate member onboarding, event RSVPs, and FAQ responses, all connected to your association\'s documents.',
 		'useCases.1.bullet1': 'Automated member onboarding and invitations',
 		'useCases.1.bullet2': 'Event reminders with instant RSVP via WhatsApp',
 		'useCases.1.bullet3': 'FAQ bot connected to your association\'s documents',
+		'useCases.1.chat.botName': 'Association Bot',
+		'useCases.1.chat.user1': 'Hi, I\'d like to join the association',
+		'useCases.1.chat.bot1': 'Welcome! I\'ll guide you through the onboarding. What\'s your full name?',
+		'useCases.1.chat.user2': 'When is the next general assembly?',
+		'useCases.1.chat.bot2': 'The next GA is on April 12th at 6 PM. Would you like me to RSVP for you?',
 		'useCases.2.title': 'Co-working & Communities',
+		'useCases.2.description': 'Send targeted announcements, collect feedback, and moderate group chats with intelligent @bot mentions.',
 		'useCases.2.bullet1': 'Announcements and targeted broadcasts by group',
 		'useCases.2.bullet2': 'Feedback collection and suggestion tracking',
 		'useCases.2.bullet3': 'Group chat moderation with @bot mentions',
+		'useCases.2.chat.botName': 'Community Bot',
+		'useCases.2.chat.user1': '@bot Is the meeting room available tomorrow at 2 PM?',
+		'useCases.2.chat.bot1': 'Room A is booked, but Room B is free from 1 PM to 5 PM. Want me to reserve it?',
+		'useCases.2.chat.user2': 'Yes please, book Room B',
+		'useCases.2.chat.bot2': 'Done! Room B is reserved for tomorrow 2-3 PM. I\'ll send you a reminder in the morning.',
 		'useCases.3.title': 'Schools & Training Centers',
+		'useCases.3.description': 'Answer enrollment questions instantly, keep parents updated, and automate deadline notifications.',
 		'useCases.3.bullet1': 'Schedule and enrollment inquiries answered instantly',
 		'useCases.3.bullet2': 'Parent and student communication hub',
 		'useCases.3.bullet3': 'Automated notifications for deadlines and events',
+		'useCases.3.chat.botName': 'School Bot',
+		'useCases.3.chat.user1': 'What are the enrollment dates for next semester?',
+		'useCases.3.chat.bot1': 'Enrollment opens March 15th and closes April 30th. Would you like me to send you the required documents?',
+		'useCases.3.chat.user2': 'Yes, send me the list',
+		'useCases.3.chat.bot2': 'Here\'s what you\'ll need: ID copy, transcript, and the signed application form. I\'ll send you the links now.',
+
+		// Testimonials
+		'testimonials.eyebrow': 'What our clients say',
+		'testimonials.title': 'Communities that run on autopilot',
+		'testimonials.1.quote': 'We went from spending 2 hours a day answering the same WhatsApp questions to zero. The bot handles everything, and the dashboard lets us see all conversations.',
+		'testimonials.1.name': 'Sarah M.',
+		'testimonials.1.role': 'Community Manager',
+		'testimonials.1.org': 'Co-working Space',
+		'testimonials.2.quote': 'Our members love getting instant answers at any time. Event RSVPs went up 40% since we started using the bot.',
+		'testimonials.2.name': 'Thomas L.',
+		'testimonials.2.role': 'President',
+		'testimonials.2.org': 'Nonprofit Association',
+		'testimonials.3.quote': 'Setup took one week. Now parents get instant updates about schedules, and we send targeted messages to specific groups with one click.',
+		'testimonials.3.name': 'Marie D.',
+		'testimonials.3.role': 'Director',
+		'testimonials.3.org': 'Training Center',
+
+		// Integrations
+		'integrations.eyebrow': 'Integrations',
+		'integrations.title': 'Connects to the tools you already use',
+		'integrations.subtitle':
+			'Your bot pulls knowledge from your data sources and takes action across your favorite tools, all through WhatsApp.',
+		'integrations.dataSources': 'Data Sources',
+		'integrations.dataSources.description': 'Where your bot gets its knowledge',
+		'integrations.actions': 'Actions',
+		'integrations.actions.description': 'What your bot can trigger',
+		'integrations.hub': 'Your Bot',
+		'integrations.poweredBy': 'Powered by',
+		'integrations.others': 'others',
+		'integrations.chat.user1': 'Send the report to Slack',
+		'integrations.chat.bot1': 'Done! Sent to #general.',
+		'integrations.chat.user2': 'Book a meeting with Sarah',
+		'integrations.chat.bot2': 'Booked for tomorrow at 2 PM.',
+		'integrations.chat.user3': 'What did we decide last meeting?',
+		'integrations.chat.bot3': 'Found in Notion: "Launch date set for April 15th"',
+		'integrations.chat.user4': 'Send the invoice to Marc',
+		'integrations.chat.bot4': 'Invoice #247 sent via Gmail.',
 
 		// Dashboard
 		'dashboard.eyebrow': 'Dashboard',
 		'dashboard.title': 'Everything in one place',
 		'dashboard.description':
-			'Your admin dashboard gives you full control over your community and the bot — no technical skills required.',
+			'Your admin dashboard gives you full control over your community and the bot. No technical skills required.',
 		'dashboard.bullet1': 'Manage members, organizations, and roles',
 		'dashboard.bullet2': 'View and search all conversation history',
 		'dashboard.bullet3': 'Send targeted broadcasts and track delivery',
 		'dashboard.bullet4': 'Create and manage events with participant tracking',
 		'dashboard.bullet5': 'Monitor WhatsApp message templates and approvals',
 
+		// FAQ
+		'faq.eyebrow': 'FAQ',
+		'faq.title': 'Common questions',
+		'faq.1.q': 'Do I need technical skills to use the bot?',
+		'faq.1.a': 'No. We build and configure the bot for you. You manage your community through a simple admin dashboard. No coding required.',
+		'faq.2.q': 'Is this the official WhatsApp API?',
+		'faq.2.a': 'Yes. We use Meta\'s official WhatsApp Business API through Twilio. It\'s legal, stable, and your number won\'t get banned.',
+		'faq.3.q': 'How long does setup take?',
+		'faq.3.a': 'Most bots go live in under 2 weeks. We handle the entire setup, from configuring the AI agent to deploying the dashboard.',
+		'faq.4.q': 'Is my community\'s data secure?',
+		'faq.4.a': 'Absolutely. Your data lives in your own private database — not ours. It\'s encrypted in transit and at rest. We never share your data with third parties.',
+		'faq.5.q': 'Can the bot work in WhatsApp groups?',
+		'faq.5.a': 'Yes. We offer an optional self-hosted connector that lets the bot respond in group chats when mentioned. The connector runs on your own server for full control.',
+		'faq.6.q': 'What happens if the bot can\'t answer a question?',
+		'faq.6.a': 'The bot gracefully acknowledges its limitations and can escalate to a human admin. You can configure fallback behaviors from the dashboard.',
+		'faq.7.q': 'Who owns my community\'s data?',
+		'faq.7.a': 'You do, 100%. All your data — members, messages, events — is stored in your own private database. You can export, back up, or move it at any time. We never lock you in.',
+		'faq.8.q': 'Can I host everything on my own servers?',
+		'faq.8.a': 'Yes. If your organization requires on-premise hosting, we can deploy the entire solution on your infrastructure. Your data stays in your building, under your control.',
+		'faq.9.q': 'Is the platform GDPR compliant?',
+		'faq.9.a': 'The tools and infrastructure we use are trusted by millions of companies worldwide and comply with European data protection regulations. Your data is encrypted in transit and at rest, and we never share it with third parties.',
+
+		// Data Ownership
+		'dataOwnership.eyebrow': 'Your data, your rules',
+		'dataOwnership.title': 'You own everything. We\'re just the bridge.',
+		'dataOwnership.subtitle': 'Your community data lives in your own database — not ours. Export it, query it, or move it anytime. No lock-in, no surprises.',
+		'dataOwnership.card1.title': 'Your own private database',
+		'dataOwnership.card1.description': 'Every member, message, event, and conversation lives in a database that belongs to you. Standard format, fully exportable, no proprietary lock-in.',
+		'dataOwnership.card2.title': 'See and query everything',
+		'dataOwnership.card2.description': 'Your dashboard connects directly to your database. No black box. Every conversation, every interaction, every event — visible in real time.',
+		'dataOwnership.card3.title': 'Go fully on-premise',
+		'dataOwnership.card3.description': 'Need everything on your own servers? We can deploy the entire stack on your infrastructure. Your data never leaves your building.',
+		'dataOwnership.trustLabel': 'Built on infrastructure trusted by millions',
+
 		// Final CTA
 		'finalCta.title': 'Ready to automate your community?',
 		'finalCta.subtitle':
 			'Book a demo and see how a custom WhatsApp bot can transform how you manage your community.',
 		'finalCta.cta': 'Book a demo',
+		'finalCta.trustSignal': 'Join community managers already automating with Codika',
+		'finalCta.cta.secondary': 'See how it works',
 
 		// Footer
 		'footer.tagline': 'AI-powered WhatsApp bots for communities',
@@ -131,9 +248,9 @@ export const ui = {
 	},
 	fr: {
 		// Site
-		'site.title': 'Bots WhatsApp par Codika — Gestion de communaute par IA',
+		'site.title': 'Bots WhatsApp par Codika | Gestion de communaute par IA',
 		'site.description':
-			'Bots WhatsApp sur mesure propulses par l\'IA pour la gestion de communaute. Automatisez la messagerie, les evenements, les membres et plus — avec un tableau de bord complet.',
+			'Bots WhatsApp sur mesure propulses par l\'IA pour la gestion de communaute. Automatisez la messagerie, les evenements, les membres et plus, avec un tableau de bord complet.',
 
 		// Navigation
 		'nav.home': 'Accueil',
@@ -141,15 +258,15 @@ export const ui = {
 		'nav.howItWorks': 'Comment ca marche',
 		'nav.useCases': 'Cas d\'usage',
 		'nav.cta': 'Reserver une demo',
-		'lang.switch': 'EN',
 
 		// Hero
-		'hero.title.line1': 'Votre communaute,',
-		'hero.title.line2': 'automatisee sur WhatsApp',
+		'hero.title.line1': 'Arretez de gerer votre communaute a la main.',
+		'hero.title.line2': 'Laissez un bot IA le faire sur WhatsApp.',
 		'hero.subtitle':
-			'Nous creons des bots WhatsApp sur mesure, propulses par l\'IA, qui gerent vos membres, repondent aux questions, organisent les evenements et envoient des notifications — pour que vous puissiez vous concentrer sur l\'essentiel.',
+			'Nous construisons votre bot, le configurons avec votre base de connaissances, et vous livrons un tableau de bord complet. Vous vous concentrez sur votre communaute. Le bot gere le reste.',
 		'hero.cta': 'Reserver une demo',
 		'hero.cta.secondary': 'Comment ca marche',
+		'hero.trustSignal': 'Adopte par des gestionnaires de communautes a travers l\'Europe',
 
 		// Hero chat mockup
 		'hero.chat.user1': 'C\'est quand le prochain evenement ?',
@@ -158,83 +275,187 @@ export const ui = {
 		'hero.chat.bot2': 'C\'est fait ! Vous etes inscrit(e). Je vous enverrai un rappel la veille.',
 
 		// Social proof
-		'socialProof.stat1.number': '30+',
-		'socialProof.stat1.label': 'Outils IA integres',
-		'socialProof.stat2.number': '59',
-		'socialProof.stat2.label': 'Workflows automatises',
-		'socialProof.stat3.number': '100%',
-		'socialProof.stat3.label': 'API WhatsApp officielle',
+		'socialProof.stat1.number': '2Md+',
+		'socialProof.stat1.label': 'Utilisateurs WhatsApp dans le monde',
+		'socialProof.stat2.number': '98%',
+		'socialProof.stat2.label': 'Taux d\'ouverture des messages',
+		'socialProof.stat3.number': '< 2 semaines',
+		'socialProof.stat3.label': 'De l\'idee au bot en production',
+
+		// Problem statement
+		'problem.eyebrow': 'Ca vous parle ?',
+		'problem.title': 'Gerer une communaute sur WhatsApp ne devrait pas ressembler a ca',
+		'problem.pain1.label': 'Questions repetitives',
+		'problem.pain1': 'Les memes questions reviennent chaque jour, et quelqu\'un doit y repondre a chaque fois.',
+		'problem.pain2.label': 'Rappels ignores',
+		'problem.pain2': 'Les annonces d\'evenements se perdent dans le fil. Les gens oublient, ou ne les voient jamais.',
+		'problem.pain3.label': 'Aucune visibilite',
+		'problem.pain3': 'Impossible de savoir qui est actif, qui est nouveau, ou qui est deja parti.',
+		'problem.pain4.label': 'Relances manuelles',
+		'problem.pain4': 'Des heures chaque semaine en messages qui pourraient etre automatises.',
 
 		// Features
 		'features.eyebrow': 'Fonctionnalites',
 		'features.title': 'Tout ce dont votre communaute a besoin, integre dans WhatsApp',
-		'features.1.title': 'Bot propulse par l\'IA',
+		'features.1.title': 'Chaque membre obtient des reponses instantanees et precises',
 		'features.1.description':
-			'Des agents intelligents qui comprennent le contexte, retiennent les conversations et orientent les demandes selon le role du membre — admin, resident ou communaute.',
-		'features.2.title': 'Gestion de communaute',
+			'Des agents intelligents qui comprennent le contexte, retiennent les conversations et orientent les demandes selon le role du membre : admin, resident ou communaute.',
+		'features.2.title': 'Membres, evenements et organisations, tout organise',
 		'features.2.description':
-			'Gerez les membres, organisations, evenements, invitations et retours — le tout par des conversations naturelles sur WhatsApp avec le bot.',
-		'features.3.title': 'Base de connaissances',
+			'Gerez les membres, organisations, evenements, invitations et retours, le tout par des conversations naturelles sur WhatsApp avec le bot.',
+		'features.3.title': 'Votre bot apprend de vos documents existants',
 		'features.3.description':
 			'Connectez vos documents Notion, Google Drive ou toute autre source. Le bot repond aux questions en parcourant automatiquement votre base synchronisee.',
-		'features.4.title': 'Tableau de bord admin',
+		'features.4.title': 'Visualisez tout, controlez tout',
 		'features.4.description':
 			'Une interface complete pour gerer les membres, messages, diffusions, evenements, modeles et statistiques de votre communaute.',
-		'features.5.title': 'API WhatsApp officielle',
+		'features.5.title': 'Officiel, legal et pret pour la production',
 		'features.5.description':
 			'Base sur Twilio et l\'API officielle WhatsApp Business de Meta. Legal, stable et pret pour la production avec messagerie par modeles et diffusions.',
-		'features.6.title': 'Support des groupes',
+		'features.6.title': 'Fonctionne aussi dans les groupes',
 		'features.6.description':
 			'Etendez le bot aux groupes WhatsApp avec notre connecteur auto-heberge. Le bot repond quand il est mentionne, directement dans vos conversations de groupe.',
 
 		// How it works
 		'howItWorks.eyebrow': 'Comment ca marche',
 		'howItWorks.title': 'De l\'idee au bot en production en quelques jours',
+		'howItWorks.timeline': 'En production en moins de 2 semaines',
 		'howItWorks.1.number': '01',
-		'howItWorks.1.title': 'Parlez-nous de votre communaute',
+		'howItWorks.1.title': 'Partagez les besoins de votre communaute',
 		'howItWorks.1.description':
-			'Nous comprenons vos membres, vos processus et les questions qu\'ils posent. Vous partagez votre base de connaissances et nous definissons les capacites du bot.',
+			'Un appel de 30 minutes pour comprendre vos membres, vos processus et les questions qu\'ils posent. Vous partagez votre base de connaissances et nous definissons les capacites du bot.',
 		'howItWorks.2.number': '02',
-		'howItWorks.2.title': 'Nous construisons votre bot',
+		'howItWorks.2.title': 'Nous construisons et configurons votre bot',
 		'howItWorks.2.description':
-			'Notre plateforme genere un agent IA personnalise avec votre base de connaissances, vos outils et les roles de vos membres. Nous configurons les workflows, le tableau de bord et l\'integration WhatsApp.',
+			'Notre plateforme genere un agent IA personnalise avec votre base de connaissances, vos outils et les roles de vos membres. Nous configurons les workflows, le tableau de bord et l\'integration WhatsApp. Livre en quelques jours.',
 		'howItWorks.3.number': '03',
-		'howItWorks.3.title': 'Lancez et gerez',
+		'howItWorks.3.title': 'Lancez et gerez depuis votre tableau de bord',
 		'howItWorks.3.description':
-			'Votre bot est actif sur votre numero WhatsApp Business officiel. Vous controlez tout depuis le tableau de bord — membres, messages, evenements et plus encore.',
+			'Votre bot est actif sur votre numero WhatsApp Business officiel. Vous controlez tout depuis le tableau de bord : membres, messages, evenements et plus encore.',
 
 		// Use cases
 		'useCases.eyebrow': 'Cas d\'usage',
 		'useCases.title': 'Concu pour tous types de communautes',
 		'useCases.1.title': 'Associations & ONG',
+		'useCases.1.description': 'Automatisez l\'inscription des membres, les RSVP aux evenements et les reponses FAQ, le tout connecte aux documents de votre association.',
 		'useCases.1.bullet1': 'Inscription automatique des membres et invitations',
 		'useCases.1.bullet2': 'Rappels d\'evenements avec RSVP instantane via WhatsApp',
 		'useCases.1.bullet3': 'Bot FAQ connecte aux documents de votre association',
+		'useCases.1.chat.botName': 'Bot Association',
+		'useCases.1.chat.user1': 'Bonjour, je voudrais rejoindre l\'association',
+		'useCases.1.chat.bot1': 'Bienvenue ! Je vais vous guider dans l\'inscription. Quel est votre nom complet ?',
+		'useCases.1.chat.user2': 'C\'est quand la prochaine assemblee generale ?',
+		'useCases.1.chat.bot2': 'La prochaine AG est le 12 avril a 18h. Voulez-vous que je vous inscrive ?',
 		'useCases.2.title': 'Coworking & Communautes',
+		'useCases.2.description': 'Envoyez des annonces ciblees, collectez les retours et moderez les groupes avec des mentions @bot intelligentes.',
 		'useCases.2.bullet1': 'Annonces et diffusions ciblees par groupe',
 		'useCases.2.bullet2': 'Collecte de retours et suivi des suggestions',
 		'useCases.2.bullet3': 'Moderation des groupes avec mentions @bot',
+		'useCases.2.chat.botName': 'Bot Communaute',
+		'useCases.2.chat.user1': '@bot La salle de reunion est dispo demain a 14h ?',
+		'useCases.2.chat.bot1': 'La salle A est reservee, mais la salle B est libre de 13h a 17h. Voulez-vous que je la reserve ?',
+		'useCases.2.chat.user2': 'Oui, reserve la salle B',
+		'useCases.2.chat.bot2': 'C\'est fait ! Salle B reservee pour demain 14h-15h. Je vous enverrai un rappel demain matin.',
 		'useCases.3.title': 'Ecoles & Centres de formation',
+		'useCases.3.description': 'Repondez instantanement aux questions d\'inscription, tenez les parents informes et automatisez les notifications d\'echeances.',
 		'useCases.3.bullet1': 'Reponses instantanees aux questions d\'inscription et d\'horaires',
 		'useCases.3.bullet2': 'Hub de communication parents-eleves',
 		'useCases.3.bullet3': 'Notifications automatiques pour les echeances et evenements',
+		'useCases.3.chat.botName': 'Bot Ecole',
+		'useCases.3.chat.user1': 'Quelles sont les dates d\'inscription pour le prochain semestre ?',
+		'useCases.3.chat.bot1': 'Les inscriptions ouvrent le 15 mars et ferment le 30 avril. Voulez-vous que je vous envoie les documents requis ?',
+		'useCases.3.chat.user2': 'Oui, envoyez-moi la liste',
+		'useCases.3.chat.bot2': 'Voici ce qu\'il vous faudra : copie de la piece d\'identite, releve de notes et le formulaire d\'inscription signe. Je vous envoie les liens.',
+
+		// Testimonials
+		'testimonials.eyebrow': 'Ce que nos clients disent',
+		'testimonials.title': 'Des communautes qui tournent en autopilote',
+		'testimonials.1.quote': 'Nous sommes passes de 2 heures par jour a repondre aux memes questions WhatsApp a zero. Le bot gere tout, et le tableau de bord nous permet de voir toutes les conversations.',
+		'testimonials.1.name': 'Sarah M.',
+		'testimonials.1.role': 'Responsable Communaute',
+		'testimonials.1.org': 'Espace de Coworking',
+		'testimonials.2.quote': 'Nos membres adorent obtenir des reponses instantanees a tout moment. Les inscriptions aux evenements ont augmente de 40% depuis que nous utilisons le bot.',
+		'testimonials.2.name': 'Thomas L.',
+		'testimonials.2.role': 'President',
+		'testimonials.2.org': 'Association a but non lucratif',
+		'testimonials.3.quote': 'La mise en place a pris une semaine. Maintenant les parents recoivent des mises a jour instantanees sur les horaires, et nous envoyons des messages cibles a des groupes specifiques en un clic.',
+		'testimonials.3.name': 'Marie D.',
+		'testimonials.3.role': 'Directrice',
+		'testimonials.3.org': 'Centre de Formation',
+
+		// Integrations
+		'integrations.eyebrow': 'Integrations',
+		'integrations.title': 'Se connecte aux outils que vous utilisez deja',
+		'integrations.subtitle':
+			'Votre bot puise ses connaissances dans vos sources de donnees et agit sur vos outils preferes, le tout via WhatsApp.',
+		'integrations.dataSources': 'Sources de donnees',
+		'integrations.dataSources.description': 'D\'ou votre bot tire ses connaissances',
+		'integrations.actions': 'Actions',
+		'integrations.actions.description': 'Ce que votre bot peut declencher',
+		'integrations.hub': 'Votre Bot',
+		'integrations.poweredBy': 'Propulse par',
+		'integrations.others': 'autres',
+		'integrations.chat.user1': 'Envoie le rapport sur Slack',
+		'integrations.chat.bot1': 'C\'est fait ! Envoye sur #general.',
+		'integrations.chat.user2': 'Reserve un meeting avec Sarah',
+		'integrations.chat.bot2': 'Reserve pour demain a 14h.',
+		'integrations.chat.user3': 'On avait decide quoi en reunion ?',
+		'integrations.chat.bot3': 'Trouve dans Notion : "Lancement prevu le 15 avril"',
+		'integrations.chat.user4': 'Envoie la facture a Marc',
+		'integrations.chat.bot4': 'Facture #247 envoyee par Gmail.',
 
 		// Dashboard
 		'dashboard.eyebrow': 'Tableau de bord',
 		'dashboard.title': 'Tout au meme endroit',
 		'dashboard.description':
-			'Votre tableau de bord admin vous donne un controle total sur votre communaute et le bot — aucune competence technique requise.',
+			'Votre tableau de bord admin vous donne un controle total sur votre communaute et le bot. Aucune competence technique requise.',
 		'dashboard.bullet1': 'Gerez les membres, organisations et roles',
 		'dashboard.bullet2': 'Consultez et recherchez tout l\'historique des conversations',
 		'dashboard.bullet3': 'Envoyez des diffusions ciblees et suivez la livraison',
 		'dashboard.bullet4': 'Creez et gerez des evenements avec suivi des participants',
 		'dashboard.bullet5': 'Surveillez les modeles de messages WhatsApp et leurs validations',
 
+		// FAQ
+		'faq.eyebrow': 'FAQ',
+		'faq.title': 'Questions frequentes',
+		'faq.1.q': 'Ai-je besoin de competences techniques pour utiliser le bot ?',
+		'faq.1.a': 'Non. Nous construisons et configurons le bot pour vous. Vous gerez votre communaute via un tableau de bord simple. Aucune competence technique requise.',
+		'faq.2.q': 'Est-ce l\'API officielle de WhatsApp ?',
+		'faq.2.a': 'Oui. Nous utilisons l\'API officielle WhatsApp Business de Meta via Twilio. C\'est legal, stable, et votre numero ne sera pas banni.',
+		'faq.3.q': 'Combien de temps prend la mise en place ?',
+		'faq.3.a': 'La plupart des bots sont en production en moins de 2 semaines. Nous gerons toute la mise en place, de la configuration de l\'agent IA au deploiement du tableau de bord.',
+		'faq.4.q': 'Les donnees de ma communaute sont-elles securisees ?',
+		'faq.4.a': 'Absolument. Vos donnees sont stockees dans votre propre base de donnees privee — pas la notre. Elles sont chiffrees en transit et au repos. Nous ne partageons jamais vos donnees avec des tiers.',
+		'faq.5.q': 'Le bot peut-il fonctionner dans les groupes WhatsApp ?',
+		'faq.5.a': 'Oui. Nous proposons un connecteur auto-heberge optionnel qui permet au bot de repondre dans les groupes quand il est mentionne. Le connecteur tourne sur votre propre serveur pour un controle total.',
+		'faq.6.q': 'Que se passe-t-il si le bot ne peut pas repondre a une question ?',
+		'faq.6.a': 'Le bot reconnait ses limites avec elegance et peut escalader vers un administrateur humain. Vous pouvez configurer les comportements de repli depuis le tableau de bord.',
+		'faq.7.q': 'A qui appartiennent les donnees de ma communaute ?',
+		'faq.7.a': 'A vous, a 100%. Toutes vos donnees — membres, messages, evenements — sont stockees dans votre propre base de donnees privee. Vous pouvez les exporter, sauvegarder ou deplacer a tout moment. Aucun verrouillage.',
+		'faq.8.q': 'Puis-je tout heberger sur mes propres serveurs ?',
+		'faq.8.a': 'Oui. Si votre organisation exige un hebergement sur site, nous pouvons deployer la solution complete sur votre infrastructure. Vos donnees restent dans vos locaux, sous votre controle.',
+		'faq.9.q': 'La plateforme est-elle conforme au RGPD ?',
+		'faq.9.a': 'Les outils et l\'infrastructure que nous utilisons sont approuves par des millions d\'entreprises dans le monde et conformes aux reglementations europeennes de protection des donnees. Vos donnees sont chiffrees en transit et au repos, et nous ne les partageons jamais avec des tiers.',
+
+		// Data Ownership
+		'dataOwnership.eyebrow': 'Vos donnees, vos regles',
+		'dataOwnership.title': 'Tout vous appartient. Nous sommes juste le pont.',
+		'dataOwnership.subtitle': 'Les donnees de votre communaute vivent dans votre propre base de donnees — pas la notre. Exportez, interrogez ou deplacez-les a tout moment. Aucun verrouillage, aucune surprise.',
+		'dataOwnership.card1.title': 'Votre propre base de donnees privee',
+		'dataOwnership.card1.description': 'Chaque membre, message, evenement et conversation vit dans une base de donnees qui vous appartient. Format standard, entierement exportable, aucun verrouillage proprietaire.',
+		'dataOwnership.card2.title': 'Voyez et interrogez tout',
+		'dataOwnership.card2.description': 'Votre tableau de bord se connecte directement a votre base de donnees. Pas de boite noire. Chaque conversation, chaque interaction, chaque evenement — visible en temps reel.',
+		'dataOwnership.card3.title': 'Passez entierement sur site',
+		'dataOwnership.card3.description': 'Besoin de tout sur vos propres serveurs ? Nous pouvons deployer la stack complete sur votre infrastructure. Vos donnees ne quittent jamais vos locaux.',
+		'dataOwnership.trustLabel': 'Construit sur une infrastructure de confiance utilisee par des millions',
+
 		// Final CTA
 		'finalCta.title': 'Pret a automatiser votre communaute ?',
 		'finalCta.subtitle':
 			'Reservez une demo et decouvrez comment un bot WhatsApp sur mesure peut transformer la gestion de votre communaute.',
 		'finalCta.cta': 'Reserver une demo',
+		'finalCta.trustSignal': 'Rejoignez les gestionnaires de communautes qui automatisent deja avec Codika',
+		'finalCta.cta.secondary': 'Voir comment ca marche',
 
 		// Footer
 		'footer.tagline': 'Bots WhatsApp propulses par l\'IA pour les communautes',
@@ -249,5 +470,905 @@ export const ui = {
 		'footer.legal.privacy': 'Confidentialite',
 		'footer.legal.terms': 'Conditions',
 		'footer.copyright': '2026 Codika. Tous droits reserves.',
+	},
+	nl: {
+		// Site
+		'site.title': 'WhatsApp Bots door Codika | AI-gestuurde Communitybeheer',
+		'site.description':
+			'Op maat gemaakte AI-gestuurde WhatsApp bots voor communitybeheer. Automatiseer berichten, evenementen, leden en meer, met een compleet beheerdashboard.',
+
+		// Navigation
+		'nav.home': 'Home',
+		'nav.features': 'Functies',
+		'nav.howItWorks': 'Hoe het werkt',
+		'nav.useCases': 'Toepassingen',
+		'nav.cta': 'Demo aanvragen',
+
+		// Hero
+		'hero.title.line1': 'Stop met je community handmatig te beheren.',
+		'hero.title.line2': 'Laat een AI-bot het doen via WhatsApp.',
+		'hero.subtitle':
+			'Wij bouwen je bot, configureren hem met je kennisbank en leveren een compleet beheerdashboard. Jij focust op je community. De bot doet de rest.',
+		'hero.cta': 'Demo aanvragen',
+		'hero.cta.secondary': 'Bekijk hoe het werkt',
+		'hero.trustSignal': 'Vertrouwd door communitymanagers in heel Europa',
+
+		// Hero chat mockup
+		'hero.chat.user1': 'Wanneer is het volgende community-evenement?',
+		'hero.chat.bot1': 'Het volgende evenement is "Lente Meetup" op 22 maart om 19:00. Zal ik je inschrijven?',
+		'hero.chat.user2': 'Ja, schrijf me in!',
+		'hero.chat.bot2': 'Gedaan! Je bent ingeschreven. Ik stuur je een herinnering de dag ervoor.',
+
+		// Social proof
+		'socialProof.stat1.number': '2 mld+',
+		'socialProof.stat1.label': 'WhatsApp-gebruikers wereldwijd',
+		'socialProof.stat2.number': '98%',
+		'socialProof.stat2.label': 'Berichtopeningspercentage',
+		'socialProof.stat3.number': '< 2 weken',
+		'socialProof.stat3.label': 'Van idee tot live bot',
+
+		// Problem statement
+		'problem.eyebrow': 'Herkenbaar?',
+		'problem.title': 'Een community beheren via WhatsApp zou niet zo moeten voelen',
+		'problem.pain1.label': 'Herhaalde vragen',
+		'problem.pain1': 'Elke dag dezelfde vragen, en iemand moet ze steeds opnieuw beantwoorden.',
+		'problem.pain2.label': 'Gemiste herinneringen',
+		'problem.pain2': 'Evenementaankondigingen verdwijnen in de chat. Mensen vergeten het of zien het nooit.',
+		'problem.pain3.label': 'Geen zicht op leden',
+		'problem.pain3': 'Je weet niet wie actief is, wie nieuw is of wie al vertrokken is.',
+		'problem.pain4.label': 'Handmatige opvolging',
+		'problem.pain4': 'Uren per week besteed aan berichten die geautomatiseerd hadden kunnen worden.',
+
+		// Features
+		'features.eyebrow': 'Functies',
+		'features.title': 'Alles wat je community nodig heeft, ingebouwd in WhatsApp',
+		'features.1.title': 'Elk lid krijgt direct nauwkeurige antwoorden',
+		'features.1.description':
+			'Intelligente agents die context begrijpen, gesprekken onthouden en vragen routeren op basis van ledenrollen: beheerder, bewoner of community.',
+		'features.2.title': 'Leden, evenementen en organisaties, overzichtelijk geordend',
+		'features.2.description':
+			'Beheer leden, organisaties, evenementen, uitnodigingen en feedback, allemaal via natuurlijke WhatsApp-gesprekken met de bot.',
+		'features.3.title': 'Je bot leert van je bestaande documenten',
+		'features.3.description':
+			'Koppel je Notion-documenten, Google Drive of andere databronnen. De bot beantwoordt vragen door automatisch je gesynchroniseerde kennisbank te doorzoeken.',
+		'features.4.title': 'Alles zien, alles beheren',
+		'features.4.description':
+			'Een compleet beheerinterface om leden, berichten, uitzendingen, evenementen, templates en communitystatistieken te overzien.',
+		'features.5.title': 'Officieel, legaal en productieklaar',
+		'features.5.description':
+			'Gebouwd op Twilio en Meta\'s officiele WhatsApp Business API. Legaal, stabiel en productieklaar met templateberichten en uitzendondersteuning.',
+		'features.6.title': 'Werkt ook in groepschats',
+		'features.6.description':
+			'Breid de bot optioneel uit naar WhatsApp-groepen met onze zelf-gehoste connector. De bot reageert wanneer hij wordt genoemd, direct in je groepsgesprekken.',
+
+		// How it works
+		'howItWorks.eyebrow': 'Hoe het werkt',
+		'howItWorks.title': 'Van idee tot live bot in dagen, niet maanden',
+		'howItWorks.timeline': 'Live in minder dan 2 weken',
+		'howItWorks.1.number': '01',
+		'howItWorks.1.title': 'Deel de behoeften van je community',
+		'howItWorks.1.description':
+			'Een gesprek van 30 minuten om je leden, processen en veelgestelde vragen te begrijpen. Je deelt je kennisbank en wij brengen de mogelijkheden van de bot in kaart.',
+		'howItWorks.2.number': '02',
+		'howItWorks.2.title': 'Wij bouwen en configureren je bot',
+		'howItWorks.2.description':
+			'Ons platform genereert een AI-agent op maat met je kennisbank, tools en ledenrollen. Wij configureren de workflows, het dashboard en de WhatsApp-integratie. Opgeleverd in dagen.',
+		'howItWorks.3.number': '03',
+		'howItWorks.3.title': 'Lanceer en beheer vanuit je dashboard',
+		'howItWorks.3.description':
+			'Je bot gaat live op je officiele WhatsApp Business-nummer. Je beheert alles vanuit het dashboard: leden, berichten, evenementen en meer.',
+
+		// Use cases
+		'useCases.eyebrow': 'Toepassingen',
+		'useCases.title': 'Gebouwd voor allerlei soorten communities',
+		'useCases.1.title': 'Verenigingen & Non-profits',
+		'useCases.1.description': 'Automatiseer ledeninschrijving, evenement-RSVPs en FAQ-antwoorden, allemaal gekoppeld aan de documenten van je vereniging.',
+		'useCases.1.bullet1': 'Automatische ledeninschrijving en uitnodigingen',
+		'useCases.1.bullet2': 'Evenementherinneringen met directe RSVP via WhatsApp',
+		'useCases.1.bullet3': 'FAQ-bot gekoppeld aan de documenten van je vereniging',
+		'useCases.1.chat.botName': 'Verenigingsbot',
+		'useCases.1.chat.user1': 'Hallo, ik wil graag lid worden van de vereniging',
+		'useCases.1.chat.bot1': 'Welkom! Ik begeleid je door de inschrijving. Wat is je volledige naam?',
+		'useCases.1.chat.user2': 'Wanneer is de volgende algemene vergadering?',
+		'useCases.1.chat.bot2': 'De volgende AV is op 12 april om 18:00. Zal ik je aanmelden?',
+		'useCases.2.title': 'Co-working & Communities',
+		'useCases.2.description': 'Verstuur gerichte aankondigingen, verzamel feedback en modereer groepschats met slimme @bot-vermeldingen.',
+		'useCases.2.bullet1': 'Aankondigingen en gerichte uitzendingen per groep',
+		'useCases.2.bullet2': 'Feedbackverzameling en suggestietracking',
+		'useCases.2.bullet3': 'Groepschatmoderatie met @bot-vermeldingen',
+		'useCases.2.chat.botName': 'Communitybot',
+		'useCases.2.chat.user1': '@bot Is de vergaderruimte morgen om 14:00 beschikbaar?',
+		'useCases.2.chat.bot1': 'Zaal A is bezet, maar Zaal B is vrij van 13:00 tot 17:00. Zal ik die reserveren?',
+		'useCases.2.chat.user2': 'Ja graag, boek Zaal B',
+		'useCases.2.chat.bot2': 'Gedaan! Zaal B is gereserveerd voor morgen 14:00-15:00. Ik stuur je morgenochtend een herinnering.',
+		'useCases.3.title': 'Scholen & Opleidingscentra',
+		'useCases.3.description': 'Beantwoord inschrijvingsvragen direct, houd ouders op de hoogte en automatiseer deadlinemeldingen.',
+		'useCases.3.bullet1': 'Rooster- en inschrijvingsvragen direct beantwoord',
+		'useCases.3.bullet2': 'Communicatiehub voor ouders en leerlingen',
+		'useCases.3.bullet3': 'Automatische meldingen voor deadlines en evenementen',
+		'useCases.3.chat.botName': 'Schoolbot',
+		'useCases.3.chat.user1': 'Wat zijn de inschrijfdata voor het volgende semester?',
+		'useCases.3.chat.bot1': 'De inschrijving opent op 15 maart en sluit op 30 april. Zal ik je de benodigde documenten sturen?',
+		'useCases.3.chat.user2': 'Ja, stuur me de lijst',
+		'useCases.3.chat.bot2': 'Dit heb je nodig: kopie ID-bewijs, cijferlijst en het ondertekende aanmeldformulier. Ik stuur je de links nu.',
+
+		// Testimonials
+		'testimonials.eyebrow': 'Wat onze klanten zeggen',
+		'testimonials.title': 'Communities die op de automatische piloot draaien',
+		'testimonials.1.quote': 'We gingen van 2 uur per dag dezelfde WhatsApp-vragen beantwoorden naar nul. De bot regelt alles, en het dashboard laat ons alle gesprekken bekijken.',
+		'testimonials.1.name': 'Sarah M.',
+		'testimonials.1.role': 'Communitymanager',
+		'testimonials.1.org': 'Co-workingruimte',
+		'testimonials.2.quote': 'Onze leden vinden het geweldig om altijd direct antwoord te krijgen. Evenementaanmeldingen zijn met 40% gestegen sinds we de bot gebruiken.',
+		'testimonials.2.name': 'Thomas L.',
+		'testimonials.2.role': 'Voorzitter',
+		'testimonials.2.org': 'Non-profitvereniging',
+		'testimonials.3.quote': 'De opzet duurde een week. Nu krijgen ouders direct updates over roosters, en sturen we gerichte berichten naar specifieke groepen met een klik.',
+		'testimonials.3.name': 'Marie D.',
+		'testimonials.3.role': 'Directeur',
+		'testimonials.3.org': 'Opleidingscentrum',
+
+		// Integrations
+		'integrations.eyebrow': 'Integraties',
+		'integrations.title': 'Verbindt met de tools die je al gebruikt',
+		'integrations.subtitle':
+			'Je bot haalt kennis uit je databronnen en voert acties uit in je favoriete tools, allemaal via WhatsApp.',
+		'integrations.dataSources': 'Databronnen',
+		'integrations.dataSources.description': 'Waar je bot zijn kennis vandaan haalt',
+		'integrations.actions': 'Acties',
+		'integrations.actions.description': 'Wat je bot kan activeren',
+		'integrations.hub': 'Jouw Bot',
+		'integrations.poweredBy': 'Aangedreven door',
+		'integrations.others': 'andere',
+		'integrations.chat.user1': 'Stuur het rapport naar Slack',
+		'integrations.chat.bot1': 'Gedaan! Verstuurd naar #general.',
+		'integrations.chat.user2': 'Plan een vergadering met Sarah',
+		'integrations.chat.bot2': 'Gepland voor morgen om 14:00.',
+		'integrations.chat.user3': 'Wat hebben we vorige vergadering besloten?',
+		'integrations.chat.bot3': 'Gevonden in Notion: "Lanceerdatum vastgesteld op 15 april"',
+		'integrations.chat.user4': 'Stuur de factuur naar Marc',
+		'integrations.chat.bot4': 'Factuur #247 verstuurd via Gmail.',
+
+		// Dashboard
+		'dashboard.eyebrow': 'Dashboard',
+		'dashboard.title': 'Alles op een plek',
+		'dashboard.description':
+			'Je beheerdashboard geeft je volledige controle over je community en de bot. Geen technische kennis vereist.',
+		'dashboard.bullet1': 'Beheer leden, organisaties en rollen',
+		'dashboard.bullet2': 'Bekijk en doorzoek de volledige gespreksgeschiedenis',
+		'dashboard.bullet3': 'Verstuur gerichte uitzendingen en volg de bezorging',
+		'dashboard.bullet4': 'Maak en beheer evenementen met deelnemerstracking',
+		'dashboard.bullet5': 'Monitor WhatsApp-berichttemplates en goedkeuringen',
+
+		// FAQ
+		'faq.eyebrow': 'FAQ',
+		'faq.title': 'Veelgestelde vragen',
+		'faq.1.q': 'Heb ik technische kennis nodig om de bot te gebruiken?',
+		'faq.1.a': 'Nee. Wij bouwen en configureren de bot voor je. Je beheert je community via een eenvoudig dashboard. Geen programmeerkennis nodig.',
+		'faq.2.q': 'Is dit de officiele WhatsApp API?',
+		'faq.2.a': 'Ja. We gebruiken Meta\'s officiele WhatsApp Business API via Twilio. Het is legaal, stabiel en je nummer wordt niet geblokkeerd.',
+		'faq.3.q': 'Hoe lang duurt de opzet?',
+		'faq.3.a': 'De meeste bots gaan in minder dan 2 weken live. Wij regelen de volledige opzet, van het configureren van de AI-agent tot het implementeren van het dashboard.',
+		'faq.4.q': 'Zijn de gegevens van mijn community veilig?',
+		'faq.4.a': 'Absoluut. Je gegevens worden opgeslagen in je eigen prive-database — niet de onze. Ze worden versleuteld tijdens transport en in rust. We delen je gegevens nooit met derden.',
+		'faq.5.q': 'Kan de bot in WhatsApp-groepen werken?',
+		'faq.5.a': 'Ja. We bieden een optionele zelf-gehoste connector waarmee de bot kan reageren in groepschats wanneer hij wordt genoemd. De connector draait op je eigen server voor volledige controle.',
+		'faq.6.q': 'Wat gebeurt er als de bot een vraag niet kan beantwoorden?',
+		'faq.6.a': 'De bot erkent zijn beperkingen en kan doorschakelen naar een menselijke beheerder. Je kunt het terugvalgedrag configureren vanuit het dashboard.',
+		'faq.7.q': 'Van wie zijn de gegevens van mijn community?',
+		'faq.7.a': 'Van jou, 100%. Al je gegevens — leden, berichten, evenementen — worden opgeslagen in je eigen prive-database. Je kunt ze op elk moment exporteren, back-uppen of verplaatsen. Geen lock-in.',
+		'faq.8.q': 'Kan ik alles op mijn eigen servers hosten?',
+		'faq.8.a': 'Ja. Als je organisatie on-premise hosting vereist, kunnen we de volledige oplossing op je eigen infrastructuur implementeren. Je gegevens blijven in je gebouw, onder je controle.',
+		'faq.9.q': 'Is het platform AVG-conform?',
+		'faq.9.a': 'De tools en infrastructuur die we gebruiken worden vertrouwd door miljoenen bedrijven wereldwijd en voldoen aan Europese gegevensbeschermingsregels. Je gegevens worden versleuteld tijdens transport en in rust, en we delen ze nooit met derden.',
+
+		// Data Ownership
+		'dataOwnership.eyebrow': 'Jouw gegevens, jouw regels',
+		'dataOwnership.title': 'Alles is van jou. Wij zijn slechts de brug.',
+		'dataOwnership.subtitle': 'De gegevens van je community staan in je eigen database — niet de onze. Exporteer, bevraag of verplaats ze op elk moment. Geen lock-in, geen verrassingen.',
+		'dataOwnership.card1.title': 'Je eigen prive-database',
+		'dataOwnership.card1.description': 'Elk lid, bericht, evenement en gesprek leeft in een database die van jou is. Standaardformaat, volledig exporteerbaar, geen proprietaire lock-in.',
+		'dataOwnership.card2.title': 'Bekijk en bevraag alles',
+		'dataOwnership.card2.description': 'Je dashboard maakt rechtstreeks verbinding met je database. Geen black box. Elk gesprek, elke interactie, elk evenement — zichtbaar in realtime.',
+		'dataOwnership.card3.title': 'Ga volledig on-premise',
+		'dataOwnership.card3.description': 'Alles op je eigen servers nodig? We kunnen de volledige stack op je infrastructuur implementeren. Je gegevens verlaten nooit je gebouw.',
+		'dataOwnership.trustLabel': 'Gebouwd op infrastructuur vertrouwd door miljoenen',
+
+		// Final CTA
+		'finalCta.title': 'Klaar om je community te automatiseren?',
+		'finalCta.subtitle':
+			'Vraag een demo aan en ontdek hoe een WhatsApp-bot op maat het beheer van je community kan transformeren.',
+		'finalCta.cta': 'Demo aanvragen',
+		'finalCta.trustSignal': 'Sluit je aan bij communitymanagers die al automatiseren met Codika',
+		'finalCta.cta.secondary': 'Bekijk hoe het werkt',
+
+		// Footer
+		'footer.tagline': 'AI-gestuurde WhatsApp bots voor communities',
+		'footer.product': 'Product',
+		'footer.product.features': 'Functies',
+		'footer.product.howItWorks': 'Hoe het werkt',
+		'footer.product.useCases': 'Toepassingen',
+		'footer.company': 'Bedrijf',
+		'footer.company.contact': 'Contact',
+		'footer.company.codika': 'Codika',
+		'footer.legal': 'Juridisch',
+		'footer.legal.privacy': 'Privacy',
+		'footer.legal.terms': 'Voorwaarden',
+		'footer.copyright': '2026 Codika. Alle rechten voorbehouden.',
+	},
+	es: {
+		// Site
+		'site.title': 'Bots de WhatsApp por Codika | Gestion de Comunidades con IA',
+		'site.description':
+			'Bots de WhatsApp personalizados con IA para la gestion de comunidades. Automatiza mensajes, eventos, miembros y mas, con un panel de administracion completo.',
+
+		// Navigation
+		'nav.home': 'Inicio',
+		'nav.features': 'Funcionalidades',
+		'nav.howItWorks': 'Como funciona',
+		'nav.useCases': 'Casos de uso',
+		'nav.cta': 'Reservar una demo',
+
+		// Hero
+		'hero.title.line1': 'Deja de gestionar tu comunidad manualmente.',
+		'hero.title.line2': 'Deja que un bot con IA lo haga en WhatsApp.',
+		'hero.subtitle':
+			'Construimos tu bot, lo configuramos con tu base de conocimiento y te entregamos un panel de administracion completo. Tu te concentras en tu comunidad. El bot se encarga del resto.',
+		'hero.cta': 'Reservar una demo',
+		'hero.cta.secondary': 'Ver como funciona',
+		'hero.trustSignal': 'Usado por gestores de comunidades en toda Europa',
+
+		// Hero chat mockup
+		'hero.chat.user1': 'Cuando es el proximo evento de la comunidad?',
+		'hero.chat.bot1': 'El proximo evento es "Meetup de Primavera" el 22 de marzo a las 19:00. Quieres que te inscriba?',
+		'hero.chat.user2': 'Si, apuntame!',
+		'hero.chat.bot2': 'Listo! Estas inscrito/a. Te enviare un recordatorio el dia anterior.',
+
+		// Social proof
+		'socialProof.stat1.number': '2.000M+',
+		'socialProof.stat1.label': 'Usuarios de WhatsApp en el mundo',
+		'socialProof.stat2.number': '98%',
+		'socialProof.stat2.label': 'Tasa de apertura de mensajes',
+		'socialProof.stat3.number': '< 2 semanas',
+		'socialProof.stat3.label': 'De la idea al bot en produccion',
+
+		// Problem statement
+		'problem.eyebrow': 'Te suena?',
+		'problem.title': 'Gestionar una comunidad en WhatsApp no deberia ser asi',
+		'problem.pain1.label': 'Preguntas repetitivas',
+		'problem.pain1': 'Las mismas preguntas aparecen cada dia, y alguien tiene que responderlas cada vez.',
+		'problem.pain2.label': 'Recordatorios perdidos',
+		'problem.pain2': 'Los anuncios de eventos se pierden en el chat. La gente olvida o nunca los ve.',
+		'problem.pain3.label': 'Sin visibilidad de miembros',
+		'problem.pain3': 'No puedes saber quien esta activo, quien es nuevo o quien ya se fue.',
+		'problem.pain4.label': 'Seguimientos manuales',
+		'problem.pain4': 'Horas cada semana dedicadas a mensajes que podrian automatizarse.',
+
+		// Features
+		'features.eyebrow': 'Funcionalidades',
+		'features.title': 'Todo lo que tu comunidad necesita, integrado en WhatsApp',
+		'features.1.title': 'Cada miembro recibe respuestas instantaneas y precisas',
+		'features.1.description':
+			'Agentes inteligentes que entienden el contexto, recuerdan conversaciones y dirigen consultas segun el rol del miembro: administrador, residente o comunidad.',
+		'features.2.title': 'Miembros, eventos y organizaciones, todo organizado',
+		'features.2.description':
+			'Gestiona miembros, organizaciones, eventos, invitaciones y feedback, todo a traves de conversaciones naturales en WhatsApp con el bot.',
+		'features.3.title': 'Tu bot aprende de tus documentos existentes',
+		'features.3.description':
+			'Conecta tus documentos de Notion, Google Drive o cualquier fuente de datos. El bot responde preguntas buscando automaticamente en tu base de conocimiento sincronizada.',
+		'features.4.title': 'Ve todo, controla todo',
+		'features.4.description':
+			'Una interfaz de gestion completa para supervisar miembros, mensajes, difusiones, eventos, plantillas y estadisticas de la comunidad.',
+		'features.5.title': 'Oficial, legal y listo para produccion',
+		'features.5.description':
+			'Construido sobre Twilio y la API oficial de WhatsApp Business de Meta. Legal, estable y listo para produccion con mensajes de plantilla y soporte de difusion.',
+		'features.6.title': 'Funciona tambien en chats grupales',
+		'features.6.description':
+			'Extiende opcionalmente el bot a grupos de WhatsApp con nuestro conector autoalojado. El bot responde cuando es mencionado, directamente en tus conversaciones de grupo.',
+
+		// How it works
+		'howItWorks.eyebrow': 'Como funciona',
+		'howItWorks.title': 'De la idea al bot en produccion en dias, no meses',
+		'howItWorks.timeline': 'En produccion en menos de 2 semanas',
+		'howItWorks.1.number': '01',
+		'howItWorks.1.title': 'Comparte las necesidades de tu comunidad',
+		'howItWorks.1.description':
+			'Una llamada de 30 minutos para entender a tus miembros, procesos y las preguntas que hacen. Compartes tu base de conocimiento y definimos las capacidades del bot.',
+		'howItWorks.2.number': '02',
+		'howItWorks.2.title': 'Construimos y configuramos tu bot',
+		'howItWorks.2.description':
+			'Nuestra plataforma genera un agente de IA personalizado con tu base de conocimiento, herramientas y roles de miembros. Configuramos los flujos de trabajo, el panel y la integracion con WhatsApp. Entregado en dias.',
+		'howItWorks.3.number': '03',
+		'howItWorks.3.title': 'Lanza y gestiona desde tu panel',
+		'howItWorks.3.description':
+			'Tu bot se activa en tu numero oficial de WhatsApp Business. Controlas todo desde el panel de administracion: miembros, mensajes, eventos y mas.',
+
+		// Use cases
+		'useCases.eyebrow': 'Casos de uso',
+		'useCases.title': 'Disenado para todo tipo de comunidades',
+		'useCases.1.title': 'Asociaciones y ONG',
+		'useCases.1.description': 'Automatiza la incorporacion de miembros, confirmaciones de asistencia a eventos y respuestas a preguntas frecuentes, todo conectado a los documentos de tu asociacion.',
+		'useCases.1.bullet1': 'Incorporacion automatica de miembros e invitaciones',
+		'useCases.1.bullet2': 'Recordatorios de eventos con confirmacion instantanea via WhatsApp',
+		'useCases.1.bullet3': 'Bot de FAQ conectado a los documentos de tu asociacion',
+		'useCases.1.chat.botName': 'Bot Asociacion',
+		'useCases.1.chat.user1': 'Hola, me gustaria unirme a la asociacion',
+		'useCases.1.chat.bot1': 'Bienvenido/a! Te guiare en el proceso de inscripcion. Cual es tu nombre completo?',
+		'useCases.1.chat.user2': 'Cuando es la proxima asamblea general?',
+		'useCases.1.chat.bot2': 'La proxima asamblea es el 12 de abril a las 18:00. Quieres que te inscriba?',
+		'useCases.2.title': 'Co-working y Comunidades',
+		'useCases.2.description': 'Envia anuncios dirigidos, recoge feedback y modera los chats grupales con menciones inteligentes de @bot.',
+		'useCases.2.bullet1': 'Anuncios y difusiones dirigidas por grupo',
+		'useCases.2.bullet2': 'Recopilacion de feedback y seguimiento de sugerencias',
+		'useCases.2.bullet3': 'Moderacion de chats grupales con menciones @bot',
+		'useCases.2.chat.botName': 'Bot Comunidad',
+		'useCases.2.chat.user1': '@bot Esta disponible la sala de reuniones manana a las 14:00?',
+		'useCases.2.chat.bot1': 'La Sala A esta reservada, pero la Sala B esta libre de 13:00 a 17:00. Quieres que la reserve?',
+		'useCases.2.chat.user2': 'Si, reserva la Sala B',
+		'useCases.2.chat.bot2': 'Listo! Sala B reservada para manana de 14:00 a 15:00. Te enviare un recordatorio por la manana.',
+		'useCases.3.title': 'Escuelas y Centros de Formacion',
+		'useCases.3.description': 'Responde al instante a preguntas sobre inscripciones, mantiene a los padres informados y automatiza las notificaciones de plazos.',
+		'useCases.3.bullet1': 'Consultas sobre horarios e inscripciones respondidas al instante',
+		'useCases.3.bullet2': 'Hub de comunicacion para padres y alumnos',
+		'useCases.3.bullet3': 'Notificaciones automaticas de plazos y eventos',
+		'useCases.3.chat.botName': 'Bot Escuela',
+		'useCases.3.chat.user1': 'Cuales son las fechas de inscripcion para el proximo semestre?',
+		'useCases.3.chat.bot1': 'Las inscripciones abren el 15 de marzo y cierran el 30 de abril. Quieres que te envie los documentos necesarios?',
+		'useCases.3.chat.user2': 'Si, enviame la lista',
+		'useCases.3.chat.bot2': 'Esto es lo que necesitaras: copia del DNI, expediente academico y el formulario de inscripcion firmado. Te envio los enlaces ahora.',
+
+		// Testimonials
+		'testimonials.eyebrow': 'Lo que dicen nuestros clientes',
+		'testimonials.title': 'Comunidades que funcionan en piloto automatico',
+		'testimonials.1.quote': 'Pasamos de dedicar 2 horas al dia a responder las mismas preguntas en WhatsApp a cero. El bot se encarga de todo, y el panel nos permite ver todas las conversaciones.',
+		'testimonials.1.name': 'Sarah M.',
+		'testimonials.1.role': 'Gestora de Comunidad',
+		'testimonials.1.org': 'Espacio de Co-working',
+		'testimonials.2.quote': 'A nuestros miembros les encanta recibir respuestas instantaneas a cualquier hora. Las inscripciones a eventos aumentaron un 40% desde que usamos el bot.',
+		'testimonials.2.name': 'Thomas L.',
+		'testimonials.2.role': 'Presidente',
+		'testimonials.2.org': 'Asociacion sin animo de lucro',
+		'testimonials.3.quote': 'La configuracion llevo una semana. Ahora los padres reciben actualizaciones instantaneas sobre horarios, y enviamos mensajes dirigidos a grupos especificos con un clic.',
+		'testimonials.3.name': 'Marie D.',
+		'testimonials.3.role': 'Directora',
+		'testimonials.3.org': 'Centro de Formacion',
+
+		// Integrations
+		'integrations.eyebrow': 'Integraciones',
+		'integrations.title': 'Se conecta con las herramientas que ya usas',
+		'integrations.subtitle':
+			'Tu bot extrae conocimiento de tus fuentes de datos y ejecuta acciones en tus herramientas favoritas, todo a traves de WhatsApp.',
+		'integrations.dataSources': 'Fuentes de datos',
+		'integrations.dataSources.description': 'De donde tu bot obtiene su conocimiento',
+		'integrations.actions': 'Acciones',
+		'integrations.actions.description': 'Lo que tu bot puede activar',
+		'integrations.hub': 'Tu Bot',
+		'integrations.poweredBy': 'Impulsado por',
+		'integrations.others': 'otros',
+		'integrations.chat.user1': 'Envia el informe a Slack',
+		'integrations.chat.bot1': 'Listo! Enviado a #general.',
+		'integrations.chat.user2': 'Reserva una reunion con Sarah',
+		'integrations.chat.bot2': 'Reservada para manana a las 14:00.',
+		'integrations.chat.user3': 'Que decidimos en la ultima reunion?',
+		'integrations.chat.bot3': 'Encontrado en Notion: "Fecha de lanzamiento fijada para el 15 de abril"',
+		'integrations.chat.user4': 'Envia la factura a Marc',
+		'integrations.chat.bot4': 'Factura #247 enviada por Gmail.',
+
+		// Dashboard
+		'dashboard.eyebrow': 'Panel de control',
+		'dashboard.title': 'Todo en un solo lugar',
+		'dashboard.description':
+			'Tu panel de administracion te da control total sobre tu comunidad y el bot. Sin conocimientos tecnicos necesarios.',
+		'dashboard.bullet1': 'Gestiona miembros, organizaciones y roles',
+		'dashboard.bullet2': 'Consulta y busca todo el historial de conversaciones',
+		'dashboard.bullet3': 'Envia difusiones dirigidas y rastrea la entrega',
+		'dashboard.bullet4': 'Crea y gestiona eventos con seguimiento de participantes',
+		'dashboard.bullet5': 'Supervisa las plantillas de mensajes de WhatsApp y sus aprobaciones',
+
+		// FAQ
+		'faq.eyebrow': 'FAQ',
+		'faq.title': 'Preguntas frecuentes',
+		'faq.1.q': 'Necesito conocimientos tecnicos para usar el bot?',
+		'faq.1.a': 'No. Nosotros construimos y configuramos el bot por ti. Gestionas tu comunidad a traves de un panel de administracion sencillo. No se necesita programar.',
+		'faq.2.q': 'Es la API oficial de WhatsApp?',
+		'faq.2.a': 'Si. Usamos la API oficial de WhatsApp Business de Meta a traves de Twilio. Es legal, estable y tu numero no sera bloqueado.',
+		'faq.3.q': 'Cuanto tiempo lleva la configuracion?',
+		'faq.3.a': 'La mayoria de bots estan en produccion en menos de 2 semanas. Nos encargamos de toda la configuracion, desde el agente de IA hasta el despliegue del panel.',
+		'faq.4.q': 'Estan seguros los datos de mi comunidad?',
+		'faq.4.a': 'Absolutamente. Tus datos se almacenan en tu propia base de datos privada — no la nuestra. Estan cifrados en transito y en reposo. Nunca compartimos tus datos con terceros.',
+		'faq.5.q': 'Puede el bot funcionar en grupos de WhatsApp?',
+		'faq.5.a': 'Si. Ofrecemos un conector autoalojado opcional que permite al bot responder en chats grupales cuando es mencionado. El conector funciona en tu propio servidor para un control total.',
+		'faq.6.q': 'Que pasa si el bot no puede responder una pregunta?',
+		'faq.6.a': 'El bot reconoce sus limitaciones con elegancia y puede escalar a un administrador humano. Puedes configurar los comportamientos de respaldo desde el panel.',
+		'faq.7.q': 'A quien pertenecen los datos de mi comunidad?',
+		'faq.7.a': 'A ti, al 100%. Todos tus datos — miembros, mensajes, eventos — se almacenan en tu propia base de datos privada. Puedes exportarlos, respaldarlos o moverlos en cualquier momento. Sin bloqueo de proveedor.',
+		'faq.8.q': 'Puedo alojar todo en mis propios servidores?',
+		'faq.8.a': 'Si. Si tu organizacion requiere alojamiento en tus instalaciones, podemos desplegar la solucion completa en tu infraestructura. Tus datos permanecen en tu edificio, bajo tu control.',
+		'faq.9.q': 'La plataforma cumple con el RGPD?',
+		'faq.9.a': 'Las herramientas e infraestructura que utilizamos son de confianza para millones de empresas en todo el mundo y cumplen con las regulaciones europeas de proteccion de datos. Tus datos estan cifrados en transito y en reposo, y nunca los compartimos con terceros.',
+
+		// Data Ownership
+		'dataOwnership.eyebrow': 'Tus datos, tus reglas',
+		'dataOwnership.title': 'Todo te pertenece. Nosotros solo somos el puente.',
+		'dataOwnership.subtitle': 'Los datos de tu comunidad viven en tu propia base de datos — no la nuestra. Exportalos, consultarlos o moverlos cuando quieras. Sin bloqueos, sin sorpresas.',
+		'dataOwnership.card1.title': 'Tu propia base de datos privada',
+		'dataOwnership.card1.description': 'Cada miembro, mensaje, evento y conversacion vive en una base de datos que te pertenece. Formato estandar, totalmente exportable, sin bloqueo propietario.',
+		'dataOwnership.card2.title': 'Ve y consulta todo',
+		'dataOwnership.card2.description': 'Tu panel se conecta directamente a tu base de datos. Sin caja negra. Cada conversacion, cada interaccion, cada evento — visible en tiempo real.',
+		'dataOwnership.card3.title': 'Pasa completamente a tus instalaciones',
+		'dataOwnership.card3.description': 'Necesitas todo en tus propios servidores? Podemos desplegar la stack completa en tu infraestructura. Tus datos nunca salen de tu edificio.',
+		'dataOwnership.trustLabel': 'Construido sobre infraestructura de confianza utilizada por millones',
+
+		// Final CTA
+		'finalCta.title': 'Listo para automatizar tu comunidad?',
+		'finalCta.subtitle':
+			'Reserva una demo y descubre como un bot de WhatsApp personalizado puede transformar la gestion de tu comunidad.',
+		'finalCta.cta': 'Reservar una demo',
+		'finalCta.trustSignal': 'Unete a los gestores de comunidades que ya automatizan con Codika',
+		'finalCta.cta.secondary': 'Ver como funciona',
+
+		// Footer
+		'footer.tagline': 'Bots de WhatsApp con IA para comunidades',
+		'footer.product': 'Producto',
+		'footer.product.features': 'Funcionalidades',
+		'footer.product.howItWorks': 'Como funciona',
+		'footer.product.useCases': 'Casos de uso',
+		'footer.company': 'Empresa',
+		'footer.company.contact': 'Contacto',
+		'footer.company.codika': 'Codika',
+		'footer.legal': 'Legal',
+		'footer.legal.privacy': 'Privacidad',
+		'footer.legal.terms': 'Terminos',
+		'footer.copyright': '2026 Codika. Todos los derechos reservados.',
+	},
+	it: {
+		// Site
+		'site.title': 'Bot WhatsApp di Codika | Gestione Community con IA',
+		'site.description':
+			'Bot WhatsApp personalizzati con IA per la gestione delle community. Automatizza messaggi, eventi, membri e altro, con una dashboard di amministrazione completa.',
+
+		// Navigation
+		'nav.home': 'Home',
+		'nav.features': 'Funzionalita',
+		'nav.howItWorks': 'Come funziona',
+		'nav.useCases': 'Casi d\'uso',
+		'nav.cta': 'Prenota una demo',
+
+		// Hero
+		'hero.title.line1': 'Smetti di gestire la tua community manualmente.',
+		'hero.title.line2': 'Lascia che un bot IA lo faccia su WhatsApp.',
+		'hero.subtitle':
+			'Costruiamo il tuo bot, lo configuriamo con la tua base di conoscenza e ti consegniamo una dashboard di amministrazione completa. Tu ti concentri sulla tua community. Il bot fa il resto.',
+		'hero.cta': 'Prenota una demo',
+		'hero.cta.secondary': 'Scopri come funziona',
+		'hero.trustSignal': 'Scelto dai community manager in tutta Europa',
+
+		// Hero chat mockup
+		'hero.chat.user1': 'Quando e il prossimo evento della community?',
+		'hero.chat.bot1': 'Il prossimo evento e "Meetup di Primavera" il 22 marzo alle 19:00. Vuoi che ti iscriva?',
+		'hero.chat.user2': 'Si, iscrivimi!',
+		'hero.chat.bot2': 'Fatto! Sei iscritto/a. Ti inviero un promemoria il giorno prima.',
+
+		// Social proof
+		'socialProof.stat1.number': '2 mld+',
+		'socialProof.stat1.label': 'Utenti WhatsApp nel mondo',
+		'socialProof.stat2.number': '98%',
+		'socialProof.stat2.label': 'Tasso di apertura dei messaggi',
+		'socialProof.stat3.number': '< 2 settimane',
+		'socialProof.stat3.label': 'Dall\'idea al bot in produzione',
+
+		// Problem statement
+		'problem.eyebrow': 'Ti suona familiare?',
+		'problem.title': 'Gestire una community su WhatsApp non dovrebbe essere cosi',
+		'problem.pain1.label': 'Domande ripetitive',
+		'problem.pain1': 'Le stesse domande ogni giorno, e qualcuno deve rispondere ogni volta.',
+		'problem.pain2.label': 'Promemoria mancati',
+		'problem.pain2': 'Gli annunci degli eventi si perdono nella chat. La gente dimentica o non li vede mai.',
+		'problem.pain3.label': 'Nessuna visibilita sui membri',
+		'problem.pain3': 'Non sai chi e attivo, chi e nuovo o chi se ne e gia andato.',
+		'problem.pain4.label': 'Follow-up manuali',
+		'problem.pain4': 'Ore ogni settimana spese in messaggi che potrebbero essere automatizzati.',
+
+		// Features
+		'features.eyebrow': 'Funzionalita',
+		'features.title': 'Tutto cio di cui la tua community ha bisogno, integrato in WhatsApp',
+		'features.1.title': 'Ogni membro riceve risposte istantanee e precise',
+		'features.1.description':
+			'Agenti intelligenti che comprendono il contesto, ricordano le conversazioni e indirizzano le richieste in base al ruolo del membro: amministratore, residente o community.',
+		'features.2.title': 'Membri, eventi e organizzazioni, tutto organizzato',
+		'features.2.description':
+			'Gestisci membri, organizzazioni, eventi, inviti e feedback, tutto attraverso conversazioni naturali su WhatsApp con il bot.',
+		'features.3.title': 'Il tuo bot impara dai tuoi documenti esistenti',
+		'features.3.description':
+			'Collega i tuoi documenti Notion, Google Drive o qualsiasi fonte dati. Il bot risponde alle domande cercando automaticamente nella tua base di conoscenza sincronizzata.',
+		'features.4.title': 'Vedi tutto, controlla tutto',
+		'features.4.description':
+			'Un\'interfaccia di gestione completa per supervisionare membri, messaggi, trasmissioni, eventi, template e statistiche della community.',
+		'features.5.title': 'Ufficiale, legale e pronto per la produzione',
+		'features.5.description':
+			'Costruito su Twilio e l\'API ufficiale WhatsApp Business di Meta. Legale, stabile e pronto per la produzione con messaggi template e supporto broadcast.',
+		'features.6.title': 'Funziona anche nelle chat di gruppo',
+		'features.6.description':
+			'Estendi opzionalmente il bot ai gruppi WhatsApp con il nostro connettore self-hosted. Il bot risponde quando viene menzionato, direttamente nelle tue conversazioni di gruppo.',
+
+		// How it works
+		'howItWorks.eyebrow': 'Come funziona',
+		'howItWorks.title': 'Dall\'idea al bot in produzione in giorni, non mesi',
+		'howItWorks.timeline': 'In produzione in meno di 2 settimane',
+		'howItWorks.1.number': '01',
+		'howItWorks.1.title': 'Condividi le esigenze della tua community',
+		'howItWorks.1.description':
+			'Una chiamata di 30 minuti per capire i tuoi membri, i processi e le domande che fanno. Condividi la tua base di conoscenza e definiamo le capacita del bot.',
+		'howItWorks.2.number': '02',
+		'howItWorks.2.title': 'Costruiamo e configuriamo il tuo bot',
+		'howItWorks.2.description':
+			'La nostra piattaforma genera un agente IA personalizzato con la tua base di conoscenza, strumenti e ruoli dei membri. Configuriamo i flussi di lavoro, la dashboard e l\'integrazione WhatsApp. Consegnato in giorni.',
+		'howItWorks.3.number': '03',
+		'howItWorks.3.title': 'Lancia e gestisci dalla tua dashboard',
+		'howItWorks.3.description':
+			'Il tuo bot va in produzione sul tuo numero ufficiale WhatsApp Business. Controlli tutto dalla dashboard di amministrazione: membri, messaggi, eventi e altro.',
+
+		// Use cases
+		'useCases.eyebrow': 'Casi d\'uso',
+		'useCases.title': 'Progettato per community di ogni tipo',
+		'useCases.1.title': 'Associazioni e Non-profit',
+		'useCases.1.description': 'Automatizza l\'iscrizione dei membri, le conferme di partecipazione agli eventi e le risposte alle FAQ, tutto collegato ai documenti della tua associazione.',
+		'useCases.1.bullet1': 'Iscrizione automatica dei membri e inviti',
+		'useCases.1.bullet2': 'Promemoria eventi con conferma istantanea via WhatsApp',
+		'useCases.1.bullet3': 'Bot FAQ collegato ai documenti della tua associazione',
+		'useCases.1.chat.botName': 'Bot Associazione',
+		'useCases.1.chat.user1': 'Ciao, vorrei unirmi all\'associazione',
+		'useCases.1.chat.bot1': 'Benvenuto/a! Ti guidero nel processo di iscrizione. Qual e il tuo nome completo?',
+		'useCases.1.chat.user2': 'Quando e la prossima assemblea generale?',
+		'useCases.1.chat.bot2': 'La prossima assemblea e il 12 aprile alle 18:00. Vuoi che ti iscriva?',
+		'useCases.2.title': 'Co-working e Community',
+		'useCases.2.description': 'Invia annunci mirati, raccogli feedback e modera le chat di gruppo con menzioni intelligenti di @bot.',
+		'useCases.2.bullet1': 'Annunci e trasmissioni mirate per gruppo',
+		'useCases.2.bullet2': 'Raccolta feedback e tracciamento suggerimenti',
+		'useCases.2.bullet3': 'Moderazione chat di gruppo con menzioni @bot',
+		'useCases.2.chat.botName': 'Bot Community',
+		'useCases.2.chat.user1': '@bot La sala riunioni e disponibile domani alle 14:00?',
+		'useCases.2.chat.bot1': 'La Sala A e prenotata, ma la Sala B e libera dalle 13:00 alle 17:00. Vuoi che la prenoti?',
+		'useCases.2.chat.user2': 'Si, prenota la Sala B',
+		'useCases.2.chat.bot2': 'Fatto! Sala B prenotata per domani 14:00-15:00. Ti inviero un promemoria domani mattina.',
+		'useCases.3.title': 'Scuole e Centri di Formazione',
+		'useCases.3.description': 'Rispondi istantaneamente alle domande sulle iscrizioni, tieni aggiornati i genitori e automatizza le notifiche delle scadenze.',
+		'useCases.3.bullet1': 'Domande su orari e iscrizioni con risposta immediata',
+		'useCases.3.bullet2': 'Hub di comunicazione per genitori e studenti',
+		'useCases.3.bullet3': 'Notifiche automatiche per scadenze ed eventi',
+		'useCases.3.chat.botName': 'Bot Scuola',
+		'useCases.3.chat.user1': 'Quali sono le date di iscrizione per il prossimo semestre?',
+		'useCases.3.chat.bot1': 'Le iscrizioni aprono il 15 marzo e chiudono il 30 aprile. Vuoi che ti invii i documenti necessari?',
+		'useCases.3.chat.user2': 'Si, inviami la lista',
+		'useCases.3.chat.bot2': 'Ecco cosa ti servira: copia del documento d\'identita, pagella e il modulo di iscrizione firmato. Ti invio i link ora.',
+
+		// Testimonials
+		'testimonials.eyebrow': 'Cosa dicono i nostri clienti',
+		'testimonials.title': 'Community che funzionano con il pilota automatico',
+		'testimonials.1.quote': 'Siamo passati da 2 ore al giorno a rispondere alle stesse domande su WhatsApp a zero. Il bot gestisce tutto, e la dashboard ci permette di vedere tutte le conversazioni.',
+		'testimonials.1.name': 'Sarah M.',
+		'testimonials.1.role': 'Community Manager',
+		'testimonials.1.org': 'Spazio di Co-working',
+		'testimonials.2.quote': 'I nostri membri adorano ricevere risposte istantanee in qualsiasi momento. Le iscrizioni agli eventi sono aumentate del 40% da quando usiamo il bot.',
+		'testimonials.2.name': 'Thomas L.',
+		'testimonials.2.role': 'Presidente',
+		'testimonials.2.org': 'Associazione Non-profit',
+		'testimonials.3.quote': 'La configurazione ha richiesto una settimana. Ora i genitori ricevono aggiornamenti istantanei sugli orari, e inviamo messaggi mirati a gruppi specifici con un clic.',
+		'testimonials.3.name': 'Marie D.',
+		'testimonials.3.role': 'Direttrice',
+		'testimonials.3.org': 'Centro di Formazione',
+
+		// Integrations
+		'integrations.eyebrow': 'Integrazioni',
+		'integrations.title': 'Si collega agli strumenti che usi gia',
+		'integrations.subtitle':
+			'Il tuo bot attinge conoscenza dalle tue fonti dati e esegue azioni nei tuoi strumenti preferiti, tutto tramite WhatsApp.',
+		'integrations.dataSources': 'Fonti dati',
+		'integrations.dataSources.description': 'Da dove il tuo bot ottiene la sua conoscenza',
+		'integrations.actions': 'Azioni',
+		'integrations.actions.description': 'Cosa puo attivare il tuo bot',
+		'integrations.hub': 'Il tuo Bot',
+		'integrations.poweredBy': 'Alimentato da',
+		'integrations.others': 'altri',
+		'integrations.chat.user1': 'Invia il report su Slack',
+		'integrations.chat.bot1': 'Fatto! Inviato su #general.',
+		'integrations.chat.user2': 'Prenota un meeting con Sarah',
+		'integrations.chat.bot2': 'Prenotato per domani alle 14:00.',
+		'integrations.chat.user3': 'Cosa abbiamo deciso nell\'ultima riunione?',
+		'integrations.chat.bot3': 'Trovato in Notion: "Data di lancio fissata al 15 aprile"',
+		'integrations.chat.user4': 'Invia la fattura a Marc',
+		'integrations.chat.bot4': 'Fattura #247 inviata via Gmail.',
+
+		// Dashboard
+		'dashboard.eyebrow': 'Dashboard',
+		'dashboard.title': 'Tutto in un unico posto',
+		'dashboard.description':
+			'La tua dashboard di amministrazione ti da il pieno controllo sulla tua community e sul bot. Nessuna competenza tecnica richiesta.',
+		'dashboard.bullet1': 'Gestisci membri, organizzazioni e ruoli',
+		'dashboard.bullet2': 'Visualizza e cerca l\'intera cronologia delle conversazioni',
+		'dashboard.bullet3': 'Invia trasmissioni mirate e monitora la consegna',
+		'dashboard.bullet4': 'Crea e gestisci eventi con tracciamento dei partecipanti',
+		'dashboard.bullet5': 'Monitora i template dei messaggi WhatsApp e le approvazioni',
+
+		// FAQ
+		'faq.eyebrow': 'FAQ',
+		'faq.title': 'Domande frequenti',
+		'faq.1.q': 'Ho bisogno di competenze tecniche per usare il bot?',
+		'faq.1.a': 'No. Costruiamo e configuriamo il bot per te. Gestisci la tua community attraverso una dashboard semplice. Nessuna programmazione richiesta.',
+		'faq.2.q': 'Questa e l\'API ufficiale di WhatsApp?',
+		'faq.2.a': 'Si. Usiamo l\'API ufficiale WhatsApp Business di Meta tramite Twilio. E legale, stabile e il tuo numero non verra bloccato.',
+		'faq.3.q': 'Quanto tempo richiede la configurazione?',
+		'faq.3.a': 'La maggior parte dei bot va in produzione in meno di 2 settimane. Gestiamo l\'intera configurazione, dalla creazione dell\'agente IA al deployment della dashboard.',
+		'faq.4.q': 'I dati della mia community sono al sicuro?',
+		'faq.4.a': 'Assolutamente. I tuoi dati sono archiviati nel tuo database privato — non il nostro. Sono crittografati in transito e a riposo. Non condividiamo mai i tuoi dati con terze parti.',
+		'faq.5.q': 'Il bot puo funzionare nei gruppi WhatsApp?',
+		'faq.5.a': 'Si. Offriamo un connettore self-hosted opzionale che permette al bot di rispondere nelle chat di gruppo quando viene menzionato. Il connettore gira sul tuo server per un controllo totale.',
+		'faq.6.q': 'Cosa succede se il bot non riesce a rispondere a una domanda?',
+		'faq.6.a': 'Il bot riconosce i suoi limiti con eleganza e puo scalare a un amministratore umano. Puoi configurare i comportamenti di fallback dalla dashboard.',
+		'faq.7.q': 'A chi appartengono i dati della mia community?',
+		'faq.7.a': 'A te, al 100%. Tutti i tuoi dati — membri, messaggi, eventi — sono archiviati nel tuo database privato. Puoi esportarli, fare backup o spostarli in qualsiasi momento. Nessun lock-in.',
+		'faq.8.q': 'Posso ospitare tutto sui miei server?',
+		'faq.8.a': 'Si. Se la tua organizzazione richiede hosting on-premise, possiamo distribuire l\'intera soluzione sulla tua infrastruttura. I tuoi dati rimangono nel tuo edificio, sotto il tuo controllo.',
+		'faq.9.q': 'La piattaforma e conforme al GDPR?',
+		'faq.9.a': 'Gli strumenti e l\'infrastruttura che utilizziamo sono affidabili per milioni di aziende in tutto il mondo e conformi alle normative europee sulla protezione dei dati. I tuoi dati sono crittografati in transito e a riposo, e non li condividiamo mai con terze parti.',
+
+		// Data Ownership
+		'dataOwnership.eyebrow': 'I tuoi dati, le tue regole',
+		'dataOwnership.title': 'Tutto ti appartiene. Noi siamo solo il ponte.',
+		'dataOwnership.subtitle': 'I dati della tua community vivono nel tuo database — non il nostro. Esportali, interrogali o spostali in qualsiasi momento. Nessun lock-in, nessuna sorpresa.',
+		'dataOwnership.card1.title': 'Il tuo database privato',
+		'dataOwnership.card1.description': 'Ogni membro, messaggio, evento e conversazione vive in un database che ti appartiene. Formato standard, completamente esportabile, nessun lock-in proprietario.',
+		'dataOwnership.card2.title': 'Vedi e interroga tutto',
+		'dataOwnership.card2.description': 'La tua dashboard si connette direttamente al tuo database. Nessuna scatola nera. Ogni conversazione, ogni interazione, ogni evento — visibile in tempo reale.',
+		'dataOwnership.card3.title': 'Passa completamente on-premise',
+		'dataOwnership.card3.description': 'Hai bisogno di tutto sui tuoi server? Possiamo distribuire l\'intero stack sulla tua infrastruttura. I tuoi dati non lasciano mai il tuo edificio.',
+		'dataOwnership.trustLabel': 'Costruito su infrastruttura affidabile utilizzata da milioni',
+
+		// Final CTA
+		'finalCta.title': 'Pronto ad automatizzare la tua community?',
+		'finalCta.subtitle':
+			'Prenota una demo e scopri come un bot WhatsApp personalizzato puo trasformare la gestione della tua community.',
+		'finalCta.cta': 'Prenota una demo',
+		'finalCta.trustSignal': 'Unisciti ai community manager che gia automatizzano con Codika',
+		'finalCta.cta.secondary': 'Scopri come funziona',
+
+		// Footer
+		'footer.tagline': 'Bot WhatsApp con IA per le community',
+		'footer.product': 'Prodotto',
+		'footer.product.features': 'Funzionalita',
+		'footer.product.howItWorks': 'Come funziona',
+		'footer.product.useCases': 'Casi d\'uso',
+		'footer.company': 'Azienda',
+		'footer.company.contact': 'Contatti',
+		'footer.company.codika': 'Codika',
+		'footer.legal': 'Legale',
+		'footer.legal.privacy': 'Privacy',
+		'footer.legal.terms': 'Termini',
+		'footer.copyright': '2026 Codika. Tutti i diritti riservati.',
+	},
+	de: {
+		// Site
+		'site.title': 'WhatsApp Bots von Codika | KI-gesteuerte Community-Verwaltung',
+		'site.description':
+			'Massgeschneiderte KI-gesteuerte WhatsApp Bots fur die Community-Verwaltung. Automatisiere Nachrichten, Events, Mitglieder und mehr, mit einem vollstandigen Admin-Dashboard.',
+
+		// Navigation
+		'nav.home': 'Startseite',
+		'nav.features': 'Funktionen',
+		'nav.howItWorks': 'So funktioniert es',
+		'nav.useCases': 'Anwendungsfalle',
+		'nav.cta': 'Demo buchen',
+
+		// Hero
+		'hero.title.line1': 'Hor auf, deine Community manuell zu verwalten.',
+		'hero.title.line2': 'Lass einen KI-Bot das auf WhatsApp erledigen.',
+		'hero.subtitle':
+			'Wir bauen deinen Bot, konfigurieren ihn mit deiner Wissensdatenbank und liefern dir ein vollstandiges Admin-Dashboard. Du konzentrierst dich auf deine Community. Der Bot erledigt den Rest.',
+		'hero.cta': 'Demo buchen',
+		'hero.cta.secondary': 'So funktioniert es',
+		'hero.trustSignal': 'Vertraut von Community-Managern in ganz Europa',
+
+		// Hero chat mockup
+		'hero.chat.user1': 'Wann ist das nachste Community-Event?',
+		'hero.chat.bot1': 'Das nachste Event ist das "Fruhjahrs-Meetup" am 22. Marz um 19:00 Uhr. Soll ich dich anmelden?',
+		'hero.chat.user2': 'Ja, melde mich an!',
+		'hero.chat.bot2': 'Erledigt! Du bist angemeldet. Ich schicke dir am Vortag eine Erinnerung.',
+
+		// Social proof
+		'socialProof.stat1.number': '2 Mrd.+',
+		'socialProof.stat1.label': 'WhatsApp-Nutzer weltweit',
+		'socialProof.stat2.number': '98%',
+		'socialProof.stat2.label': 'Nachrichtenoffnungsrate',
+		'socialProof.stat3.number': '< 2 Wochen',
+		'socialProof.stat3.label': 'Von der Idee zum Live-Bot',
+
+		// Problem statement
+		'problem.eyebrow': 'Kommt dir das bekannt vor?',
+		'problem.title': 'Eine Community auf WhatsApp zu verwalten sollte sich nicht so anfuhlen',
+		'problem.pain1.label': 'Wiederkehrende Fragen',
+		'problem.pain1': 'Jeden Tag die gleichen Fragen, und jemand muss sie jedes Mal beantworten.',
+		'problem.pain2.label': 'Verpasste Erinnerungen',
+		'problem.pain2': 'Event-Ankundigungen gehen im Chat unter. Leute vergessen es oder sehen es nie.',
+		'problem.pain3.label': 'Keine Ubersicht uber Mitglieder',
+		'problem.pain3': 'Du weisst nicht, wer aktiv ist, wer neu ist oder wer schon gegangen ist.',
+		'problem.pain4.label': 'Manuelle Nachverfolgung',
+		'problem.pain4': 'Stunden pro Woche fur Nachrichten, die automatisiert werden konnten.',
+
+		// Features
+		'features.eyebrow': 'Funktionen',
+		'features.title': 'Alles, was deine Community braucht, eingebaut in WhatsApp',
+		'features.1.title': 'Jedes Mitglied erhalt sofortige, prazise Antworten',
+		'features.1.description':
+			'Intelligente Agenten, die den Kontext verstehen, Gesprache erinnern und Anfragen basierend auf der Mitgliederrolle weiterleiten: Admin, Bewohner oder Community.',
+		'features.2.title': 'Mitglieder, Events und Organisationen, ubersichtlich organisiert',
+		'features.2.description':
+			'Verwalte Mitglieder, Organisationen, Events, Einladungen und Feedback, alles durch naturliche WhatsApp-Gesprache mit dem Bot.',
+		'features.3.title': 'Dein Bot lernt aus deinen bestehenden Dokumenten',
+		'features.3.description':
+			'Verbinde deine Notion-Dokumente, Google Drive oder andere Datenquellen. Der Bot beantwortet Fragen, indem er automatisch deine synchronisierte Wissensdatenbank durchsucht.',
+		'features.4.title': 'Alles sehen, alles steuern',
+		'features.4.description':
+			'Eine vollstandige Verwaltungsoberflache fur Mitglieder, Nachrichten, Broadcasts, Events, Vorlagen und Community-Statistiken.',
+		'features.5.title': 'Offiziell, legal und produktionsreif',
+		'features.5.description':
+			'Aufgebaut auf Twilio und Meta\'s offizieller WhatsApp Business API. Legal, stabil und produktionsreif mit Vorlagennachrichten und Broadcast-Unterstutzung.',
+		'features.6.title': 'Funktioniert auch in Gruppenchats',
+		'features.6.description':
+			'Erweitere den Bot optional auf WhatsApp-Gruppen mit unserem selbst gehosteten Connector. Der Bot antwortet, wenn er erwahnt wird, direkt in deinen Gruppengesprachen.',
+
+		// How it works
+		'howItWorks.eyebrow': 'So funktioniert es',
+		'howItWorks.title': 'Von der Idee zum Live-Bot in Tagen, nicht Monaten',
+		'howItWorks.timeline': 'Live in weniger als 2 Wochen',
+		'howItWorks.1.number': '01',
+		'howItWorks.1.title': 'Teile die Bedurfnisse deiner Community',
+		'howItWorks.1.description':
+			'Ein 30-minutiges Gesprach, um deine Mitglieder, Ablaufe und die Fragen, die sie stellen, zu verstehen. Du teilst deine Wissensdatenbank und wir definieren die Fahigkeiten des Bots.',
+		'howItWorks.2.number': '02',
+		'howItWorks.2.title': 'Wir bauen und konfigurieren deinen Bot',
+		'howItWorks.2.description':
+			'Unsere Plattform generiert einen massgeschneiderten KI-Agenten mit deiner Wissensdatenbank, Tools und Mitgliederrollen. Wir konfigurieren die Workflows, das Dashboard und die WhatsApp-Integration. Geliefert in Tagen.',
+		'howItWorks.3.number': '03',
+		'howItWorks.3.title': 'Starte und verwalte uber dein Dashboard',
+		'howItWorks.3.description':
+			'Dein Bot geht auf deiner offiziellen WhatsApp Business-Nummer live. Du steuerst alles uber das Admin-Dashboard: Mitglieder, Nachrichten, Events und mehr.',
+
+		// Use cases
+		'useCases.eyebrow': 'Anwendungsfalle',
+		'useCases.title': 'Entwickelt fur Communities aller Art',
+		'useCases.1.title': 'Vereine & gemeinnutzige Organisationen',
+		'useCases.1.description': 'Automatisiere die Mitgliederaufnahme, Event-Zusagen und FAQ-Antworten, alles verbunden mit den Dokumenten deines Vereins.',
+		'useCases.1.bullet1': 'Automatische Mitgliederaufnahme und Einladungen',
+		'useCases.1.bullet2': 'Event-Erinnerungen mit sofortiger Zusage via WhatsApp',
+		'useCases.1.bullet3': 'FAQ-Bot verbunden mit den Dokumenten deines Vereins',
+		'useCases.1.chat.botName': 'Vereinsbot',
+		'useCases.1.chat.user1': 'Hallo, ich mochte dem Verein beitreten',
+		'useCases.1.chat.bot1': 'Willkommen! Ich fuhre dich durch die Anmeldung. Wie ist dein vollstandiger Name?',
+		'useCases.1.chat.user2': 'Wann ist die nachste Mitgliederversammlung?',
+		'useCases.1.chat.bot2': 'Die nachste Versammlung ist am 12. April um 18:00 Uhr. Soll ich dich anmelden?',
+		'useCases.2.title': 'Co-working & Communities',
+		'useCases.2.description': 'Versende gezielte Ankundigungen, sammle Feedback und moderiere Gruppenchats mit intelligenten @bot-Erwahnungen.',
+		'useCases.2.bullet1': 'Ankundigungen und gezielte Broadcasts nach Gruppe',
+		'useCases.2.bullet2': 'Feedback-Sammlung und Vorschlagsverfolgung',
+		'useCases.2.bullet3': 'Gruppenchat-Moderation mit @bot-Erwahnungen',
+		'useCases.2.chat.botName': 'Community-Bot',
+		'useCases.2.chat.user1': '@bot Ist der Besprechungsraum morgen um 14:00 verfugbar?',
+		'useCases.2.chat.bot1': 'Raum A ist gebucht, aber Raum B ist von 13:00 bis 17:00 frei. Soll ich ihn reservieren?',
+		'useCases.2.chat.user2': 'Ja bitte, buche Raum B',
+		'useCases.2.chat.bot2': 'Erledigt! Raum B ist fur morgen 14:00-15:00 reserviert. Ich schicke dir morgen fruh eine Erinnerung.',
+		'useCases.3.title': 'Schulen & Bildungszentren',
+		'useCases.3.description': 'Beantworte Einschreibungsfragen sofort, halte Eltern auf dem Laufenden und automatisiere Fristenbenachrichtigungen.',
+		'useCases.3.bullet1': 'Stundenplan- und Einschreibungsfragen sofort beantwortet',
+		'useCases.3.bullet2': 'Kommunikationszentrale fur Eltern und Schuler',
+		'useCases.3.bullet3': 'Automatische Benachrichtigungen fur Fristen und Events',
+		'useCases.3.chat.botName': 'Schulbot',
+		'useCases.3.chat.user1': 'Was sind die Einschreibungsdaten fur das nachste Semester?',
+		'useCases.3.chat.bot1': 'Die Einschreibung beginnt am 15. Marz und endet am 30. April. Soll ich dir die erforderlichen Dokumente schicken?',
+		'useCases.3.chat.user2': 'Ja, schick mir die Liste',
+		'useCases.3.chat.bot2': 'Folgendes brauchst du: Ausweiskopie, Zeugnis und das unterschriebene Anmeldeformular. Ich schicke dir die Links jetzt.',
+
+		// Testimonials
+		'testimonials.eyebrow': 'Was unsere Kunden sagen',
+		'testimonials.title': 'Communities, die auf Autopilot laufen',
+		'testimonials.1.quote': 'Wir sind von 2 Stunden am Tag, in denen wir die gleichen WhatsApp-Fragen beantworteten, auf null gekommen. Der Bot erledigt alles, und das Dashboard lasst uns alle Gesprache einsehen.',
+		'testimonials.1.name': 'Sarah M.',
+		'testimonials.1.role': 'Community-Managerin',
+		'testimonials.1.org': 'Co-working Space',
+		'testimonials.2.quote': 'Unsere Mitglieder lieben es, jederzeit sofortige Antworten zu bekommen. Event-Anmeldungen sind um 40% gestiegen, seit wir den Bot nutzen.',
+		'testimonials.2.name': 'Thomas L.',
+		'testimonials.2.role': 'Vorsitzender',
+		'testimonials.2.org': 'Gemeinnutziger Verein',
+		'testimonials.3.quote': 'Die Einrichtung dauerte eine Woche. Jetzt erhalten Eltern sofortige Updates zu Stundeplanen, und wir senden gezielte Nachrichten an bestimmte Gruppen mit einem Klick.',
+		'testimonials.3.name': 'Marie D.',
+		'testimonials.3.role': 'Direktorin',
+		'testimonials.3.org': 'Bildungszentrum',
+
+		// Integrations
+		'integrations.eyebrow': 'Integrationen',
+		'integrations.title': 'Verbindet sich mit den Tools, die du bereits nutzt',
+		'integrations.subtitle':
+			'Dein Bot bezieht Wissen aus deinen Datenquellen und fuhrt Aktionen in deinen Lieblingstools aus, alles uber WhatsApp.',
+		'integrations.dataSources': 'Datenquellen',
+		'integrations.dataSources.description': 'Woher dein Bot sein Wissen bezieht',
+		'integrations.actions': 'Aktionen',
+		'integrations.actions.description': 'Was dein Bot auslosen kann',
+		'integrations.hub': 'Dein Bot',
+		'integrations.poweredBy': 'Betrieben von',
+		'integrations.others': 'weitere',
+		'integrations.chat.user1': 'Schick den Bericht an Slack',
+		'integrations.chat.bot1': 'Erledigt! An #general gesendet.',
+		'integrations.chat.user2': 'Buche ein Meeting mit Sarah',
+		'integrations.chat.bot2': 'Gebucht fur morgen um 14:00.',
+		'integrations.chat.user3': 'Was haben wir im letzten Meeting entschieden?',
+		'integrations.chat.bot3': 'In Notion gefunden: "Starttermin auf den 15. April festgelegt"',
+		'integrations.chat.user4': 'Schick die Rechnung an Marc',
+		'integrations.chat.bot4': 'Rechnung #247 per Gmail versendet.',
+
+		// Dashboard
+		'dashboard.eyebrow': 'Dashboard',
+		'dashboard.title': 'Alles an einem Ort',
+		'dashboard.description':
+			'Dein Admin-Dashboard gibt dir volle Kontrolle uber deine Community und den Bot. Keine technischen Kenntnisse erforderlich.',
+		'dashboard.bullet1': 'Verwalte Mitglieder, Organisationen und Rollen',
+		'dashboard.bullet2': 'Sieh dir den gesamten Gesprachsverlauf an und durchsuche ihn',
+		'dashboard.bullet3': 'Versende gezielte Broadcasts und verfolge die Zustellung',
+		'dashboard.bullet4': 'Erstelle und verwalte Events mit Teilnehmerverfolgung',
+		'dashboard.bullet5': 'Uberwache WhatsApp-Nachrichtenvorlagen und Genehmigungen',
+
+		// FAQ
+		'faq.eyebrow': 'FAQ',
+		'faq.title': 'Haufig gestellte Fragen',
+		'faq.1.q': 'Brauche ich technische Kenntnisse, um den Bot zu nutzen?',
+		'faq.1.a': 'Nein. Wir bauen und konfigurieren den Bot fur dich. Du verwaltest deine Community uber ein einfaches Dashboard. Keine Programmierkenntnisse erforderlich.',
+		'faq.2.q': 'Ist das die offizielle WhatsApp API?',
+		'faq.2.a': 'Ja. Wir nutzen Meta\'s offizielle WhatsApp Business API uber Twilio. Es ist legal, stabil und deine Nummer wird nicht gesperrt.',
+		'faq.3.q': 'Wie lange dauert die Einrichtung?',
+		'faq.3.a': 'Die meisten Bots gehen in weniger als 2 Wochen live. Wir kummern uns um die gesamte Einrichtung, von der Konfiguration des KI-Agenten bis zum Deployment des Dashboards.',
+		'faq.4.q': 'Sind die Daten meiner Community sicher?',
+		'faq.4.a': 'Absolut. Deine Daten werden in deiner eigenen privaten Datenbank gespeichert — nicht in unserer. Sie werden bei der Ubertragung und im Ruhezustand verschlusselt. Wir teilen deine Daten niemals mit Dritten.',
+		'faq.5.q': 'Kann der Bot in WhatsApp-Gruppen funktionieren?',
+		'faq.5.a': 'Ja. Wir bieten einen optionalen selbst gehosteten Connector, der es dem Bot ermoglicht, in Gruppenchats zu antworten, wenn er erwahnt wird. Der Connector lauft auf deinem eigenen Server fur volle Kontrolle.',
+		'faq.6.q': 'Was passiert, wenn der Bot eine Frage nicht beantworten kann?',
+		'faq.6.a': 'Der Bot erkennt seine Grenzen und kann an einen menschlichen Administrator eskalieren. Du kannst das Ruckfallverhalten uber das Dashboard konfigurieren.',
+		'faq.7.q': 'Wem gehoren die Daten meiner Community?',
+		'faq.7.a': 'Dir, zu 100%. Alle deine Daten — Mitglieder, Nachrichten, Events — werden in deiner eigenen privaten Datenbank gespeichert. Du kannst sie jederzeit exportieren, sichern oder verschieben. Kein Lock-in.',
+		'faq.8.q': 'Kann ich alles auf meinen eigenen Servern hosten?',
+		'faq.8.a': 'Ja. Wenn deine Organisation On-Premise-Hosting benotigt, konnen wir die gesamte Losung auf deiner Infrastruktur bereitstellen. Deine Daten bleiben in deinem Gebaude, unter deiner Kontrolle.',
+		'faq.9.q': 'Ist die Plattform DSGVO-konform?',
+		'faq.9.a': 'Die Tools und Infrastruktur, die wir nutzen, werden von Millionen Unternehmen weltweit vertraut und entsprechen den europaischen Datenschutzbestimmungen. Deine Daten werden bei der Ubertragung und im Ruhezustand verschlusselt, und wir teilen sie niemals mit Dritten.',
+
+		// Data Ownership
+		'dataOwnership.eyebrow': 'Deine Daten, deine Regeln',
+		'dataOwnership.title': 'Alles gehort dir. Wir sind nur die Brucke.',
+		'dataOwnership.subtitle': 'Die Daten deiner Community leben in deiner eigenen Datenbank — nicht unserer. Exportiere, abfrage oder verschiebe sie jederzeit. Kein Lock-in, keine Uberraschungen.',
+		'dataOwnership.card1.title': 'Deine eigene private Datenbank',
+		'dataOwnership.card1.description': 'Jedes Mitglied, jede Nachricht, jedes Event und jedes Gesprach lebt in einer Datenbank, die dir gehort. Standardformat, vollstandig exportierbar, kein proprietarer Lock-in.',
+		'dataOwnership.card2.title': 'Sieh und abfrage alles',
+		'dataOwnership.card2.description': 'Dein Dashboard verbindet sich direkt mit deiner Datenbank. Keine Black Box. Jedes Gesprach, jede Interaktion, jedes Event — in Echtzeit sichtbar.',
+		'dataOwnership.card3.title': 'Geh vollstandig on-premise',
+		'dataOwnership.card3.description': 'Brauchst du alles auf deinen eigenen Servern? Wir konnen den gesamten Stack auf deiner Infrastruktur bereitstellen. Deine Daten verlassen nie dein Gebaude.',
+		'dataOwnership.trustLabel': 'Gebaut auf Infrastruktur, der Millionen vertrauen',
+
+		// Final CTA
+		'finalCta.title': 'Bereit, deine Community zu automatisieren?',
+		'finalCta.subtitle':
+			'Buche eine Demo und entdecke, wie ein massgeschneiderter WhatsApp-Bot die Verwaltung deiner Community transformieren kann.',
+		'finalCta.cta': 'Demo buchen',
+		'finalCta.trustSignal': 'Schliesse dich Community-Managern an, die bereits mit Codika automatisieren',
+		'finalCta.cta.secondary': 'So funktioniert es',
+
+		// Footer
+		'footer.tagline': 'KI-gesteuerte WhatsApp Bots fur Communities',
+		'footer.product': 'Produkt',
+		'footer.product.features': 'Funktionen',
+		'footer.product.howItWorks': 'So funktioniert es',
+		'footer.product.useCases': 'Anwendungsfalle',
+		'footer.company': 'Unternehmen',
+		'footer.company.contact': 'Kontakt',
+		'footer.company.codika': 'Codika',
+		'footer.legal': 'Rechtliches',
+		'footer.legal.privacy': 'Datenschutz',
+		'footer.legal.terms': 'AGB',
+		'footer.copyright': '2026 Codika. Alle Rechte vorbehalten.',
 	},
 } as const;

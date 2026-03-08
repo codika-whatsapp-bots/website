@@ -5,7 +5,7 @@ const lang = getLangFromLocale(Astro.currentLocale);
 const t = useTranslations(lang);
 ---
 
-<footer class="footer">
+<footer class="footer" data-nav-bg="rgb(6, 78, 70)">
 	<div class="container">
 		<div class="footer-brand">
 			<div class="footer-logo">
@@ -98,7 +98,7 @@ const t = useTranslations(lang);
 	.footer-column a {
 		font-size: var(--font-size-sm);
 		color: var(--color-text-on-dark-secondary);
-		transition: color var(--transition-fast);
+		transition: color 0.3s ease;
 	}
 
 	.footer-column a:hover {
@@ -118,7 +118,7 @@ const t = useTranslations(lang);
 		text-align: center;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 640px) {
 		.container {
 			grid-template-columns: 1fr;
 			gap: var(--space-lg);

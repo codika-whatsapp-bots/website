@@ -9,15 +9,15 @@ Landing page for the Codika WhatsApp Bots product.
 
 The site supports multiple languages using Astro's built-in i18n routing.
 
-**Languages:** English (default), French
-**Routing:** `/` = English, `/fr/` = French (default locale has no prefix)
+**Languages:** English (default), French, Dutch, Spanish, Italian, German
+**Routing:** `/` = English, `/fr/` = French, `/nl/` = Dutch, `/es/` = Spanish, `/it/` = Italian, `/de/` = German (default locale has no prefix)
 
 ### Key Files
 
 | File | Purpose |
 |------|---------|
 | `src/i18n/ui.ts` | All translation strings (typed). Single source of truth |
-| `src/i18n/utils.ts` | Helpers: `useTranslations()`, `getLocalePath()`, `getLangFromLocale()`, `getAlternateLang()` |
+| `src/i18n/utils.ts` | Helpers: `useTranslations()`, `getLocalePath()`, `getLangFromLocale()`, `getAllLanguages()`, `getAlternateLanguages()`, `getLanguageFlag()`, `getLanguageLabel()` |
 | `astro.config.mjs` | i18n config (locales, defaultLocale) |
 
 ### Workflow
@@ -42,10 +42,11 @@ src/pages/fr/pricing.astro
 ### Adding a New Language
 
 1. Add the locale to `astro.config.mjs` → `i18n.locales`
-2. Add the language to `languages` in `src/i18n/ui.ts`
-3. Add the translation object (copy `en` keys and translate)
-4. Create the page folder `src/pages/<locale>/`
-5. Update `getAlternateLang()` in `utils.ts` if more than 2 languages (switch to a dropdown or cycle logic)
+2. Add the language to `languages` and `languageFlags` in `src/i18n/ui.ts`
+3. Add the flag SVG to `public/flags/<code>.svg`
+4. Add the translation object (copy `en` keys and translate)
+5. Create the page folder `src/pages/<locale>/`
+6. The flag-based language selector in Navigation.astro picks up new languages automatically
 
 ### Using Translations in Components
 
@@ -67,4 +68,4 @@ const t = useTranslations(lang);
 - Translation keys use dot notation grouped by section: `hero.title`, `nav.home`, `pricing.plan.pro`
 - The Layout component handles `<html lang>` and `hreflang` tags automatically
 - Keep `ui.ts` organized: group keys by page/section with comments if it grows large
-- When editing English copy, always update the French translation in the same commit
+- When editing English copy, always update all language translations in the same commit

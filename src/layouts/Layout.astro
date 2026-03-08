@@ -1,9 +1,9 @@
 ---
-import { getLangFromLocale, useTranslations, getLocalePath, getAlternateLang } from '../i18n/utils';
+import { getLangFromLocale, useTranslations, getLocalePath, getAllLanguages } from '../i18n/utils';
 
 const lang = getLangFromLocale(Astro.currentLocale);
 const t = useTranslations(lang);
-const altLang = getAlternateLang(lang);
+const allLangs = getAllLanguages();
 
 interface Props {
 	title?: string;
@@ -12,7 +12,7 @@ interface Props {
 
 const { title = t('site.title'), description = t('site.description') } = Astro.props;
 const canonicalUrl = Astro.url.href;
-const alternateUrl = new URL(getLocalePath(altLang), Astro.site ?? Astro.url.origin).href;
+const origin = Astro.site ?? Astro.url.origin;
 ---
 
 <!doctype html>
@@ -23,8 +23,9 @@ const alternateUrl = new URL(getLocalePath(altLang), Astro.site ?? Astro.url.ori
 		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<link rel="alternate" hreflang={lang} href={canonicalUrl} />
-		<link rel="alternate" hreflang={altLang} href={alternateUrl} />
+		{allLangs.map((l) => (
+			<link rel="alternate" hreflang={l} href={new URL(getLocalePath(l), origin).href} />
+		))}
 
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />

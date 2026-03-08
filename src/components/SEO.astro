@@ -1,0 +1,71 @@
+---
+import { getLangFromLocale, useTranslations } from '../i18n/utils';
+
+interface Props {
+	pageType?: 'home' | 'apply';
+}
+
+const { pageType = 'home' } = Astro.props;
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+const origin = Astro.site ?? Astro.url.origin;
+const siteUrl = origin.toString().replace(/\/$/, '');
+
+// Organization schema — present on all pages
+const organizationSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Organization',
+	name: 'Codika',
+	url: 'https://codika.io',
+	logo: `${siteUrl}/favicon.svg`,
+	sameAs: ['https://www.linkedin.com/company/codika-io'],
+};
+
+// WebSite schema — homepage only
+const webSiteSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	name: 'WhatsApp Bots by Codika',
+	url: siteUrl,
+	inLanguage: ['en', 'fr', 'nl', 'es', 'it', 'de'],
+};
+
+// SoftwareApplication schema — homepage only
+const softwareSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'SoftwareApplication',
+	name: 'WhatsApp Bots by Codika',
+	applicationCategory: 'BusinessApplication',
+	operatingSystem: 'Web',
+	description: t('site.description'),
+	offers: {
+		'@type': 'AggregateOffer',
+		priceCurrency: 'EUR',
+		lowPrice: '10',
+		highPrice: '5000',
+	},
+};
+
+// FAQPage schema — homepage only, localized
+const faqKeys = [1, 2, 3, 4, 5, 6, 7, 8, 9] as const;
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faqKeys.map((n) => ({
+		'@type': 'Question',
+		name: t(`faq.${n}.q` as any),
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: t(`faq.${n}.a` as any),
+		},
+	})),
+};
+
+const schemas = pageType === 'home'
+	? [organizationSchema, webSiteSchema, softwareSchema, faqSchema]
+	: [organizationSchema];
+---
+
+{schemas.map((schema) => (
+	<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

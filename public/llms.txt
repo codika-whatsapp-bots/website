@@ -1,0 +1,48 @@
+# WhatsApp Bots by Codika
+
+> AI-powered WhatsApp bots for community management. Custom-built bots with admin dashboards for businesses managing communities on WhatsApp.
+
+## Company
+
+- Name: Codika
+- Location: Belgium
+- Website: https://codika.io
+- Product: https://whatsbot.codika.io
+
+## What We Offer
+
+- Custom AI-powered WhatsApp bots (Claude AI by Anthropic)
+- Full admin dashboard (members, events, messages, broadcasts)
+- Official WhatsApp Business API via Twilio
+- Optional self-hosted group connector (Baileys/Evolution API)
+- Knowledge base integration (Notion, Google Drive, documents)
+- Multi-role bot (admin, resident, community member)
+
+## Pricing
+
+- Bot Setup: EUR 2,000 - 5,000 (one-time)
+- Monthly Operations: From EUR 10/month
+
+## Key Features
+
+- AI agents with context and conversation memory
+- Member and organization management
+- Event management with automated reminders
+- Broadcast messaging with delivery tracking
+- WhatsApp template management (utility, marketing, authentication)
+- GDPR compliant, full data ownership guaranteed
+- Multi-language support
+
+## Target Audience
+
+- Community managers
+- Associations and non-profits
+- Co-living and co-working spaces
+- Property managers
+- Business networks
+- Sports clubs and federations
+
+## Contact
+
+- Email: hello@codika.io
+- Demo: Book via Calendly on the website

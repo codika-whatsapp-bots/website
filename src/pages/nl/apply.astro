@@ -8,7 +8,7 @@ const lang = getLangFromLocale(Astro.currentLocale);
 const t = useTranslations(lang);
 ---
 
-<Layout title={t('apply.title')}>
+<Layout title={t('apply.title')} pageType="apply">
 	<Navigation />
 	<main class="apply-page">
 		<div class="container reveal">

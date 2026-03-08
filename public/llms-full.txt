@@ -1,0 +1,147 @@
+# WhatsApp Bots by Codika
+
+> AI-powered WhatsApp bots for community management. Custom-built bots with admin dashboards for businesses managing communities on WhatsApp.
+
+## Company
+
+- Name: Codika
+- Location: Belgium
+- Website: https://codika.io
+- Product: https://whatsbot.codika.io
+- Email: hello@codika.io
+
+## Product Overview
+
+Codika builds custom AI-powered WhatsApp bots paired with admin dashboards. Each client gets a fully configured bot that handles community interactions through WhatsApp, plus a web dashboard for managing members, organizations, events, messages, broadcasts, templates, and invitations.
+
+The bot uses Claude AI (by Anthropic) as its reasoning engine, with conversation memory and role-based routing. It connects to the official WhatsApp Business API through Twilio for legal, stable messaging.
+
+## How It Works
+
+1. Discovery call to understand your community's needs
+2. We configure the AI bot with your knowledge base, rules, and persona
+3. We deploy the admin dashboard connected to your data
+4. We connect your WhatsApp Business number via Twilio
+5. Your bot goes live — typically in under 2 weeks
+
+## Features
+
+### AI-Powered Bot
+- Natural language understanding powered by Claude AI (Anthropic)
+- Conversation memory per user for contextual responses
+- Role-based routing: different capabilities for admins, members, and guests
+- Graceful fallback to human escalation when the bot cannot answer
+- Knowledge base integration from Notion, Google Drive, or uploaded documents
+
+### Admin Dashboard
+- Member management with bulk actions and direct messaging
+- Organization management with member grouping
+- Event management with visibility levels and participant tracking
+- Message history with search and per-member conversation view
+- Broadcast messaging with per-recipient delivery tracking and retry
+- WhatsApp template management (utility, marketing, authentication)
+- Invitation management (approve/reject from bot interactions)
+- Community suggestions and feedback collection
+- Overview with key metrics and 90-day message volume chart
+
+### Messaging Channels
+- Official WhatsApp Business API via Twilio (DMs, template messages)
+- Optional self-hosted Baileys connector for WhatsApp group support
+- Dashboard-initiated direct messaging and broadcasts
+
+### Data & Security
+- Your data lives in your own private database (Supabase/PostgreSQL)
+- Encrypted in transit and at rest
+- Full data export and backup at any time
+- No vendor lock-in — you own 100% of your data
+- GDPR compliant infrastructure
+- Optional on-premise deployment for full control
+
+## Pricing
+
+- Bot Setup: EUR 2,000 - 5,000 (one-time, depends on complexity)
+- Monthly Operations: From EUR 10/month (includes hosting, AI costs, support)
+- Social Impact Program: Reduced pricing for non-profits and associations
+
+## Integrations
+
+Codika WhatsApp Bots integrate with 30+ services:
+
+- **Messaging:** WhatsApp Business API (Twilio), Evolution API (Baileys)
+- **AI:** Claude (Anthropic), OpenAI, Mistral, DeepSeek
+- **Data:** Supabase, PostgreSQL, Google Sheets, Airtable
+- **Productivity:** Notion, Google Drive, Google Calendar, Slack
+- **CRM:** Salesforce, HubSpot
+- **Payments:** Stripe, Mollie
+- **Cloud:** Google Cloud Platform, AWS
+- **Automation:** n8n, Zapier, Make
+
+## Use Cases
+
+### Community Management
+Automate member onboarding, event RSVPs, FAQ responses, and community updates through WhatsApp.
+
+### Co-living & Co-working
+Manage residents, handle maintenance requests, share house rules, coordinate events, and send reminders.
+
+### Associations & Non-profits
+Member registration, event coordination, document sharing, volunteer management, and donation tracking.
+
+### Sports Clubs & Federations
+Team management, match scheduling, training reminders, results sharing, and member communication.
+
+### Property Management
+Tenant communication, maintenance requests, building announcements, document distribution.
+
+### Business Networks
+Member directories, event management, knowledge sharing, networking facilitation.
+
+## Frequently Asked Questions
+
+### Do I need technical skills to use the bot?
+No. We build and configure the bot for you. You manage your community through a simple admin dashboard. No coding required.
+
+### Is this the official WhatsApp API?
+Yes. We use Meta's official WhatsApp Business API through Twilio. It's legal, stable, and your number won't get banned.
+
+### How long does setup take?
+Most bots go live in under 2 weeks. We handle the entire setup, from configuring the AI agent to deploying the dashboard.
+
+### Is my community's data secure?
+Absolutely. Your data lives in your own private database, not ours. It's encrypted in transit and at rest. We never share your data with third parties.
+
+### Can the bot work in WhatsApp groups?
+Yes. We offer an optional self-hosted connector that lets the bot respond in group chats when mentioned. The connector runs on your own server for full control.
+
+### What happens if the bot can't answer a question?
+The bot gracefully acknowledges its limitations and can escalate to a human admin. You can configure fallback behaviors from the dashboard.
+
+### Who owns my community's data?
+You do, 100%. All your data (members, messages, events) is stored in your own private database. You can export, back up, or move it at any time. We never lock you in.
+
+### Can I host everything on my own servers?
+Yes. If your organization requires on-premise hosting, we can deploy the entire solution on your infrastructure. Your data stays in your building, under your control.
+
+### Is the platform GDPR compliant?
+The tools and infrastructure we use are trusted by millions of companies worldwide and comply with European data protection regulations. Your data is encrypted in transit and at rest, and we never share it with third parties.
+
+## Technical Stack
+
+- **Frontend Dashboard:** SvelteKit 2, Svelte 5, Tailwind CSS, Bits UI
+- **Database:** Supabase (PostgreSQL)
+- **Authentication:** Supabase Auth (Email OTP)
+- **Bot Engine:** n8n workflow automation
+- **AI:** Claude Haiku (Anthropic) via API
+- **Messaging:** Twilio WhatsApp Business API
+- **Hosting:** Google Cloud Platform
+- **Landing Page:** Astro 5 (static, multilingual)
+
+## Languages
+
+The product website is available in: English, French, Dutch, Spanish, Italian, German.
+
+## Contact
+
+- Email: hello@codika.io
+- Demo: Book a call via the website (Calendly)
+- LinkedIn: https://www.linkedin.com/company/codika-io

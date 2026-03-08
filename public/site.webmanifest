@@ -1,0 +1,14 @@
+{
+  "name": "WhatsApp Bots by Codika",
+  "short_name": "WhatsBot",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "theme_color": "#075E54",
+  "background_color": "#F7F7F2",
+  "display": "browser"
+}

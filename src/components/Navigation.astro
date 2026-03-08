@@ -9,12 +9,12 @@ const currentFlag = getLanguageFlag(lang);
 
 <header class="nav-wrapper" id="main-nav">
 	<nav class="nav-container" aria-label="Main navigation">
-		<a href={getLocalePath(lang)} class="nav-logo" aria-label="WhatsApp Bots by Codika">
+		<a href={getLocalePath(lang)} class="nav-logo" aria-label="WhatsBot by Codika">
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
 				<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="currentColor"/>
 				<path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.11-1.14l-.29-.174-3.01.79.8-2.93-.19-.3A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z" fill="currentColor"/>
 			</svg>
-			<span>WhatsApp Bots</span>
+			<span>WhatsBot Ai</span>
 		</a>
 
 		<div class="nav-links">
@@ -38,7 +38,7 @@ const currentFlag = getLanguageFlag(lang);
 					))}
 				</div>
 			</div>
-			<a href="mailto:hello@codika.io" class="nav-cta">{t('nav.cta')}</a>
+			<button type="button" class="nav-cta" data-calendly>{t('nav.cta')}</button>
 		</div>
 
 		<button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -62,7 +62,7 @@ const currentFlag = getLanguageFlag(lang);
 				</a>
 			))}
 		</div>
-		<a href="mailto:hello@codika.io" class="nav-cta">{t('nav.cta')}</a>
+		<button type="button" class="nav-cta" data-calendly>{t('nav.cta')}</button>
 	</div>
 </header>
 
@@ -173,6 +173,12 @@ const currentFlag = getLanguageFlag(lang);
 			menu?.classList.remove('open');
 		});
 	});
+
+	// Calendly popup
+	import { openCalendly } from '../lib/calendly';
+	document.querySelectorAll<HTMLElement>('[data-calendly]').forEach((btn) => {
+		btn.addEventListener('click', () => openCalendly());
+	});
 </script>
 
 <style>
@@ -205,6 +211,11 @@ const currentFlag = getLanguageFlag(lang);
 
 	.nav-wrapper.dark-bg .nav-links a:hover {
 		color: var(--color-text-on-dark);
+		background-color: rgba(255, 255, 255, 0.08);
+	}
+
+	.nav-wrapper.dark-bg .nav-links a:active {
+		background-color: rgba(255, 255, 255, 0.12);
 	}
 
 	.nav-wrapper.dark-bg .lang-btn {
@@ -245,11 +256,18 @@ const currentFlag = getLanguageFlag(lang);
 		font-size: var(--font-size-sm);
 		font-weight: 500;
 		color: var(--color-text-secondary);
-		transition: color 0.3s ease;
+		padding: 8px 16px;
+		border-radius: var(--radius-full);
+		transition: color 0.25s ease, background-color 0.25s ease;
 	}
 
 	.nav-links a:hover {
-		color: var(--color-text-primary);
+		color: var(--color-primary);
+		background-color: rgba(7, 94, 84, 0.06);
+	}
+
+	.nav-links a:active {
+		background-color: rgba(7, 94, 84, 0.1);
 	}
 
 	.nav-actions {
@@ -334,18 +352,25 @@ const currentFlag = getLanguageFlag(lang);
 	}
 
 	.nav-cta {
-		padding: 10px 20px;
-		background-color: var(--color-primary);
+		padding: 10px 22px;
+		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
 		color: var(--color-text-on-dark) !important;
 		border-radius: var(--radius-full);
 		font-size: var(--font-size-sm);
 		font-weight: 600;
-		transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+		box-shadow: 0 2px 8px rgba(7, 94, 84, 0.25);
+		transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
 	}
 
 	.nav-cta:hover {
-		background-color: var(--color-primary-light);
 		transform: translateY(-1px);
+		box-shadow: 0 4px 16px rgba(7, 94, 84, 0.35);
+		filter: brightness(1.08);
+	}
+
+	.nav-cta:active {
+		transform: translateY(0);
+		box-shadow: 0 2px 6px rgba(7, 94, 84, 0.2);
 	}
 
 	.mobile-toggle {
@@ -378,12 +403,14 @@ const currentFlag = getLanguageFlag(lang);
 		font-size: var(--font-size-base);
 		font-weight: 500;
 		color: var(--color-text-secondary);
-		padding: var(--space-xs) 0;
-		transition: color 0.3s ease;
+		padding: 10px 16px;
+		border-radius: var(--radius-md);
+		transition: color 0.25s ease, background-color 0.25s ease;
 	}
 
 	.mobile-menu a:hover {
-		color: var(--color-text-primary);
+		color: var(--color-primary);
+		background-color: rgba(7, 94, 84, 0.06);
 	}
 
 	.mobile-menu .nav-cta {

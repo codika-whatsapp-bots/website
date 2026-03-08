@@ -1,0 +1,231 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import { getLangFromLocale, useTranslations, getLocalePath } from '../../i18n/utils';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+---
+
+<Layout title={t('apply.title')}>
+	<Navigation />
+	<main class="apply-page">
+		<div class="container reveal">
+			<a href={getLocalePath(lang)} class="back-link">
+				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+					<path d="M12.667 8H3.333M7.333 4l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+				{t('apply.back')}
+			</a>
+
+			<div class="form-card">
+				<div class="social-icon-aurora">
+					<div class="aurora-bg-warm"></div>
+					<div class="aurora-glass"></div>
+					<div class="aurora-icon-warm">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+							<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+						</svg>
+					</div>
+				</div>
+
+				<h1>{t('apply.title')}</h1>
+				<p class="subtitle">{t('apply.subtitle')}</p>
+
+				<form id="apply-form">
+					<div class="form-group">
+						<label for="org">{t('apply.org')}</label>
+						<input type="text" id="org" name="org" required />
+					</div>
+					<div class="form-group">
+						<label for="email">{t('apply.email')}</label>
+						<input type="email" id="email" name="email" required />
+					</div>
+					<div class="form-group">
+						<label for="description">{t('apply.description')}</label>
+						<textarea id="description" name="description" rows="5" required></textarea>
+					</div>
+					<button type="submit" class="submit-btn">{t('apply.submit')}</button>
+				</form>
+			</div>
+		</div>
+	</main>
+	<Footer />
+</Layout>
+
+<script>
+	document.getElementById('apply-form')?.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const form = e.target as HTMLFormElement;
+		const org = (form.querySelector('#org') as HTMLInputElement).value;
+		const email = (form.querySelector('#email') as HTMLInputElement).value;
+		const description = (form.querySelector('#description') as HTMLTextAreaElement).value;
+
+		const subject = encodeURIComponent(`Social Impact Application - ${org}`);
+		const body = encodeURIComponent(`Organization: ${org}\nEmail: ${email}\n\nProject Description:\n${description}`);
+
+		window.location.href = `mailto:hello@codika.io?subject=${subject}&body=${body}`;
+	});
+</script>
+
+<style>
+	.apply-page {
+		padding: calc(var(--space-3xl) + 60px) var(--space-md) var(--space-2xl);
+		min-height: 100vh;
+		background-color: var(--color-bg);
+	}
+
+	.container {
+		max-width: 640px;
+		margin: 0 auto;
+	}
+
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-lg);
+		transition: color var(--transition-fast);
+	}
+
+	.back-link:hover {
+		color: var(--color-primary);
+	}
+
+	.form-card {
+		padding: var(--space-xl);
+		border-radius: var(--radius-lg);
+		background: var(--color-bg-alt);
+		border: 1px solid var(--color-border);
+	}
+
+	.social-icon-aurora {
+		position: relative;
+		width: 48px;
+		height: 48px;
+		border-radius: 12px;
+		margin-bottom: var(--space-md);
+	}
+
+	.aurora-bg-warm {
+		position: absolute;
+		inset: 0;
+		border-radius: 12px;
+		background:
+			radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.22) 0%, transparent 55%),
+			radial-gradient(circle at 80% 20%, rgba(217, 119, 6, 0.18) 0%, transparent 55%);
+		filter: contrast(1.2) brightness(1.1);
+	}
+
+	.aurora-glass {
+		position: absolute;
+		inset: 0;
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 0.45);
+		backdrop-filter: blur(6px);
+		-webkit-backdrop-filter: blur(6px);
+		border: 1px solid rgba(255, 255, 255, 0.5);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+	}
+
+	.aurora-icon-warm {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 1;
+		color: #D97706;
+	}
+
+	h1 {
+		font-size: var(--font-size-2xl);
+		margin-bottom: var(--space-xs);
+	}
+
+	.subtitle {
+		font-size: var(--font-size-base);
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-relaxed);
+		margin-bottom: var(--space-lg);
+	}
+
+	.form-group {
+		margin-bottom: var(--space-md);
+	}
+
+	label {
+		display: block;
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		color: var(--color-text-primary);
+		margin-bottom: 6px;
+	}
+
+	input,
+	textarea {
+		width: 100%;
+		padding: 12px 16px;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
+		color: var(--color-text-primary);
+		background: var(--color-bg);
+		transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+		box-sizing: border-box;
+	}
+
+	input:focus,
+	textarea:focus {
+		outline: none;
+		border-color: var(--color-primary);
+		box-shadow: 0 0 0 3px rgba(7, 94, 84, 0.1);
+	}
+
+	textarea {
+		resize: vertical;
+		min-height: 120px;
+	}
+
+	.submit-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		padding: 14px 28px;
+		background-color: var(--color-primary);
+		color: var(--color-text-on-dark);
+		border: none;
+		border-radius: var(--radius-full);
+		font-family: var(--font-body);
+		font-size: var(--font-size-base);
+		font-weight: 600;
+		cursor: pointer;
+		transition: background-color var(--transition-normal), transform var(--transition-normal), box-shadow var(--transition-normal);
+	}
+
+	.submit-btn:hover {
+		background-color: var(--color-primary-light);
+		transform: translateY(-1px);
+		box-shadow: 0 4px 16px rgba(7, 94, 84, 0.2);
+	}
+
+	.submit-btn:active {
+		transform: translateY(0);
+	}
+
+	@media (max-width: 768px) {
+		.form-card {
+			padding: var(--space-lg);
+		}
+
+		h1 {
+			font-size: var(--font-size-xl);
+		}
+	}
+</style>

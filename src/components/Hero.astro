@@ -1,0 +1,224 @@
+---
+import { getLangFromLocale, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+---
+
+<section class="hero">
+	<div class="hero-content">
+		<h1>
+			<span>{t('hero.title.line1')}</span>
+			<span>{t('hero.title.line2')}</span>
+		</h1>
+		<p class="hero-subtitle">{t('hero.subtitle')}</p>
+		<div class="hero-ctas">
+			<a href="mailto:hello@codika.io" class="cta-primary">
+				{t('hero.cta')}
+				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+					<path d="M3.333 8h9.334M8.667 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</a>
+			<a href="#how-it-works" class="cta-secondary">{t('hero.cta.secondary')}</a>
+		</div>
+	</div>
+
+	<div class="hero-visual">
+		<div class="chat-mockup">
+			<div class="chat-header">
+				<div class="chat-avatar">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+						<path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" fill="#25D366"/>
+						<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="white"/>
+					</svg>
+				</div>
+				<div class="chat-header-info">
+					<span class="chat-name">Community Bot</span>
+					<span class="chat-status">online</span>
+				</div>
+			</div>
+			<div class="chat-body">
+				<div class="chat-bubble user">{t('hero.chat.user1')}</div>
+				<div class="chat-bubble bot">{t('hero.chat.bot1')}</div>
+				<div class="chat-bubble user">{t('hero.chat.user2')}</div>
+				<div class="chat-bubble bot">{t('hero.chat.bot2')}</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		padding: 140px var(--space-md) var(--space-xl);
+		max-width: 1200px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-xl);
+		align-items: center;
+	}
+
+	.hero-content {
+		max-width: 560px;
+	}
+
+	h1 {
+		font-size: clamp(2.75rem, 5.5vw, 4.25rem);
+		line-height: var(--line-height-tight);
+		letter-spacing: var(--letter-spacing-tight);
+		margin-bottom: var(--space-md);
+	}
+
+	h1 span {
+		display: block;
+	}
+
+	.hero-subtitle {
+		font-size: var(--font-size-lg);
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-relaxed);
+		margin-bottom: var(--space-lg);
+		max-width: 480px;
+	}
+
+	.hero-ctas {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+	}
+
+	.cta-primary {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 14px 28px;
+		background-color: var(--color-primary);
+		color: var(--color-text-on-dark);
+		border-radius: var(--radius-full);
+		font-size: var(--font-size-base);
+		font-weight: 600;
+		transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+	}
+
+	.cta-primary:hover {
+		background-color: var(--color-primary-light);
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-lg);
+	}
+
+	.cta-primary:active {
+		transform: translateY(0);
+	}
+
+	.cta-secondary {
+		padding: 14px 24px;
+		font-size: var(--font-size-base);
+		font-weight: 500;
+		color: var(--color-text-secondary);
+		transition: color var(--transition-fast);
+	}
+
+	.cta-secondary:hover {
+		color: var(--color-text-primary);
+	}
+
+	/* Chat mockup */
+	.chat-mockup {
+		background: var(--color-bg-alt);
+		border-radius: var(--radius-xl);
+		box-shadow: var(--shadow-xl);
+		overflow: hidden;
+		max-width: 420px;
+		margin-left: auto;
+	}
+
+	.chat-header {
+		background: var(--color-primary);
+		padding: var(--space-sm) var(--space-md);
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+	}
+
+	.chat-avatar {
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.15);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.chat-header-info {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.chat-name {
+		color: var(--color-text-on-dark);
+		font-weight: 600;
+		font-size: var(--font-size-sm);
+	}
+
+	.chat-status {
+		color: var(--color-text-on-dark-muted);
+		font-size: var(--font-size-xs);
+	}
+
+	.chat-body {
+		padding: var(--space-md);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+		background: #ECE5DD;
+	}
+
+	.chat-bubble {
+		padding: 10px 14px;
+		border-radius: var(--radius-sm);
+		font-size: var(--font-size-sm);
+		line-height: var(--line-height-normal);
+		max-width: 85%;
+		color: var(--color-text-primary);
+	}
+
+	.chat-bubble.user {
+		background: var(--color-bg-alt);
+		align-self: flex-end;
+		border-bottom-right-radius: 4px;
+	}
+
+	.chat-bubble.bot {
+		background: #DCF8C6;
+		align-self: flex-start;
+		border-bottom-left-radius: 4px;
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			grid-template-columns: 1fr;
+			padding: 120px var(--space-md) var(--space-lg);
+			gap: var(--space-lg);
+		}
+
+		.hero-content {
+			text-align: center;
+			max-width: 100%;
+		}
+
+		.hero-subtitle {
+			max-width: 100%;
+		}
+
+		.hero-ctas {
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+
+		.chat-mockup {
+			margin: 0 auto;
+			max-width: 360px;
+		}
+	}
+</style>

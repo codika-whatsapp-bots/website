@@ -1,0 +1,74 @@
+---
+import { getLangFromLocale, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const stats = [
+	{ number: t('socialProof.stat1.number'), label: t('socialProof.stat1.label') },
+	{ number: t('socialProof.stat2.number'), label: t('socialProof.stat2.label') },
+	{ number: t('socialProof.stat3.number'), label: t('socialProof.stat3.label') },
+];
+---
+
+<section class="social-proof">
+	<div class="stats-container">
+		{stats.map(stat => (
+			<div class="stat">
+				<span class="stat-number">{stat.number}</span>
+				<span class="stat-label">{stat.label}</span>
+			</div>
+		))}
+	</div>
+</section>
+
+<style>
+	.social-proof {
+		padding: var(--space-lg) var(--space-md);
+		border-top: 1px solid var(--color-border);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.stats-container {
+		max-width: 800px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: center;
+		gap: var(--space-xl);
+	}
+
+	.stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 4px;
+	}
+
+	.stat-number {
+		font-family: var(--font-display);
+		font-size: var(--font-size-3xl);
+		color: var(--color-primary);
+		line-height: var(--line-height-tight);
+	}
+
+	.stat-label {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-tertiary);
+		font-weight: 500;
+	}
+
+	@media (max-width: 768px) {
+		.stats-container {
+			gap: var(--space-lg);
+		}
+
+		.stat-number {
+			font-size: var(--font-size-2xl);
+		}
+
+		.stat-label {
+			font-size: var(--font-size-xs);
+			text-align: center;
+		}
+	}
+</style>

@@ -1,0 +1,131 @@
+---
+import { getLangFromLocale, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+---
+
+<footer class="footer">
+	<div class="container">
+		<div class="footer-brand">
+			<div class="footer-logo">
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" fill="rgba(255,255,255,0.9)"/>
+					<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#075E54"/>
+				</svg>
+				<span>WhatsApp Bots</span>
+			</div>
+			<p class="footer-tagline">{t('footer.tagline')}</p>
+		</div>
+
+		<div class="footer-nav">
+			<div class="footer-column">
+				<h4>{t('footer.product')}</h4>
+				<a href="#features">{t('footer.product.features')}</a>
+				<a href="#how-it-works">{t('footer.product.howItWorks')}</a>
+				<a href="#use-cases">{t('footer.product.useCases')}</a>
+			</div>
+			<div class="footer-column">
+				<h4>{t('footer.company')}</h4>
+				<a href="mailto:hello@codika.io">{t('footer.company.contact')}</a>
+				<a href="https://codika.io" target="_blank" rel="noopener noreferrer">{t('footer.company.codika')}</a>
+			</div>
+			<div class="footer-column">
+				<h4>{t('footer.legal')}</h4>
+				<a href="#">{t('footer.legal.privacy')}</a>
+				<a href="#">{t('footer.legal.terms')}</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer-bottom">
+		<p>&copy; {t('footer.copyright')}</p>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		background-color: var(--color-bg-dark-elevated);
+		padding: var(--space-xl) var(--space-md) 0;
+	}
+
+	.container {
+		max-width: 1100px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1.5fr 2fr;
+		gap: var(--space-xl);
+	}
+
+	.footer-logo {
+		display: flex;
+		align-items: center;
+		gap: var(--space-xs);
+		color: var(--color-text-on-dark);
+		font-weight: 600;
+		font-size: var(--font-size-md);
+		margin-bottom: var(--space-sm);
+	}
+
+	.footer-tagline {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-on-dark-muted);
+		line-height: var(--line-height-relaxed);
+	}
+
+	.footer-nav {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-lg);
+	}
+
+	.footer-column {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+	}
+
+	h4 {
+		font-family: var(--font-body);
+		font-weight: 600;
+		font-size: var(--font-size-xs);
+		letter-spacing: var(--letter-spacing-wide);
+		text-transform: uppercase;
+		color: var(--color-text-on-dark-muted);
+		margin-bottom: 4px;
+	}
+
+	.footer-column a {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-on-dark-secondary);
+		transition: color var(--transition-fast);
+	}
+
+	.footer-column a:hover {
+		color: var(--color-text-on-dark);
+	}
+
+	.footer-bottom {
+		max-width: 1100px;
+		margin: var(--space-lg) auto 0;
+		padding: var(--space-md) 0;
+		border-top: 1px solid var(--color-border-dark);
+	}
+
+	.footer-bottom p {
+		font-size: var(--font-size-xs);
+		color: var(--color-text-on-dark-muted);
+		text-align: center;
+	}
+
+	@media (max-width: 768px) {
+		.container {
+			grid-template-columns: 1fr;
+			gap: var(--space-lg);
+		}
+
+		.footer-nav {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+</style>

@@ -1,0 +1,106 @@
+---
+import { getLangFromLocale, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const steps = [
+	{
+		number: t('howItWorks.1.number'),
+		title: t('howItWorks.1.title'),
+		description: t('howItWorks.1.description'),
+	},
+	{
+		number: t('howItWorks.2.number'),
+		title: t('howItWorks.2.title'),
+		description: t('howItWorks.2.description'),
+	},
+	{
+		number: t('howItWorks.3.number'),
+		title: t('howItWorks.3.title'),
+		description: t('howItWorks.3.description'),
+	},
+];
+---
+
+<section class="how-it-works" id="how-it-works">
+	<div class="container">
+		<p class="eyebrow">{t('howItWorks.eyebrow')}</p>
+		<h2>{t('howItWorks.title')}</h2>
+		<div class="steps">
+			{steps.map(step => (
+				<div class="step">
+					<span class="step-number">{step.number}</span>
+					<h3>{step.title}</h3>
+					<p>{step.description}</p>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.how-it-works {
+		padding: var(--space-2xl) var(--space-md);
+		background-color: var(--color-bg-alt);
+	}
+
+	.container {
+		max-width: 1000px;
+		margin: 0 auto;
+	}
+
+	.eyebrow {
+		margin-bottom: var(--space-sm);
+	}
+
+	h2 {
+		font-size: var(--font-size-3xl);
+		margin-bottom: var(--space-xl);
+		max-width: 600px;
+	}
+
+	.steps {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-lg);
+	}
+
+	.step {
+		padding-top: var(--space-md);
+		border-top: 1px solid var(--color-border-strong);
+	}
+
+	.step-number {
+		font-family: var(--font-display);
+		font-size: var(--font-size-3xl);
+		color: var(--color-text-muted);
+		display: block;
+		margin-bottom: var(--space-sm);
+	}
+
+	h3 {
+		font-family: var(--font-body);
+		font-weight: 600;
+		font-size: var(--font-size-md);
+		margin-bottom: var(--space-xs);
+		line-height: var(--line-height-snug);
+	}
+
+	p {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-relaxed);
+	}
+
+	@media (max-width: 768px) {
+		.steps {
+			grid-template-columns: 1fr;
+			gap: var(--space-md);
+		}
+
+		h2 {
+			font-size: var(--font-size-2xl);
+		}
+	}
+</style>

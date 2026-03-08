@@ -1,0 +1,134 @@
+---
+import { getLangFromLocale, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const useCases = [
+	{
+		emoji: '🏛️',
+		title: t('useCases.1.title'),
+		bullets: [t('useCases.1.bullet1'), t('useCases.1.bullet2'), t('useCases.1.bullet3')],
+	},
+	{
+		emoji: '🏢',
+		title: t('useCases.2.title'),
+		bullets: [t('useCases.2.bullet1'), t('useCases.2.bullet2'), t('useCases.2.bullet3')],
+	},
+	{
+		emoji: '🎓',
+		title: t('useCases.3.title'),
+		bullets: [t('useCases.3.bullet1'), t('useCases.3.bullet2'), t('useCases.3.bullet3')],
+	},
+];
+---
+
+<section class="use-cases" id="use-cases">
+	<div class="container">
+		<p class="eyebrow">{t('useCases.eyebrow')}</p>
+		<h2>{t('useCases.title')}</h2>
+		<div class="cases-grid">
+			{useCases.map(uc => (
+				<div class="case-card">
+					<span class="case-emoji">{uc.emoji}</span>
+					<h3>{uc.title}</h3>
+					<ul>
+						{uc.bullets.map(bullet => (
+							<li>
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+									<path d="M13.333 4L6 11.333 2.667 8" stroke="#25D366" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+								{bullet}
+							</li>
+						))}
+					</ul>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.use-cases {
+		padding: var(--space-2xl) var(--space-md);
+	}
+
+	.container {
+		max-width: 1100px;
+		margin: 0 auto;
+	}
+
+	.eyebrow {
+		margin-bottom: var(--space-sm);
+	}
+
+	h2 {
+		font-size: var(--font-size-3xl);
+		margin-bottom: var(--space-xl);
+	}
+
+	.cases-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-md);
+	}
+
+	.case-card {
+		background: var(--color-bg-alt);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: var(--space-md) var(--space-md) var(--space-lg);
+		transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+	}
+
+	.case-card:hover {
+		box-shadow: var(--shadow-md);
+		transform: translateY(-2px);
+	}
+
+	.case-emoji {
+		font-size: var(--font-size-2xl);
+		display: block;
+		margin-bottom: var(--space-sm);
+	}
+
+	h3 {
+		font-family: var(--font-body);
+		font-weight: 600;
+		font-size: var(--font-size-lg);
+		margin-bottom: var(--space-sm);
+		line-height: var(--line-height-snug);
+	}
+
+	ul {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+	}
+
+	li {
+		display: flex;
+		align-items: flex-start;
+		gap: 8px;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-normal);
+	}
+
+	li svg {
+		flex-shrink: 0;
+		margin-top: 3px;
+	}
+
+	@media (max-width: 768px) {
+		.cases-grid {
+			grid-template-columns: 1fr;
+			gap: var(--space-sm);
+		}
+
+		h2 {
+			font-size: var(--font-size-2xl);
+		}
+	}
+</style>

@@ -1,0 +1,217 @@
+---
+import { getLangFromLocale, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const bullets = [
+	t('dashboard.bullet1'),
+	t('dashboard.bullet2'),
+	t('dashboard.bullet3'),
+	t('dashboard.bullet4'),
+	t('dashboard.bullet5'),
+];
+---
+
+<section class="dashboard">
+	<div class="container">
+		<div class="dashboard-text">
+			<p class="eyebrow">{t('dashboard.eyebrow')}</p>
+			<h2>{t('dashboard.title')}</h2>
+			<p class="dashboard-description">{t('dashboard.description')}</p>
+			<ul>
+				{bullets.map(bullet => (
+					<li>
+						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+							<circle cx="10" cy="10" r="10" fill="rgba(7, 94, 84, 0.08)"/>
+							<path d="M14 7.5L8.5 13 6 10.5" stroke="#075E54" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+						{bullet}
+					</li>
+				))}
+			</ul>
+		</div>
+		<div class="dashboard-visual">
+			<div class="dashboard-placeholder">
+				<div class="placeholder-header">
+					<div class="placeholder-dot"></div>
+					<div class="placeholder-dot"></div>
+					<div class="placeholder-dot"></div>
+				</div>
+				<div class="placeholder-sidebar">
+					<div class="placeholder-nav-item active"></div>
+					<div class="placeholder-nav-item"></div>
+					<div class="placeholder-nav-item"></div>
+					<div class="placeholder-nav-item"></div>
+					<div class="placeholder-nav-item"></div>
+				</div>
+				<div class="placeholder-content">
+					<div class="placeholder-stat-row">
+						<div class="placeholder-stat"></div>
+						<div class="placeholder-stat"></div>
+						<div class="placeholder-stat"></div>
+						<div class="placeholder-stat"></div>
+					</div>
+					<div class="placeholder-table">
+						<div class="placeholder-row header"></div>
+						<div class="placeholder-row"></div>
+						<div class="placeholder-row"></div>
+						<div class="placeholder-row"></div>
+						<div class="placeholder-row"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.dashboard {
+		padding: var(--space-2xl) var(--space-md);
+		background-color: var(--color-bg-alt);
+	}
+
+	.container {
+		max-width: 1100px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr 1.2fr;
+		gap: var(--space-xl);
+		align-items: center;
+	}
+
+	.eyebrow {
+		margin-bottom: var(--space-sm);
+	}
+
+	h2 {
+		font-size: var(--font-size-3xl);
+		margin-bottom: var(--space-sm);
+	}
+
+	.dashboard-description {
+		font-size: var(--font-size-base);
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-md);
+		line-height: var(--line-height-relaxed);
+	}
+
+	ul {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	li {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		line-height: var(--line-height-normal);
+	}
+
+	li svg {
+		flex-shrink: 0;
+	}
+
+	/* Dashboard wireframe placeholder */
+	.dashboard-placeholder {
+		background: var(--color-bg);
+		border-radius: var(--radius-xl);
+		box-shadow: var(--shadow-xl);
+		overflow: hidden;
+		aspect-ratio: 16 / 11;
+		display: grid;
+		grid-template-columns: 60px 1fr;
+		grid-template-rows: 32px 1fr;
+	}
+
+	.placeholder-header {
+		grid-column: 1 / -1;
+		background: var(--color-bg-subtle);
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		padding: 0 12px;
+	}
+
+	.placeholder-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: rgba(17, 17, 19, 0.12);
+	}
+
+	.placeholder-sidebar {
+		background: rgba(7, 94, 84, 0.06);
+		padding: 12px 8px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.placeholder-nav-item {
+		height: 8px;
+		border-radius: 4px;
+		background: rgba(7, 94, 84, 0.12);
+	}
+
+	.placeholder-nav-item.active {
+		background: rgba(7, 94, 84, 0.3);
+	}
+
+	.placeholder-content {
+		padding: 16px;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.placeholder-stat-row {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 8px;
+	}
+
+	.placeholder-stat {
+		height: 40px;
+		border-radius: var(--radius-sm);
+		background: rgba(7, 94, 84, 0.06);
+	}
+
+	.placeholder-table {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.placeholder-row {
+		height: 20px;
+		border-radius: 4px;
+		background: rgba(17, 17, 19, 0.04);
+	}
+
+	.placeholder-row.header {
+		background: rgba(17, 17, 19, 0.08);
+		height: 24px;
+	}
+
+	@media (max-width: 768px) {
+		.container {
+			grid-template-columns: 1fr;
+			gap: var(--space-lg);
+		}
+
+		h2 {
+			font-size: var(--font-size-2xl);
+		}
+
+		.dashboard-placeholder {
+			max-width: 400px;
+			margin: 0 auto;
+		}
+	}
+</style>

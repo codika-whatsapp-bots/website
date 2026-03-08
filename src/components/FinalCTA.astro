@@ -1,0 +1,81 @@
+---
+import { getLangFromLocale, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+---
+
+<section class="final-cta" aria-labelledby="final-cta-title">
+	<div class="container">
+		<h2 id="final-cta-title">{t('finalCta.title')}</h2>
+		<p>{t('finalCta.subtitle')}</p>
+		<a href="mailto:hello@codika.io" class="cta-button">
+			{t('finalCta.cta')}
+			<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+				<path d="M3.333 8h9.334M8.667 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+		</a>
+	</div>
+</section>
+
+<style>
+	.final-cta {
+		padding: var(--space-3xl) var(--space-md);
+		background-color: var(--color-bg-dark);
+	}
+
+	.container {
+		max-width: 640px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	h2 {
+		font-size: var(--font-size-4xl);
+		color: var(--color-text-on-dark);
+		margin-bottom: var(--space-sm);
+	}
+
+	p {
+		font-size: var(--font-size-lg);
+		color: var(--color-text-on-dark-secondary);
+		line-height: var(--line-height-relaxed);
+		margin-bottom: var(--space-lg);
+	}
+
+	.cta-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 16px 32px;
+		background-color: var(--color-bg-alt);
+		color: var(--color-primary);
+		border-radius: var(--radius-full);
+		font-size: var(--font-size-base);
+		font-weight: 600;
+		transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+	}
+
+	.cta-button:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-lg);
+	}
+
+	.cta-button:active {
+		transform: translateY(0);
+	}
+
+	@media (max-width: 768px) {
+		.final-cta {
+			padding: var(--space-2xl) var(--space-md);
+		}
+
+		h2 {
+			font-size: var(--font-size-3xl);
+		}
+
+		p {
+			font-size: var(--font-size-base);
+		}
+	}
+</style>

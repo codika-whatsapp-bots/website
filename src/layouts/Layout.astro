@@ -1,12 +1,31 @@
+---
+import { getLangFromLocale, useTranslations, getLocalePath, getAlternateLang } from '../i18n/utils';
+import { languages } from '../i18n/ui';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+const altLang = getAlternateLang(lang);
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title = t('site.title'), description = t('site.description') } = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
+		<link rel="alternate" hreflang={lang} href={Astro.url.href} />
+		<link rel="alternate" hreflang={altLang} href={new URL(getLocalePath(altLang), Astro.site ?? Astro.url.origin).href} />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
 	</head>
 	<body>
 		<slot />

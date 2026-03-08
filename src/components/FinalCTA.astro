@@ -6,7 +6,11 @@ const t = useTranslations(lang);
 ---
 
 <section class="final-cta" aria-labelledby="final-cta-title">
-	<div class="container">
+	<!-- Decorative gradient orbs -->
+	<div class="cta-orb orb-1" aria-hidden="true"></div>
+	<div class="cta-orb orb-2" aria-hidden="true"></div>
+
+	<div class="container reveal">
 		<h2 id="final-cta-title">{t('finalCta.title')}</h2>
 		<p>{t('finalCta.subtitle')}</p>
 		<a href="mailto:hello@codika.io" class="cta-button">
@@ -16,18 +20,59 @@ const t = useTranslations(lang);
 			</svg>
 		</a>
 	</div>
+
+	<!-- Floating mini chat bubble -->
+	<div class="floating-chat" aria-hidden="true">
+		<div class="mini-bubble">
+			<svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+				<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none"/>
+			</svg>
+		</div>
+	</div>
 </section>
 
 <style>
 	.final-cta {
 		padding: var(--space-3xl) var(--space-md);
-		background-color: var(--color-bg-dark);
+		background: linear-gradient(
+			160deg,
+			#064E46 0%,
+			var(--color-bg-dark) 40%,
+			#053D36 100%
+		);
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* Decorative gradient orbs */
+	.cta-orb {
+		position: absolute;
+		border-radius: 50%;
+		pointer-events: none;
+	}
+
+	.orb-1 {
+		width: 300px;
+		height: 300px;
+		background: radial-gradient(circle, rgba(37, 211, 102, 0.1) 0%, transparent 70%);
+		top: -100px;
+		right: -50px;
+	}
+
+	.orb-2 {
+		width: 200px;
+		height: 200px;
+		background: radial-gradient(circle, rgba(18, 140, 126, 0.12) 0%, transparent 70%);
+		bottom: -60px;
+		left: -40px;
 	}
 
 	.container {
 		max-width: 640px;
 		margin: 0 auto;
 		text-align: center;
+		position: relative;
+		z-index: 1;
 	}
 
 	h2 {
@@ -58,11 +103,36 @@ const t = useTranslations(lang);
 
 	.cta-button:hover {
 		transform: translateY(-2px);
-		box-shadow: var(--shadow-lg);
+		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 	}
 
 	.cta-button:active {
 		transform: translateY(0);
+	}
+
+	/* Floating chat illustration */
+	.floating-chat {
+		position: absolute;
+		bottom: 15%;
+		right: 12%;
+		z-index: 0;
+		animation: float-slow 6s ease-in-out infinite;
+	}
+
+	.mini-bubble {
+		width: 40px;
+		height: 40px;
+		border-radius: var(--radius-md);
+		background: rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	@keyframes float-slow {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-10px); }
 	}
 
 	@media (max-width: 768px) {
@@ -76,6 +146,16 @@ const t = useTranslations(lang);
 
 		p {
 			font-size: var(--font-size-base);
+		}
+
+		.floating-chat {
+			display: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.floating-chat {
+			animation: none;
 		}
 	}
 </style>

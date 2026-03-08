@@ -6,7 +6,7 @@ const t = useTranslations(lang);
 ---
 
 <section class="hero">
-	<div class="hero-content">
+	<div class="hero-content reveal">
 		<h1>
 			<span>{t('hero.title.line1')}</span>
 			<span>{t('hero.title.line2')}</span>
@@ -23,7 +23,8 @@ const t = useTranslations(lang);
 		</div>
 	</div>
 
-	<div class="hero-visual">
+	<div class="hero-visual reveal reveal-delay-2">
+		<div class="chat-glow"></div>
 		<div class="chat-mockup">
 			<div class="chat-header">
 				<div class="chat-avatar">
@@ -34,17 +35,25 @@ const t = useTranslations(lang);
 				</div>
 				<div class="chat-header-info">
 					<span class="chat-name">Community Bot</span>
-					<span class="chat-status">online</span>
+					<span class="chat-status">
+						<span class="status-dot"></span>
+						online
+					</span>
 				</div>
 			</div>
 			<div class="chat-body">
-				<div class="chat-bubble user">{t('hero.chat.user1')}</div>
-				<div class="chat-bubble bot">{t('hero.chat.bot1')}</div>
-				<div class="chat-bubble user">{t('hero.chat.user2')}</div>
-				<div class="chat-bubble bot">{t('hero.chat.bot2')}</div>
+				<div class="chat-bubble user bubble-anim bubble-1">{t('hero.chat.user1')}</div>
+				<div class="chat-bubble bot bubble-anim bubble-2">{t('hero.chat.bot1')}</div>
+				<div class="chat-bubble user bubble-anim bubble-3">{t('hero.chat.user2')}</div>
+				<div class="chat-bubble bot bubble-anim bubble-4">{t('hero.chat.bot2')}</div>
 			</div>
 		</div>
 	</div>
+
+	<!-- Decorative floating elements -->
+	<div class="hero-decoration deco-1" aria-hidden="true"></div>
+	<div class="hero-decoration deco-2" aria-hidden="true"></div>
+	<div class="hero-decoration deco-3" aria-hidden="true"></div>
 </section>
 
 <style>
@@ -56,6 +65,8 @@ const t = useTranslations(lang);
 		grid-template-columns: 1fr 1fr;
 		gap: var(--space-xl);
 		align-items: center;
+		position: relative;
+		overflow: visible;
 	}
 
 	.hero-content {
@@ -71,6 +82,10 @@ const t = useTranslations(lang);
 
 	h1 span {
 		display: block;
+	}
+
+	h1 span:last-child {
+		color: var(--color-primary);
 	}
 
 	.hero-subtitle {
@@ -103,7 +118,7 @@ const t = useTranslations(lang);
 	.cta-primary:hover {
 		background-color: var(--color-primary-light);
 		transform: translateY(-2px);
-		box-shadow: var(--shadow-lg);
+		box-shadow: 0 8px 30px rgba(7, 94, 84, 0.25);
 	}
 
 	.cta-primary:active {
@@ -122,18 +137,46 @@ const t = useTranslations(lang);
 		color: var(--color-text-primary);
 	}
 
+	/* Chat visual container */
+	.hero-visual {
+		position: relative;
+	}
+
+	/* Gradient glow behind chat */
+	.chat-glow {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 110%;
+		height: 110%;
+		background: radial-gradient(
+			ellipse at center,
+			rgba(37, 211, 102, 0.12) 0%,
+			rgba(7, 94, 84, 0.06) 40%,
+			transparent 70%
+		);
+		border-radius: 50%;
+		pointer-events: none;
+		z-index: 0;
+	}
+
 	/* Chat mockup */
 	.chat-mockup {
 		background: var(--color-bg-alt);
 		border-radius: var(--radius-xl);
-		box-shadow: var(--shadow-xl);
+		box-shadow:
+			0 20px 60px rgba(0, 0, 0, 0.1),
+			0 0 0 1px rgba(0, 0, 0, 0.03);
 		overflow: hidden;
 		max-width: 420px;
 		margin-left: auto;
+		position: relative;
+		z-index: 1;
 	}
 
 	.chat-header {
-		background: var(--color-primary);
+		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
 		padding: var(--space-sm) var(--space-md);
 		display: flex;
 		align-items: center;
@@ -164,6 +207,23 @@ const t = useTranslations(lang);
 	.chat-status {
 		color: var(--color-text-on-dark-muted);
 		font-size: var(--font-size-xs);
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+
+	.status-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: var(--color-primary-accent);
+		display: inline-block;
+		animation: pulse-dot 2s ease-in-out infinite;
+	}
+
+	@keyframes pulse-dot {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.4; }
 	}
 
 	.chat-body {
@@ -195,6 +255,68 @@ const t = useTranslations(lang);
 		border-bottom-left-radius: 4px;
 	}
 
+	/* Staggered chat bubble entrance animation */
+	.bubble-anim {
+		opacity: 0;
+		transform: translateY(10px);
+		animation: bubble-in 0.4s ease-out forwards;
+	}
+
+	.bubble-1 { animation-delay: 0.6s; }
+	.bubble-2 { animation-delay: 1.2s; }
+	.bubble-3 { animation-delay: 2.0s; }
+	.bubble-4 { animation-delay: 2.6s; }
+
+	@keyframes bubble-in {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Decorative floating elements */
+	.hero-decoration {
+		position: absolute;
+		border-radius: 50%;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.deco-1 {
+		width: 8px;
+		height: 8px;
+		background: var(--color-primary-accent);
+		opacity: 0.3;
+		top: 20%;
+		right: 8%;
+		animation: float-slow 6s ease-in-out infinite;
+	}
+
+	.deco-2 {
+		width: 6px;
+		height: 6px;
+		background: var(--color-primary);
+		opacity: 0.2;
+		bottom: 25%;
+		right: 2%;
+		animation: float-slow 8s ease-in-out infinite 1s;
+	}
+
+	.deco-3 {
+		width: 10px;
+		height: 10px;
+		background: var(--color-primary-accent);
+		opacity: 0.15;
+		top: 30%;
+		left: 48%;
+		animation: float-slow 7s ease-in-out infinite 2s;
+	}
+
+	@keyframes float-slow {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-12px); }
+	}
+
 	@media (max-width: 768px) {
 		.hero {
 			grid-template-columns: 1fr;
@@ -219,6 +341,26 @@ const t = useTranslations(lang);
 		.chat-mockup {
 			margin: 0 auto;
 			max-width: 360px;
+		}
+
+		.hero-decoration {
+			display: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.bubble-anim {
+			opacity: 1;
+			transform: none;
+			animation: none;
+		}
+
+		.status-dot {
+			animation: none;
+		}
+
+		.hero-decoration {
+			animation: none;
 		}
 	}
 </style>

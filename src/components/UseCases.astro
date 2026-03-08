@@ -67,11 +67,16 @@ const useCases = [
 						aria-selected={i === 0 ? 'true' : 'false'}
 						role="tab"
 					>
-						<div class="tab-icon-aurora">
-							<div class="aurora-bg"></div>
-							<div class="aurora-glass"></div>
-							<div class="aurora-icon">
-								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={uc.icon} />
+						<div class="tab-icon-col">
+							<div class="tab-icon-aurora">
+								<div class="aurora-bg"></div>
+								<div class="aurora-glass"></div>
+								<div class="aurora-icon">
+									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={uc.icon} />
+								</div>
+							</div>
+							<div class="tab-progress">
+								<div class="tab-progress-bar"></div>
 							</div>
 						</div>
 						<div class="tab-content">
@@ -89,9 +94,6 @@ const useCases = [
 									))}
 								</ul>
 							</div>
-						</div>
-						<div class="tab-progress">
-							<div class="tab-progress-bar"></div>
 						</div>
 					</button>
 				))}
@@ -151,7 +153,7 @@ const useCases = [
 		let activeIndex = 0;
 		let autoplayTimer: ReturnType<typeof setTimeout> | null = null;
 		let isPaused = false;
-		const AUTOPLAY_DURATION = 8000;
+		const AUTOPLAY_DURATION = 6000;
 
 		function activateTab(index: number) {
 			// Deactivate all tabs and panels
@@ -301,9 +303,16 @@ const useCases = [
 		text-align: left;
 		border-radius: var(--radius-md);
 		cursor: pointer;
-		position: relative;
-		overflow: hidden;
 		transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+	}
+
+	.tab-icon-col {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 6px;
+		flex-shrink: 0;
+		align-self: stretch;
 	}
 
 	.tab-button:hover {
@@ -342,7 +351,9 @@ const useCases = [
 	}
 
 	.tab-button.active .tab-icon-aurora .aurora-bg {
-		opacity: 0;
+		background:
+			radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.35) 0%, transparent 55%),
+			radial-gradient(circle at 80% 20%, rgba(7, 94, 84, 0.30) 0%, transparent 55%);
 	}
 
 	.tab-icon-aurora .aurora-glass {
@@ -354,12 +365,13 @@ const useCases = [
 		-webkit-backdrop-filter: blur(6px);
 		border: 1px solid rgba(255, 255, 255, 0.5);
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-		transition: background-color 0.3s ease, border-color 0.3s ease;
+		transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 	}
 
 	.tab-button.active .tab-icon-aurora .aurora-glass {
-		background: var(--color-primary);
-		border-color: var(--color-primary);
+		background: rgba(7, 94, 84, 0.12);
+		border-color: rgba(7, 94, 84, 0.15);
+		box-shadow: 0 2px 6px rgba(7, 94, 84, 0.12);
 	}
 
 	.tab-icon-aurora .aurora-icon {
@@ -372,10 +384,6 @@ const useCases = [
 		z-index: 1;
 		color: var(--color-primary);
 		transition: color 0.3s ease;
-	}
-
-	.tab-button.active .tab-icon-aurora .aurora-icon {
-		color: var(--color-text-on-dark);
 	}
 
 	.tab-icon-aurora .aurora-icon svg {
@@ -453,15 +461,15 @@ const useCases = [
 		margin-top: 2px;
 	}
 
-	/* Progress bar on active tab */
+	/* Vertical progress bar below icon */
 	.tab-progress {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 2px;
+		width: 3px;
+		flex: 1;
 		background: var(--color-border);
+		border-radius: 2px;
 		opacity: 0;
+		transition: opacity 0.3s ease;
+		overflow: hidden;
 	}
 
 	.tab-button.active .tab-progress {
@@ -469,19 +477,19 @@ const useCases = [
 	}
 
 	.tab-progress-bar {
-		height: 100%;
-		width: 0;
+		width: 100%;
+		height: 0;
 		background: var(--color-primary);
-		border-radius: 1px;
+		border-radius: 2px;
 	}
 
 	.tab-button.active .tab-progress-bar {
-		animation: progress-fill 8s linear forwards;
+		animation: progress-fill-vertical 6s linear forwards;
 	}
 
-	@keyframes progress-fill {
-		from { width: 0; }
-		to { width: 100%; }
+	@keyframes progress-fill-vertical {
+		from { height: 0; }
+		to { height: 100%; }
 	}
 
 	/* Chat column */
@@ -649,7 +657,7 @@ const useCases = [
 
 		.tab-button.active .tab-progress-bar {
 			animation: none;
-			width: 100%;
+			height: 100%;
 		}
 
 		.chat-bubble {

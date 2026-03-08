@@ -72,9 +72,12 @@ const aiModels = [
 				<span class="hub-label">{t('integrations.hub')}</span>
 			</div>
 
+			<!-- Side labels (independent of tile containers) -->
+			<p class="side-tag side-tag-left reveal reveal-delay-1">{t('integrations.dataSources')}</p>
+			<p class="side-tag side-tag-right reveal reveal-delay-3">{t('integrations.actions')}</p>
+
 			<!-- Left side: Data Sources scattered -->
 			<div class="side side-left reveal reveal-delay-1">
-				<p class="side-tag">{t('integrations.dataSources')}</p>
 				{dataSources.map((item, i) => (
 					<div class={`tile tile-ds tile-ds-${i}`} title={item.name} data-node={`ds-${i}`}>
 						<img src={item.logo} alt={item.name} loading="lazy" />
@@ -87,7 +90,6 @@ const aiModels = [
 
 			<!-- Right side: Actions scattered -->
 			<div class="side side-right reveal reveal-delay-3">
-				<p class="side-tag side-tag-right">{t('integrations.actions')}</p>
 				{actionIntegrations.map((item, i) => (
 					<div class={`tile tile-ac tile-ac-${i}`} title={item.name} data-node={`ac-${i}`}>
 						<img src={item.logo} alt={item.name} loading="lazy" />
@@ -98,14 +100,28 @@ const aiModels = [
 				</div>
 			</div>
 
-			<!-- Floating chat bubbles -->
-			<div class="bubbles" aria-hidden="true">
-				<div class="bubble bbl-1"><div class="msg msg-user">{t('integrations.chat.user1')}</div></div>
-				<div class="bubble bbl-2"><div class="msg msg-bot">{t('integrations.chat.bot1')}</div></div>
-				<div class="bubble bbl-3"><div class="msg msg-user">{t('integrations.chat.user2')}</div></div>
-				<div class="bubble bbl-4"><div class="msg msg-bot">{t('integrations.chat.bot2')}</div></div>
-				<div class="bubble bbl-5"><div class="msg msg-bot">{t('integrations.chat.bot3')}</div></div>
-				<div class="bubble bbl-6"><div class="msg msg-user">{t('integrations.chat.user4')}</div></div>
+			<!-- Chat stream: scroll-driven message feed over the hub -->
+			<div class="chat-stream" data-chat-stream aria-hidden="true">
+				<div class="chat-track" data-chat-track>
+					<div class="chat-msg chat-msg-user">
+						<div class="msg msg-user">{t('integrations.chat.user1')}</div>
+					</div>
+					<div class="chat-msg chat-msg-bot">
+						<div class="msg msg-bot">{t('integrations.chat.bot1')}</div>
+					</div>
+					<div class="chat-msg chat-msg-user">
+						<div class="msg msg-user">{t('integrations.chat.user2')}</div>
+					</div>
+					<div class="chat-msg chat-msg-bot">
+						<div class="msg msg-bot">{t('integrations.chat.bot2')}</div>
+					</div>
+					<div class="chat-msg chat-msg-bot">
+						<div class="msg msg-bot">{t('integrations.chat.bot3')}</div>
+					</div>
+					<div class="chat-msg chat-msg-user">
+						<div class="msg msg-user">{t('integrations.chat.user4')}</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -167,6 +183,56 @@ if (root) obs.observe(root);
 
 let t: ReturnType<typeof setTimeout>;
 window.addEventListener('resize', () => { if (drawn) { clearTimeout(t); t = setTimeout(drawBeams, 80); } });
+
+// Scroll-driven chat stream
+const chatStream = document.querySelector('[data-chat-stream]') as HTMLElement;
+const chatTrack = document.querySelector('[data-chat-track]') as HTMLElement;
+if (chatStream && chatTrack) {
+	const constellation = document.querySelector('[data-constellation]') as HTMLElement;
+	const msgs = chatTrack.querySelectorAll('.chat-msg') as NodeListOf<HTMLElement>;
+
+	function updateChat() {
+		const rect = constellation.getBoundingClientRect();
+		const vh = window.innerHeight;
+		// progress: 0 when constellation center enters bottom of viewport
+		//           1 when constellation center reaches top of viewport
+		const center = rect.top + rect.height / 2;
+		const progress = Math.max(0, Math.min(1, 1 - (center / vh)));
+
+		// Map progress to message index — animation spans the full scroll through the section
+		const msgIndex = progress * (msgs.length - 1);
+
+		msgs.forEach((msg, i) => {
+			const dist = Math.abs(i - msgIndex);
+			// All messages fully opaque
+			const opacity = 1;
+			const scale = Math.max(0.92, 1 - dist * 0.04);
+			msg.style.opacity = String(opacity);
+			msg.style.transform = `scale(${scale})`;
+		});
+
+		// Slide the track so the active message is centered in the viewport window
+		const msgHeight = 56; // approx height of each msg + gap
+		const streamHeight = chatStream.offsetHeight;
+		const trackOffset = -(msgIndex * msgHeight) + (streamHeight / 2) - (msgHeight / 2);
+		chatTrack.style.transform = `translateY(${trackOffset}px)`;
+	}
+
+	// Use rAF-throttled scroll listener
+	let ticking = false;
+	window.addEventListener('scroll', () => {
+		if (!ticking) {
+			ticking = true;
+			requestAnimationFrame(() => {
+				updateChat();
+				ticking = false;
+			});
+		}
+	}, { passive: true });
+
+	// Initial call
+	updateChat();
+}
 </script>
 
 <style>
@@ -193,8 +259,8 @@ window.addEventListener('resize', () => { if (drawn) { clearTimeout(t); t = setT
 	/* ── Constellation ── */
 	.constellation {
 		position: relative;
-		height: 620px;
-		margin-bottom: var(--space-lg);
+		height: 680px;
+		margin-bottom: calc(var(--space-lg) + 48px);
 	}
 
 	/* ── SVG beams ── */
@@ -295,18 +361,28 @@ window.addEventListener('resize', () => { if (drawn) { clearTimeout(t); t = setT
 	.side-tag {
 		position: absolute;
 		top: 0;
-		left: 0;
 		font-family: var(--font-body);
 		font-weight: 600;
-		font-size: var(--font-size-sm);
-		color: var(--color-text-tertiary);
+		font-size: var(--font-size-xs);
+		color: #fff;
 		text-transform: uppercase;
 		letter-spacing: var(--letter-spacing-wide);
+		background: var(--color-text-primary);
+		padding: 8px 20px;
+		border-radius: var(--radius-md);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		white-space: nowrap;
+		z-index: 10;
+	}
+
+	.side-tag-left {
+		left: 21%;
+		transform: translateX(-50%);
 	}
 
 	.side-tag-right {
-		left: auto;
-		right: 0;
+		right: 21%;
+		transform: translateX(50%);
 	}
 
 	/* ── Tiles (square logo cards) ── */
@@ -355,44 +431,74 @@ window.addEventListener('resize', () => { if (drawn) { clearTimeout(t); t = setT
 	}
 
 	/* ── Left tiles (data sources) — 3 rows, 2 per row, staggered ── */
-	.tile-ds-0 { top: 4%;   left: 8%; }
-	.tile-ds-1 { top: 8%;   left: 50%; }
-	.tile-ds-2 { top: 28%;  left: 0%; }
-	.tile-ds-3 { top: 32%;  left: 44%; }
-	.tile-ds-4 { top: 52%;  left: 10%; }
-	.tile-ds-5 { top: 56%;  left: 52%; }
+	.tile-ds-0 { top: 16%;  left: 8%; }
+	.tile-ds-1 { top: 20%;  left: 50%; }
+	.tile-ds-2 { top: 36%;  left: 0%; }
+	.tile-ds-3 { top: 40%;  left: 44%; }
+	.tile-ds-4 { top: 56%;  left: 10%; }
+	.tile-ds-5 { top: 60%;  left: 52%; }
 	.tile-ds-more { top: 78%; left: 24%; }
 
 	/* ── Right tiles (actions) — mirrored, 3.5 rows staggered ── */
-	.tile-ac-0 { top: 2%;   left: 30%; }
-	.tile-ac-1 { top: 6%;   right: 8%; }
-	.tile-ac-2 { top: 24%;  left: 36%; }
-	.tile-ac-3 { top: 28%;  right: 4%; }
-	.tile-ac-4 { top: 46%;  left: 30%; }
-	.tile-ac-5 { top: 50%;  right: 6%; }
-	.tile-ac-6 { top: 68%;  left: 36%; }
-	.tile-ac-more { top: 72%; right: 10%; }
+	.tile-ac-0 { top: 14%;  left: 30%; }
+	.tile-ac-1 { top: 18%;  right: 8%; }
+	.tile-ac-2 { top: 34%;  left: 36%; }
+	.tile-ac-3 { top: 38%;  right: 4%; }
+	.tile-ac-4 { top: 54%;  left: 30%; }
+	.tile-ac-5 { top: 58%;  right: 6%; }
+	.tile-ac-6 { top: 72%;  left: 36%; }
+	.tile-ac-more { top: 76%; right: 10%; }
 
-	/* ── Chat bubbles ── */
-	.bubbles {
+	/* ── Chat stream (scroll-driven feed over hub) ── */
+	.chat-stream {
 		position: absolute;
-		inset: 0;
+		left: 50%;
+		top: 46%;
+		transform: translate(-50%, -50%);
+		width: 320px;
+		height: 280px;
+		z-index: 12;
 		pointer-events: none;
-		z-index: 6;
+		overflow: hidden;
+		mask-image: linear-gradient(
+			to bottom,
+			transparent 0%,
+			black 20%,
+			black 80%,
+			transparent 100%
+		);
+		-webkit-mask-image: linear-gradient(
+			to bottom,
+			transparent 0%,
+			black 20%,
+			black 80%,
+			transparent 100%
+		);
 	}
 
-	.bubble {
-		position: absolute;
-		animation: float-y 5s ease-in-out infinite;
+	.chat-track {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		will-change: transform;
+		transition: transform 0.15s ease-out;
 	}
+
+	.chat-msg {
+		display: flex;
+		transition: opacity 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+	}
+
+	.chat-msg-user { justify-content: flex-end; }
+	.chat-msg-bot { justify-content: flex-start; }
 
 	.msg {
-		padding: 8px 14px;
-		border-radius: 14px;
-		font-size: 0.72rem;
-		line-height: 1.4;
-		white-space: nowrap;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+		padding: 12px 18px;
+		border-radius: 18px;
+		font-size: 0.95rem;
+		line-height: 1.5;
+		max-width: 300px;
+		box-shadow: 0 3px 14px rgba(0, 0, 0, 0.1);
 	}
 
 	.msg-user {
@@ -408,22 +514,10 @@ window.addEventListener('resize', () => { if (drawn) { clearTimeout(t); t = setT
 		border-bottom-left-radius: 4px;
 	}
 
-	.bbl-1 { top: 16%;  left: 6%;   animation-delay: 0s; }
-	.bbl-2 { top: 10%;  right: 10%; animation-delay: 1.4s; }
-	.bbl-3 { top: 44%;  left: 2%;   animation-delay: 2.6s; }
-	.bbl-4 { top: 48%;  right: 6%;  animation-delay: 0.8s; }
-	.bbl-5 { bottom: 16%; left: 6%; animation-delay: 2s; }
-	.bbl-6 { bottom: 6%; right: 10%; animation-delay: 3s; }
-
-	@keyframes float-y {
-		0%, 100% { transform: translateY(0); }
-		50% { transform: translateY(-10px); }
-	}
-
 	/* ── AI row (above hub) ── */
 	.ai-row {
 		position: absolute;
-		bottom: 16px;
+		bottom: -48px;
 		left: 50%;
 		transform: translateX(-50%);
 		display: flex;
@@ -471,6 +565,10 @@ window.addEventListener('resize', () => { if (drawn) { clearTimeout(t); t = setT
 
 		.side-tag {
 			position: relative;
+			top: auto;
+			left: auto;
+			right: auto;
+			transform: none;
 			margin-bottom: var(--space-sm);
 		}
 
@@ -512,7 +610,7 @@ window.addEventListener('resize', () => { if (drawn) { clearTimeout(t); t = setT
 		.hub-circle img { width: 32px; height: 32px; }
 		.hub-glow, .hub-ring { display: none; }
 
-		.beams, .bubbles { display: none; }
+		.beams, .chat-stream { display: none; }
 	}
 
 	/* ── Mobile ── */
@@ -523,6 +621,8 @@ window.addEventListener('resize', () => { if (drawn) { clearTimeout(t); t = setT
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.bubble, .hub-ring { animation: none; }
+		.hub-ring { animation: none; }
+		.chat-track { transition: none; }
+		.chat-msg { transition: none; }
 	}
 </style>

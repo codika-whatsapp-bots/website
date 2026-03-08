@@ -57,7 +57,7 @@ const monthlyFeatures = [
 						</li>
 					))}
 				</ul>
-				<a href="mailto:hello@codika.io" class="card-cta">{t('pricing.setup.cta')}</a>
+				<button type="button" class="card-cta" data-calendly>{t('pricing.setup.cta')}</button>
 				<p class="card-note">{t('pricing.setup.note')}</p>
 			</div>
 
@@ -88,7 +88,7 @@ const monthlyFeatures = [
 						</li>
 					))}
 				</ul>
-				<a href="mailto:hello@codika.io" class="card-cta">{t('pricing.monthly.cta')}</a>
+				<button type="button" class="card-cta" data-calendly>{t('pricing.monthly.cta')}</button>
 				<p class="card-note">{t('pricing.monthly.note')}</p>
 			</div>
 		</div>
@@ -119,6 +119,14 @@ const monthlyFeatures = [
 		</div>
 	</div>
 </section>
+
+<script>
+	import { openCalendly } from '../lib/calendly';
+
+	document.querySelectorAll<HTMLElement>('[data-calendly]').forEach((btn) => {
+		btn.addEventListener('click', () => openCalendly());
+	});
+</script>
 
 <style>
 	.pricing {

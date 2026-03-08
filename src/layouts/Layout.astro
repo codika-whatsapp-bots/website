@@ -27,6 +27,10 @@ const origin = Astro.site ?? Astro.url.origin;
 			<link rel="alternate" hreflang={l} href={new URL(getLocalePath(l), origin).href} />
 		))}
 
+		<!-- Calendly widget -->
+		<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+		<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

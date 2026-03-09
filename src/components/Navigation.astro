@@ -1,10 +1,12 @@
 ---
-import { getLangFromLocale, useTranslations, getLocalePath, getAlternateLanguages, getLanguageFlag, getLanguageLabel } from '../i18n/utils';
+import { getLangFromLocale, useTranslations, getLocalePath, getAlternateLanguages, getLanguageFlag, getLanguageLabel, getPathWithoutLocale } from '../i18n/utils';
 
 const lang = getLangFromLocale(Astro.currentLocale);
 const t = useTranslations(lang);
 const altLangs = getAlternateLanguages(lang);
 const currentFlag = getLanguageFlag(lang);
+const home = getLocalePath(lang);
+const currentPagePath = getPathWithoutLocale(Astro.url.pathname);
 ---
 
 <header class="nav-wrapper" id="main-nav">
@@ -18,10 +20,11 @@ const currentFlag = getLanguageFlag(lang);
 		</a>
 
 		<div class="nav-links">
-			<a href="#features">{t('nav.features')}</a>
-			<a href="#how-it-works">{t('nav.howItWorks')}</a>
-			<a href="#use-cases">{t('nav.useCases')}</a>
-			<a href="#pricing">{t('nav.pricing')}</a>
+			<a href={`${home}#features`}>{t('nav.features')}</a>
+			<a href={`${home}#how-it-works`}>{t('nav.howItWorks')}</a>
+			<a href={`${home}#use-cases`}>{t('nav.useCases')}</a>
+			<a href={`${home}#pricing`}>{t('nav.pricing')}</a>
+			<a href={getLocalePath(lang, 'blog')}>{t('nav.blog')}</a>
 		</div>
 
 		<div class="nav-actions">
@@ -31,7 +34,7 @@ const currentFlag = getLanguageFlag(lang);
 				</button>
 				<div class="lang-popover" id="lang-popover" role="menu">
 					{altLangs.map((l) => (
-						<a href={getLocalePath(l)} class="lang-option" role="menuitem">
+						<a href={getLocalePath(l, currentPagePath)} class="lang-option" role="menuitem">
 							<img src={getLanguageFlag(l)} alt="" width="20" height="14" class="lang-flag" />
 							<span>{getLanguageLabel(l)}</span>
 						</a>
@@ -51,13 +54,14 @@ const currentFlag = getLanguageFlag(lang);
 	</nav>
 
 	<div class="mobile-menu" id="mobile-menu">
-		<a href="#features">{t('nav.features')}</a>
-		<a href="#how-it-works">{t('nav.howItWorks')}</a>
-		<a href="#use-cases">{t('nav.useCases')}</a>
-		<a href="#pricing">{t('nav.pricing')}</a>
+		<a href={`${home}#features`}>{t('nav.features')}</a>
+		<a href={`${home}#how-it-works`}>{t('nav.howItWorks')}</a>
+		<a href={`${home}#use-cases`}>{t('nav.useCases')}</a>
+		<a href={`${home}#pricing`}>{t('nav.pricing')}</a>
+		<a href={getLocalePath(lang, 'blog')}>{t('nav.blog')}</a>
 		<div class="mobile-lang-row">
 			{altLangs.map((l) => (
-				<a href={getLocalePath(l)} class="mobile-lang-btn" aria-label={getLanguageLabel(l)}>
+				<a href={getLocalePath(l, currentPagePath)} class="mobile-lang-btn" aria-label={getLanguageLabel(l)}>
 					<img src={getLanguageFlag(l)} alt="" width="24" height="17" class="lang-flag" />
 				</a>
 			))}
@@ -129,6 +133,30 @@ const currentFlag = getLanguageFlag(lang);
 
 		nav.style.backgroundColor = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.85)`;
 		nav.classList.toggle('dark-bg', dark);
+
+		// Canvas color: footer color near bottom, default otherwise
+		const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+		const distFromBottom = maxScroll - currentScroll;
+		const nearBottom = distFromBottom < 50;
+
+		let canvasRgb = defaultBg;
+		if (nearBottom && sections.length > 0) {
+			const last = sections[sections.length - 1] as HTMLElement;
+			const dataBg = last.dataset.navBg;
+			if (dataBg) {
+				const parsed = parseRgb(dataBg);
+				if (parsed) canvasRgb = [parsed[0], parsed[1], parsed[2]];
+			} else {
+				const computed = getComputedStyle(last).backgroundColor;
+				const parsed = parseRgb(computed);
+				if (parsed && parsed[3] > 0) canvasRgb = [parsed[0], parsed[1], parsed[2]];
+			}
+		}
+
+		const canvasHex = `#${canvasRgb[0].toString(16).padStart(2, '0')}${canvasRgb[1].toString(16).padStart(2, '0')}${canvasRgb[2].toString(16).padStart(2, '0')}`;
+		document.documentElement.style.backgroundColor = canvasHex;
+		const themeMeta = document.querySelector('meta[name="theme-color"]');
+		if (themeMeta) themeMeta.setAttribute('content', canvasHex);
 	}
 
 	function onScroll() {
@@ -248,7 +276,7 @@ const currentFlag = getLanguageFlag(lang);
 	.nav-links {
 		display: flex;
 		align-items: center;
-		gap: var(--space-md);
+		gap: var(--space-xs);
 		margin-left: auto;
 	}
 

@@ -1,5 +1,5 @@
 ---
-import { getLangFromLocale, useTranslations, getLocalePath, getAllLanguages } from '../i18n/utils';
+import { getLangFromLocale, useTranslations, getLocalePath, getAllLanguages, getPathWithoutLocale } from '../i18n/utils';
 import SEO from '../components/SEO.astro';
 
 const lang = getLangFromLocale(Astro.currentLocale);
@@ -9,7 +9,7 @@ const allLangs = getAllLanguages();
 interface Props {
 	title?: string;
 	description?: string;
-	pageType?: 'home' | 'apply';
+	pageType?: 'home' | 'apply' | 'blog';
 }
 
 const { title = t('site.title'), description = t('site.description'), pageType = 'home' } = Astro.props;
@@ -38,9 +38,9 @@ const englishHomeUrl = new URL('/', origin).href;
 
 		<!-- Hreflang -->
 		{allLangs.map((l) => (
-			<link rel="alternate" hreflang={l} href={new URL(getLocalePath(l), origin).href} />
+			<link rel="alternate" hreflang={l} href={new URL(getLocalePath(l, getPathWithoutLocale(Astro.url.pathname)), origin).href} />
 		))}
-		<link rel="alternate" hreflang="x-default" href={englishHomeUrl} />
+		<link rel="alternate" hreflang="x-default" href={new URL(getLocalePath('en', getPathWithoutLocale(Astro.url.pathname)), origin).href} />
 
 		<!-- DNS Prefetch -->
 		<link rel="dns-prefetch" href="https://assets.calendly.com" />
@@ -77,6 +77,7 @@ const englishHomeUrl = new URL('/', origin).href;
 
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<slot name="head" />
 	</head>
 	<body>
 		<slot />

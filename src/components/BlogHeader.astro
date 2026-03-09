@@ -1,0 +1,101 @@
+---
+import { getLangFromLocale, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+
+interface Props {
+	title: string;
+	date: Date;
+	updatedDate?: Date;
+	author: string;
+	readingTime: number;
+	tags: string[];
+}
+
+const { title, date, updatedDate, author, readingTime, tags } = Astro.props;
+
+const dateFormatter = new Intl.DateTimeFormat(lang, {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+---
+
+<header class="blog-header">
+	<div class="blog-meta">
+		<time datetime={date.toISOString()}>
+			{t('blog.publishedOn')} {dateFormatter.format(date)}
+		</time>
+		{updatedDate && (
+			<time datetime={updatedDate.toISOString()} class="updated">
+				({t('blog.updatedOn')} {dateFormatter.format(updatedDate)})
+			</time>
+		)}
+		<span class="separator">&middot;</span>
+		<span>{readingTime} {t('blog.minuteRead')}</span>
+		<span class="separator">&middot;</span>
+		<span>{author}</span>
+	</div>
+	<h1>{title}</h1>
+	{tags.length > 0 && (
+		<div class="blog-tags">
+			{tags.map((tag) => (
+				<span class="tag">{tag}</span>
+			))}
+		</div>
+	)}
+</header>
+
+<style>
+	.blog-header {
+		margin-bottom: var(--space-lg);
+	}
+
+	.blog-meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 6px;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-tertiary);
+		margin-bottom: var(--space-sm);
+	}
+
+	.separator {
+		color: var(--color-text-muted);
+	}
+
+	.updated {
+		color: var(--color-text-muted);
+	}
+
+	h1 {
+		font-family: var(--font-display);
+		font-size: var(--font-size-4xl);
+		line-height: var(--line-height-tight);
+		color: var(--color-text-primary);
+		margin-bottom: var(--space-sm);
+	}
+
+	.blog-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.tag {
+		font-size: var(--font-size-xs);
+		font-weight: 500;
+		color: var(--color-primary);
+		background: rgba(7, 94, 84, 0.06);
+		padding: 4px 12px;
+		border-radius: var(--radius-full);
+	}
+
+	@media (max-width: 600px) {
+		h1 {
+			font-size: var(--font-size-2xl);
+		}
+	}
+</style>

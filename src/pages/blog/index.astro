@@ -1,0 +1,88 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Footer from '../../components/Footer.astro';
+import { getLangFromLocale, useTranslations } from '../../i18n/utils';
+import { getCollection } from 'astro:content';
+
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const allPosts = await getCollection('blog', (entry) => {
+	return entry.id.startsWith(`${lang}/`) && !entry.data.draft;
+});
+const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout title={`${t('blog.title')} | WhatsApp Bots by Codika`} description={t('blog.subtitle')} pageType="home">
+	<Navigation />
+	<main class="blog-listing">
+		<header class="blog-listing-header">
+			<span class="eyebrow">{t('blog.title')}</span>
+			<h1>{t('blog.subtitle')}</h1>
+		</header>
+		{posts.length > 0 ? (
+			<div class="blog-grid">
+				{posts.map((post) => {
+					const slug = post.id.replace(/^(en|fr|nl|es|it|de)\//, '');
+					const words = post.body?.split(/\s+/).length ?? 0;
+					const readingTime = Math.max(1, Math.ceil(words / 200));
+					return (
+						<BlogCard
+							title={post.data.title}
+							description={post.data.description}
+							date={post.data.date}
+							slug={slug}
+							tags={post.data.tags}
+							readingTime={readingTime}
+							image={post.data.image}
+							imageAlt={post.data.imageAlt}
+						/>
+					);
+				})}
+			</div>
+		) : (
+			<p class="no-articles">{t('blog.noArticles')}</p>
+		)}
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.blog-listing {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: calc(var(--space-xl) + 60px) var(--space-md) var(--space-xl);
+	}
+
+	.blog-listing-header {
+		margin-bottom: var(--space-lg);
+	}
+
+	.blog-listing-header h1 {
+		font-family: var(--font-display);
+		font-size: var(--font-size-3xl);
+		color: var(--color-text-primary);
+		margin-top: var(--space-xs);
+	}
+
+	.blog-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-md);
+	}
+
+	@media (min-width: 640px) {
+		.blog-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	.no-articles {
+		text-align: center;
+		color: var(--color-text-tertiary);
+		font-size: var(--font-size-md);
+		padding: var(--space-xl) 0;
+	}
+</style>

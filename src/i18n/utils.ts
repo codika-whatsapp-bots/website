@@ -49,6 +49,19 @@ export function getAlternateLanguages(lang: Lang): Lang[] {
 }
 
 /**
+ * Extract the page path from a URL pathname, stripping the locale prefix.
+ * E.g. "/fr/blog" → "blog", "/blog" → "blog", "/fr/" → "", "/" → ""
+ */
+export function getPathWithoutLocale(pathname: string): string {
+	const allLangs = getAllLanguages();
+	const segments = pathname.split('/').filter(Boolean);
+	if (segments.length > 0 && allLangs.includes(segments[0] as Lang)) {
+		return segments.slice(1).join('/');
+	}
+	return segments.join('/');
+}
+
+/**
  * Get the flag image path for a language.
  */
 export function getLanguageFlag(lang: Lang): string {

@@ -33,6 +33,7 @@ export const ui = {
 		'nav.howItWorks': 'How it works',
 		'nav.useCases': 'Use cases',
 		'nav.pricing': 'Pricing',
+		'nav.blog': 'Blog',
 		'nav.cta': 'Book a demo',
 
 		// Hero
@@ -281,12 +282,29 @@ export const ui = {
 		'footer.product.useCases': 'Use cases',
 		'footer.product.pricing': 'Pricing',
 		'footer.company': 'Company',
-		'footer.company.contact': 'Contact',
+		'footer.company.bookDemo': 'Book a demo',
 		'footer.company.codika': 'Codika',
 		'footer.legal': 'Legal',
 		'footer.legal.privacy': 'Privacy',
 		'footer.legal.terms': 'Terms',
 		'footer.copyright': '2026 Codika. All rights reserved.',
+
+		// Legal
+		'legal.lastUpdated': 'Last updated',
+
+		// Blog
+		'blog.title': 'Blog',
+		'blog.subtitle': 'Insights on community management, WhatsApp automation, and AI agents',
+		'blog.readMore': 'Read more',
+		'blog.backToBlog': 'Back to blog',
+		'blog.publishedOn': 'Published on',
+		'blog.updatedOn': 'Updated on',
+		'blog.minuteRead': 'min read',
+		'blog.tags': 'Tags',
+		'blog.relatedArticles': 'Related articles',
+		'blog.noArticles': 'No articles yet. Stay tuned!',
+		'blog.discoverMore': 'Discover more articles',
+		'blog.onThisPage': 'On this page',
 	},
 	fr: {
 		// Site
@@ -300,6 +318,7 @@ export const ui = {
 		'nav.howItWorks': 'Comment ca marche',
 		'nav.useCases': 'Cas d\'usage',
 		'nav.pricing': 'Tarifs',
+		'nav.blog': 'Blog',
 		'nav.cta': 'Reserver une demo',
 
 		// Hero
@@ -548,12 +567,29 @@ export const ui = {
 		'footer.product.useCases': 'Cas d\'usage',
 		'footer.product.pricing': 'Tarifs',
 		'footer.company': 'Entreprise',
-		'footer.company.contact': 'Contact',
+		'footer.company.bookDemo': 'Reserver une demo',
 		'footer.company.codika': 'Codika',
 		'footer.legal': 'Legal',
 		'footer.legal.privacy': 'Confidentialite',
 		'footer.legal.terms': 'Conditions',
 		'footer.copyright': '2026 Codika. Tous droits reserves.',
+
+		// Legal
+		'legal.lastUpdated': 'Derniere mise a jour',
+
+		// Blog
+		'blog.title': 'Blog',
+		'blog.subtitle': 'Conseils sur la gestion de communaute, l\'automatisation WhatsApp et les agents IA',
+		'blog.readMore': 'Lire la suite',
+		'blog.backToBlog': 'Retour au blog',
+		'blog.publishedOn': 'Publie le',
+		'blog.updatedOn': 'Mis a jour le',
+		'blog.minuteRead': 'min de lecture',
+		'blog.tags': 'Tags',
+		'blog.relatedArticles': 'Articles associes',
+		'blog.noArticles': 'Pas encore d\'articles. Restez a l\'ecoute !',
+		'blog.discoverMore': 'Decouvrez d\'autres articles',
+		'blog.onThisPage': 'Sur cette page',
 	},
 	nl: {
 		// Site
@@ -567,6 +603,7 @@ export const ui = {
 		'nav.howItWorks': 'Hoe het werkt',
 		'nav.useCases': 'Toepassingen',
 		'nav.pricing': 'Prijzen',
+		'nav.blog': 'Blog',
 		'nav.cta': 'Demo aanvragen',
 
 		// Hero
@@ -815,12 +852,29 @@ export const ui = {
 		'footer.product.useCases': 'Toepassingen',
 		'footer.product.pricing': 'Prijzen',
 		'footer.company': 'Bedrijf',
-		'footer.company.contact': 'Contact',
+		'footer.company.bookDemo': 'Demo boeken',
 		'footer.company.codika': 'Codika',
 		'footer.legal': 'Juridisch',
 		'footer.legal.privacy': 'Privacy',
 		'footer.legal.terms': 'Voorwaarden',
 		'footer.copyright': '2026 Codika. Alle rechten voorbehouden.',
+
+		// Legal
+		'legal.lastUpdated': 'Laatst bijgewerkt',
+
+		// Blog
+		'blog.title': 'Blog',
+		'blog.subtitle': 'Inzichten over communitymanagement, WhatsApp-automatisering en AI-agents',
+		'blog.readMore': 'Lees meer',
+		'blog.backToBlog': 'Terug naar blog',
+		'blog.publishedOn': 'Gepubliceerd op',
+		'blog.updatedOn': 'Bijgewerkt op',
+		'blog.minuteRead': 'min leestijd',
+		'blog.tags': 'Tags',
+		'blog.relatedArticles': 'Gerelateerde artikelen',
+		'blog.noArticles': 'Nog geen artikelen. Blijf op de hoogte!',
+		'blog.discoverMore': 'Ontdek meer artikelen',
+		'blog.onThisPage': 'Op deze pagina',
 	},
 	es: {
 		// Site
@@ -834,6 +888,7 @@ export const ui = {
 		'nav.howItWorks': 'Como funciona',
 		'nav.useCases': 'Casos de uso',
 		'nav.pricing': 'Precios',
+		'nav.blog': 'Blog',
 		'nav.cta': 'Reservar una demo',
 
 		// Hero
@@ -1082,12 +1137,29 @@ export const ui = {
 		'footer.product.useCases': 'Casos de uso',
 		'footer.product.pricing': 'Precios',
 		'footer.company': 'Empresa',
-		'footer.company.contact': 'Contacto',
+		'footer.company.bookDemo': 'Reservar una demo',
 		'footer.company.codika': 'Codika',
 		'footer.legal': 'Legal',
 		'footer.legal.privacy': 'Privacidad',
 		'footer.legal.terms': 'Terminos',
 		'footer.copyright': '2026 Codika. Todos los derechos reservados.',
+
+		// Legal
+		'legal.lastUpdated': 'Ultima actualizacion',
+
+		// Blog
+		'blog.title': 'Blog',
+		'blog.subtitle': 'Ideas sobre gestion de comunidades, automatizacion de WhatsApp y agentes de IA',
+		'blog.readMore': 'Leer mas',
+		'blog.backToBlog': 'Volver al blog',
+		'blog.publishedOn': 'Publicado el',
+		'blog.updatedOn': 'Actualizado el',
+		'blog.minuteRead': 'min de lectura',
+		'blog.tags': 'Etiquetas',
+		'blog.relatedArticles': 'Articulos relacionados',
+		'blog.noArticles': 'Aun no hay articulos. Mantente atento!',
+		'blog.discoverMore': 'Descubre mas articulos',
+		'blog.onThisPage': 'En esta pagina',
 	},
 	it: {
 		// Site
@@ -1101,6 +1173,7 @@ export const ui = {
 		'nav.howItWorks': 'Come funziona',
 		'nav.useCases': 'Casi d\'uso',
 		'nav.pricing': 'Prezzi',
+		'nav.blog': 'Blog',
 		'nav.cta': 'Prenota una demo',
 
 		// Hero
@@ -1349,12 +1422,29 @@ export const ui = {
 		'footer.product.useCases': 'Casi d\'uso',
 		'footer.product.pricing': 'Prezzi',
 		'footer.company': 'Azienda',
-		'footer.company.contact': 'Contatti',
+		'footer.company.bookDemo': 'Prenota una demo',
 		'footer.company.codika': 'Codika',
 		'footer.legal': 'Legale',
 		'footer.legal.privacy': 'Privacy',
 		'footer.legal.terms': 'Termini',
 		'footer.copyright': '2026 Codika. Tutti i diritti riservati.',
+
+		// Legal
+		'legal.lastUpdated': 'Ultimo aggiornamento',
+
+		// Blog
+		'blog.title': 'Blog',
+		'blog.subtitle': 'Approfondimenti sulla gestione delle comunita, automazione WhatsApp e agenti IA',
+		'blog.readMore': 'Leggi di piu',
+		'blog.backToBlog': 'Torna al blog',
+		'blog.publishedOn': 'Pubblicato il',
+		'blog.updatedOn': 'Aggiornato il',
+		'blog.minuteRead': 'min di lettura',
+		'blog.tags': 'Tag',
+		'blog.relatedArticles': 'Articoli correlati',
+		'blog.noArticles': 'Nessun articolo ancora. Resta aggiornato!',
+		'blog.discoverMore': 'Scopri altri articoli',
+		'blog.onThisPage': 'In questa pagina',
 	},
 	de: {
 		// Site
@@ -1368,6 +1458,7 @@ export const ui = {
 		'nav.howItWorks': 'So funktioniert es',
 		'nav.useCases': 'Anwendungsfalle',
 		'nav.pricing': 'Preise',
+		'nav.blog': 'Blog',
 		'nav.cta': 'Demo buchen',
 
 		// Hero
@@ -1616,11 +1707,28 @@ export const ui = {
 		'footer.product.useCases': 'Anwendungsfalle',
 		'footer.product.pricing': 'Preise',
 		'footer.company': 'Unternehmen',
-		'footer.company.contact': 'Kontakt',
+		'footer.company.bookDemo': 'Demo buchen',
 		'footer.company.codika': 'Codika',
 		'footer.legal': 'Rechtliches',
 		'footer.legal.privacy': 'Datenschutz',
 		'footer.legal.terms': 'AGB',
 		'footer.copyright': '2026 Codika. Alle Rechte vorbehalten.',
+
+		// Legal
+		'legal.lastUpdated': 'Zuletzt aktualisiert',
+
+		// Blog
+		'blog.title': 'Blog',
+		'blog.subtitle': 'Einblicke in Community-Management, WhatsApp-Automatisierung und KI-Agenten',
+		'blog.readMore': 'Weiterlesen',
+		'blog.backToBlog': 'Zuruck zum Blog',
+		'blog.publishedOn': 'Veroffentlicht am',
+		'blog.updatedOn': 'Aktualisiert am',
+		'blog.minuteRead': 'Min. Lesezeit',
+		'blog.tags': 'Tags',
+		'blog.relatedArticles': 'Verwandte Artikel',
+		'blog.noArticles': 'Noch keine Artikel. Bleib dran!',
+		'blog.discoverMore': 'Weitere Artikel entdecken',
+		'blog.onThisPage': 'Auf dieser Seite',
 	},
 } as const;

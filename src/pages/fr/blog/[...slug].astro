@@ -1,0 +1,37 @@
+---
+import BlogPost from '../../../layouts/BlogPost.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog', (entry) => !entry.data.draft);
+	const frPosts = posts.filter((post) => post.id.startsWith('fr/'));
+	const enPosts = posts.filter((post) => post.id.startsWith('en/'));
+	const frSlugs = new Set(frPosts.map((p) => p.id.replace(/^fr\//, '')));
+
+	const allLocalePosts = [
+		...frPosts,
+		...enPosts.filter((post) => !frSlugs.has(post.id.replace(/^en\//, ''))),
+	];
+
+	return allLocalePosts.map((post) => {
+		const slug = post.id.replace(/^(en|fr)\//, '');
+		return {
+			params: { slug },
+			props: {
+				post,
+				otherPosts: allLocalePosts
+					.filter((p) => p.id !== post.id)
+					.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+					.slice(0, 3),
+			},
+		};
+	});
+}
+
+const { post, otherPosts } = Astro.props;
+const { Content, headings } = await render(post);
+---
+
+<BlogPost post={post} headings={headings} otherPosts={otherPosts}>
+	<Content />
+</BlogPost>

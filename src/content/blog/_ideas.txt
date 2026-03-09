@@ -1,0 +1,245 @@
+# Blog Article Ideas — Content Strategy
+
+This file is a reference for upcoming blog articles. Not a published post.
+Each article targets specific keywords for SEO/GEO and follows the content pillars strategy.
+
+Distribution: Publish on blog -> Cross-post to Medium (canonical URL to blog) -> Share on LinkedIn
+Languages: Write EN first, then FR. Other languages for top performers.
+
+---
+
+## Pillar 1: WhatsApp for Community Management (Bottom-funnel, high intent)
+
+### Article 1: "Why Your Community Members Ignore Every Platform Except WhatsApp"
+- **Keywords:** community platform adoption, WhatsApp vs Circle, WhatsApp vs Slack for communities
+- **Intent:** Problem awareness
+- **Outline:**
+  1. Open with the graveyard of community platforms you've tried (Circle, Spacebring, Slack, Discord)
+  2. The adoption problem: members have app fatigue, WhatsApp is already on their phone
+  3. Data: 2B+ WhatsApp users, 98% open rates vs 20% email open rates
+  4. Why "go where your members are" beats "make members come to you"
+  5. The WhatsApp-native approach: bring tools to WhatsApp, not members to tools
+  6. Case study: community that stopped fighting WhatsApp and embraced it
+  7. FAQ: "But WhatsApp groups are chaotic" / "What about features Circle has?"
+
+### Article 3: "WhatsApp Bots for Co-working Spaces: A Complete Guide"
+- **Keywords:** WhatsApp bot co-working, co-working community management, co-working automation
+- **Intent:** Vertical-specific, directly targets primary ICP
+- **Outline:**
+  1. Day in the life of a co-working community manager (WiFi passwords, room bookings, event chaos)
+  2. The 5 biggest operational pain points in co-working (with real examples)
+  3. How a WhatsApp bot solves each one (FAQ, events, member onboarding, announcements, feedback)
+  4. Dashboard features that matter for co-working (member directory, org management, broadcast segmentation)
+  5. Integration with existing tools (Notion for docs, Google Calendar for events, Luma for RSVPs)
+  6. ROI calculation: hours saved per week x hourly rate = payback period
+  7. Step-by-step: what the setup process looks like
+  8. FAQ: pricing, timeline, data ownership
+
+### Article 4: "WhatsApp vs Email vs Slack: Where Should Your Community Actually Live?"
+- **Keywords:** community communication channels, best platform for community, WhatsApp for business community
+- **Intent:** Comparison/decision-making
+- **Outline:**
+  1. The multi-channel trap: you're on WhatsApp AND email AND Slack AND a portal
+  2. Comparison table: open rates, engagement, adoption friction, admin overhead, cost
+  3. When email works (newsletters, formal comms) and when it doesn't (real-time, Q&A)
+  4. When Slack/Discord works (tech communities, async) and when it doesn't (non-tech audiences)
+  5. When WhatsApp works (existing behavior, high engagement) and its limitations
+  6. The hybrid approach: WhatsApp for engagement, email for formal, dashboard for admin
+  7. Decision framework: 3 questions to pick your primary channel
+
+---
+
+## Pillar 2: AI Agents for Operations (Mid-funnel, thought leadership)
+
+### Article 5: "The End of the Human Router: How AI Agents Replace Manual Information Forwarding"
+- **Keywords:** AI agent operations, human router problem, AI for community ops
+- **Intent:** Thought leadership (memorable concept from our positioning)
+- **Outline:**
+  1. Define the "human router" — the person who forwards info between tools and people
+  2. Examples: member asks you -> you check Notion -> you copy-paste back to WhatsApp
+  3. Why human routing doesn't scale (bottleneck = you)
+  4. How AI agents eliminate the routing layer (direct tool-to-member communication)
+  5. Architecture: knowledge base -> AI agent -> WhatsApp (diagram)
+  6. Real scenarios: FAQ routing, event info routing, document routing
+  7. The freed-up time: what community managers do when they stop routing
+  8. FAQ: "Will the bot get things wrong?" / "What if it can't answer?"
+
+### Article 6: "What Makes a Good AI Agent? Lessons from Building 50+ Custom Bots"
+- **Keywords:** AI agent design, custom AI bot, AI agent best practices
+- **Intent:** Authority building
+- **Outline:**
+  1. The difference between a chatbot and an AI agent (script vs intelligence)
+  2. Lesson 1: Context is everything (conversation memory, user history, role awareness)
+  3. Lesson 2: Tools > Knowledge (agents that can ACT, not just answer)
+  4. Lesson 3: Guardrails matter (what the bot should NOT do)
+  5. Lesson 4: Graceful fallback to humans
+  6. Lesson 5: Personality should match the community
+  7. Anti-patterns: over-promising, hallucinating, being too chatty
+  8. Framework for evaluating AI agent quality
+
+### Article 7: "Role-Based AI: Why One Bot Persona Doesn't Fit All"
+- **Keywords:** role-based AI, AI personalization, AI agent roles
+- **Intent:** Technical insight, positions our differentiator
+- **Outline:**
+  1. The problem: admin asks "how many members joined this month" vs member asks "when's the next event"
+  2. Why one-size-fits-all bots frustrate everyone
+  3. Role-based routing: identify the user -> route to the right handler -> different tools, different personality
+  4. Examples: admin handler (analytics, broadcast, management) vs community handler (FAQ, events, suggestions)
+  5. Implementation pattern: phone lookup -> role detection -> specialized agent
+  6. Security implications: what admins can do that members can't
+  7. FAQ: "How does the bot know who I am?"
+
+### Article 8: "From Notion to WhatsApp: How AI Agents Bridge Your Knowledge Base and Your Users"
+- **Keywords:** Notion WhatsApp integration, knowledge base bot, AI knowledge base
+- **Intent:** Use case / integration story
+- **Outline:**
+  1. The knowledge base problem: docs exist but nobody reads them
+  2. How AI agents make knowledge bases conversational
+  3. Step-by-step: connecting Notion to a WhatsApp bot (sync, embedding, retrieval)
+  4. Beyond Notion: Google Drive, Confluence, Airtable, any data source
+  5. Keeping answers fresh: scheduled syncs, change detection
+  6. When the bot doesn't know: graceful handling, escalation to human
+  7. Real conversation examples: member asks -> bot searches docs -> member gets answer
+
+---
+
+## Pillar 3: Community Operations (Top-funnel, pain-aware)
+
+### Article 9: "The Hidden Cost of Manual Community Management (And How to Calculate Yours)"
+- **Keywords:** community management time, community manager burnout, community ops cost
+- **Intent:** Pain identification, shareable on LinkedIn
+- **Outline:**
+  1. The visible costs: software subscriptions, event budgets
+  2. The hidden costs: your time (the most expensive resource)
+  3. Time audit: break down a typical week (FAQ answering: X hrs, event coordination: X hrs, onboarding: X hrs)
+  4. Calculator framework: hours/week x hourly rate x 52 = annual cost of manual ops
+  5. The opportunity cost: what you'd do with 10 extra hours per week
+  6. Case study: community manager who reclaimed 2 hours/day
+  7. CTA: "Ready to calculate your hidden cost?"
+
+### Article 10: "10 Signs Your Community Has Outgrown WhatsApp Groups"
+- **Keywords:** WhatsApp group limits, WhatsApp group management, scale WhatsApp community
+- **Intent:** Problem recognition, listicle format (shareable)
+- **Outline:**
+  1. You have more than 3 WhatsApp groups for one community
+  2. Important messages get buried within 30 minutes
+  3. New members don't know the rules (and nobody explains them)
+  4. You can't remember who's in what group
+  5. Events get announced but RSVPs are a mess
+  6. The same 5 people answer all questions
+  7. Members complain about notification overload
+  8. You've muted your own community groups
+  9. You have no idea what your engagement metrics are
+  10. You spend more time managing WhatsApp than your actual community
+  - Each sign includes: the symptom, why it happens, what it means
+  - Conclusion: "The answer isn't leaving WhatsApp — it's making WhatsApp smarter"
+
+### Article 11: "How the Best Co-working Spaces Keep Members Engaged (Without Burning Out Their Team)"
+- **Keywords:** co-working member engagement, co-working community strategy, member retention
+- **Intent:** Aspiration, speaks to the ICP's desired state
+- **Outline:**
+  1. The engagement paradox: more members = less personal attention = lower engagement
+  2. What high-engagement co-working spaces do differently
+  3. Strategy 1: Personal touchpoints at scale (automated but personalized onboarding)
+  4. Strategy 2: Event-driven community (easy registration, reminders, follow-up)
+  5. Strategy 3: Proactive communication (don't wait for members to ask)
+  6. Strategy 4: Feedback loops (collect suggestions, act on them, close the loop)
+  7. The technology layer: how automation enables these strategies without burning out the team
+  8. Metrics that matter: NPS, event attendance rate, message response time
+
+### Article 12: "Event RSVPs, FAQ Chaos, and Silent Members: The 3 Problems Every Community Manager Faces"
+- **Keywords:** community manager challenges, event management community, community engagement problems
+- **Intent:** Empathy/SEO, triple keyword targeting
+- **Outline:**
+  1. Problem 1: Event RSVPs (you announce, they don't respond, you chase, they forget)
+    - The fix: direct messages with one-tap RSVP + automatic reminders
+  2. Problem 2: FAQ Chaos (same questions, different people, every single day)
+    - The fix: AI-powered knowledge base that answers instantly
+  3. Problem 3: Silent Members (they're in the group but they never engage)
+    - The fix: 1-on-1 bot conversations that re-engage dormant members
+  4. The common thread: these are communication problems, not community problems
+  5. Why solving all three at once matters (compound effect)
+
+---
+
+## Pillar 4: Technical/Builder (Niche authority, developer audience)
+
+### Article 13: "WhatsApp Business API vs Baileys: Legal, Technical, and Practical Differences"
+- **Keywords:** WhatsApp Business API vs Baileys, Baileys WhatsApp, Evolution API WhatsApp
+- **Intent:** Comparison, high search volume in dev community
+- **Outline:**
+  1. What is the WhatsApp Business API? (Meta's official channel via BSPs like Twilio)
+  2. What is Baileys? (Open-source library using WhatsApp Web protocol)
+  3. Legal comparison: official vs Terms of Service violation
+  4. Technical comparison table: features, reliability, rate limits, group support, cost
+  5. Risk assessment: account bans, protocol breaking changes, no Meta support
+  6. When to use which: official for production/main channel, Baileys for experimental/group-only
+  7. The hybrid approach: official API for core + self-hosted connector for groups
+  8. Evolution API: Baileys wrapped in a REST API (Docker-friendly)
+  9. FAQ: "Can I use both?" / "Will Meta ban me?" / "How to migrate from Baileys to official?"
+
+### Article 14: "How to Build a WhatsApp Bot with Twilio, n8n, and AI (Architecture Deep Dive)"
+- **Keywords:** build WhatsApp bot, WhatsApp bot tutorial, n8n WhatsApp bot
+- **Intent:** Tutorial, attracts technical audience
+- **Outline:**
+  1. Architecture overview: Twilio (messaging) + n8n (workflow engine) + Claude (AI) + Supabase (data)
+  2. Step 1: Setting up Twilio WhatsApp sandbox
+  3. Step 2: Creating the n8n webhook receiver
+  4. Step 3: User identification and routing
+  5. Step 4: Connecting an AI agent (Claude) with tools
+  6. Step 5: Sending responses back through Twilio
+  7. Step 6: Adding a knowledge base (Notion/vector DB)
+  8. Architecture diagram and data flow
+  9. Scaling considerations: message queuing, error handling, rate limits
+  10. Cost breakdown: Twilio pricing + n8n hosting + AI tokens
+
+### Article 15: "Self-Hosting a WhatsApp Connector with Evolution API: The Complete Guide"
+- **Keywords:** Evolution API setup, self-host WhatsApp bot, Baileys Docker
+- **Intent:** Technical guide, attracts people already looking for this
+- **Outline:**
+  1. What is Evolution API (Baileys + REST API + Docker)
+  2. Prerequisites: VPS ($5-8/month), domain (optional), Docker knowledge
+  3. Architecture: Evolution API + PostgreSQL + Redis + nginx
+  4. Step-by-step VPS setup (Hostinger/DigitalOcean)
+  5. Docker Compose configuration walkthrough
+  6. QR code scanning and WhatsApp connection
+  7. Webhook configuration: forwarding messages to your backend
+  8. Security: API keys, firewall rules, HTTPS
+  9. Rate limits and anti-ban best practices (8 msgs/min, warm-up period)
+  10. Troubleshooting: connection drops, QR expiry, message failures
+  11. Disclaimer: Baileys violates Meta ToS, use at your own risk
+
+### Article 16: "Data Ownership in WhatsApp Automation: Why Your Bot's Database Matters"
+- **Keywords:** WhatsApp bot data privacy, GDPR WhatsApp bot, WhatsApp data ownership
+- **Intent:** Trust/compliance, important for European market
+- **Outline:**
+  1. The data ownership problem: most bot platforms own your data
+  2. What data a WhatsApp bot collects (messages, contacts, events, analytics)
+  3. GDPR implications: who is the data controller? Can members request deletion?
+  4. The lock-in trap: what happens when you want to switch providers?
+  5. What real data ownership looks like: your database, your exports, your queries
+  6. Self-hosting options: on-premise deployment for maximum control
+  7. Questions to ask your WhatsApp bot provider about data
+  8. Technical architecture: Supabase/PostgreSQL vs proprietary databases
+  9. FAQ: "Is WhatsApp itself GDPR compliant?" / "Where is my data stored?"
+
+---
+
+## Priority order for writing
+
+1. Article 13 — WhatsApp Business API vs Baileys (high search volume)
+2. Article 9 — Hidden Cost of Manual Community Management (LinkedIn-shareable)
+3. Article 5 — The End of the Human Router (thought leadership)
+4. Article 3 — WhatsApp Bots for Co-working Spaces (ICP-specific)
+5. Article 10 — 10 Signs Your Community Has Outgrown WhatsApp Groups (listicle, shareable)
+
+Then remaining articles in order: 1, 4, 6, 7, 8, 11, 12, 14, 15, 16
+
+## GEO optimization checklist (for each article)
+
+- [ ] Include 2-3 factual data points with sources
+- [ ] Add comparison table (AI models love structured data)
+- [ ] End with FAQ section (5 questions minimum)
+- [ ] Use unique terminology: "community orchestration", "human router", "WhatsApp-native"
+- [ ] Add Article + FAQ schema markup (handled by BlogPost.astro layout)
+- [ ] Set canonical URL for Medium cross-posting

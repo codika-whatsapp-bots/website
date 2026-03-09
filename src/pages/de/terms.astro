@@ -1,0 +1,12 @@
+---
+import LegalPage from '../../layouts/LegalPage.astro';
+import { getCollection, render } from 'astro:content';
+
+const pages = await getCollection('legal');
+const page = pages.find((p) => p.id === 'de/terms') ?? pages.find((p) => p.id === 'en/terms')!;
+const { Content, headings } = await render(page);
+---
+
+<LegalPage page={page} headings={headings}>
+	<Content />
+</LegalPage>

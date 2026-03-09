@@ -1,0 +1,370 @@
+---
+import Layout from './Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import { getLangFromLocale, useTranslations, getLocalePath, getAllLanguages } from '../i18n/utils';
+import type { CollectionEntry } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+	page: CollectionEntry<'legal'>;
+	headings?: MarkdownHeading[];
+}
+
+const { page, headings = [] } = Astro.props;
+const lang = getLangFromLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+const origin = Astro.site ?? Astro.url.origin;
+
+const { title, description, lastUpdated } = page.data;
+const slug = page.id.replace(/^(en|fr|nl|es|it|de)\//, '');
+
+const formattedDate = lastUpdated.toLocaleDateString(lang, {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+
+const tocHeadings = headings.filter((h) => h.depth === 2);
+
+const isPrivacy = slug === 'privacy';
+const isTerms = slug === 'terms';
+---
+
+<Layout
+	title={`${title} | WhatsApp Bots by Codika`}
+	description={description}
+	pageType="home"
+>
+	<Fragment slot="head">
+		{getAllLanguages().map((l) => (
+			<link rel="alternate" hreflang={l} href={new URL(getLocalePath(l, slug), origin).href} />
+		))}
+	</Fragment>
+
+	<Navigation />
+	<main class="legal-wrapper">
+		<div class="legal-layout">
+			<aside class="legal-nav-sidebar">
+				<nav class="legal-nav" aria-label="Legal pages">
+					<p class="legal-nav-title">{t('footer.legal')}</p>
+					<a href={getLocalePath(lang, 'privacy')} class:list={['legal-nav-link', { active: isPrivacy }]}>
+						{t('footer.legal.privacy')}
+					</a>
+					<a href={getLocalePath(lang, 'terms')} class:list={['legal-nav-link', { active: isTerms }]}>
+						{t('footer.legal.terms')}
+					</a>
+				</nav>
+			</aside>
+
+			<article class="legal-page">
+				<header class="legal-header">
+					<h1>{title}</h1>
+					<p class="legal-date">{t('legal.lastUpdated')}: {formattedDate}</p>
+				</header>
+				<div class="legal-content" id="legal-content">
+					<slot />
+				</div>
+			</article>
+
+			{tocHeadings.length > 0 && (
+				<aside class="toc-sidebar" id="toc-sidebar">
+					<nav class="toc" aria-label="Table of contents">
+						<p class="toc-title">{t('blog.onThisPage')}</p>
+						<ul>
+							{tocHeadings.map((heading) => (
+								<li>
+									<a href={`#${heading.slug}`} class="toc-link" data-slug={heading.slug}>
+										{heading.text}
+									</a>
+								</li>
+							))}
+						</ul>
+					</nav>
+				</aside>
+			)}
+		</div>
+	</main>
+	<Footer />
+</Layout>
+
+<script>
+	function initToc() {
+		const tocLinks = document.querySelectorAll<HTMLAnchorElement>('.toc-link');
+		if (tocLinks.length === 0) return;
+
+		const headingElements: HTMLElement[] = [];
+		tocLinks.forEach((link) => {
+			const slug = link.dataset.slug;
+			if (slug) {
+				const el = document.getElementById(slug);
+				if (el) headingElements.push(el);
+			}
+		});
+
+		if (headingElements.length === 0) return;
+
+		let activeSlug = '';
+
+		function updateActive() {
+			const scrollY = window.scrollY;
+			const offset = 120;
+
+			let current = '';
+			for (const heading of headingElements) {
+				if (heading.offsetTop - offset <= scrollY) {
+					current = heading.id;
+				}
+			}
+
+			if (current !== activeSlug) {
+				activeSlug = current;
+				tocLinks.forEach((link) => {
+					link.classList.toggle('active', link.dataset.slug === current);
+				});
+			}
+		}
+
+		let ticking = false;
+		window.addEventListener('scroll', () => {
+			if (!ticking) {
+				requestAnimationFrame(() => {
+					updateActive();
+					ticking = false;
+				});
+				ticking = true;
+			}
+		}, { passive: true });
+
+		updateActive();
+
+		tocLinks.forEach((link) => {
+			link.addEventListener('click', (e) => {
+				e.preventDefault();
+				const slug = link.dataset.slug;
+				if (slug) {
+					const target = document.getElementById(slug);
+					if (target) {
+						const top = target.offsetTop - 100;
+						window.scrollTo({ top, behavior: 'smooth' });
+						history.replaceState(null, '', `#${slug}`);
+					}
+				}
+			});
+		});
+	}
+
+	initToc();
+</script>
+
+<style>
+	.legal-wrapper {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: calc(var(--space-xl) + 60px) var(--space-md) var(--space-xl);
+	}
+
+	.legal-layout {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-lg);
+		position: relative;
+	}
+
+	@media (min-width: 1024px) {
+		.legal-layout {
+			grid-template-columns: 180px 1fr 220px;
+		}
+	}
+
+	/* Left sidebar — Legal nav */
+	.legal-nav-sidebar {
+		display: none;
+	}
+
+	@media (min-width: 1024px) {
+		.legal-nav-sidebar {
+			display: block;
+			position: relative;
+		}
+
+		.legal-nav {
+			position: sticky;
+			top: 100px;
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+		}
+	}
+
+	.legal-nav-title {
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+		letter-spacing: var(--letter-spacing-wide);
+		text-transform: uppercase;
+		color: var(--color-text-tertiary);
+		margin-bottom: 8px;
+	}
+
+	.legal-nav-link {
+		display: block;
+		padding: 8px 14px;
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		color: var(--color-text-secondary);
+		border-radius: var(--radius-sm);
+		transition: color var(--transition-fast), background-color var(--transition-fast);
+		text-decoration: none;
+	}
+
+	.legal-nav-link:hover {
+		color: var(--color-primary);
+		background-color: rgba(7, 94, 84, 0.06);
+	}
+
+	.legal-nav-link.active {
+		color: var(--color-primary);
+		background-color: rgba(7, 94, 84, 0.08);
+		font-weight: 600;
+	}
+
+	/* Center — Article */
+	.legal-page {
+		max-width: 740px;
+		min-width: 0;
+	}
+
+	.legal-header {
+		margin-bottom: var(--space-lg);
+	}
+
+	.legal-header h1 {
+		font-family: var(--font-display);
+		font-size: var(--font-size-3xl);
+		color: var(--color-text-primary);
+		margin-bottom: var(--space-xs);
+	}
+
+	.legal-date {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-tertiary);
+	}
+
+	/* Right sidebar — TOC */
+	.toc-sidebar {
+		display: none;
+	}
+
+	@media (min-width: 1024px) {
+		.toc-sidebar {
+			display: block;
+			position: relative;
+		}
+
+		.toc {
+			position: sticky;
+			top: 100px;
+		}
+	}
+
+	.toc-title {
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+		letter-spacing: var(--letter-spacing-wide);
+		text-transform: uppercase;
+		color: var(--color-text-tertiary);
+		margin-bottom: 12px;
+	}
+
+	.toc ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		border-left: 1px solid var(--color-border);
+	}
+
+	.toc li {
+		margin: 0;
+	}
+
+	.toc-link {
+		display: block;
+		padding: 6px 0 6px 16px;
+		font-size: 13px;
+		line-height: 1.4;
+		color: var(--color-text-tertiary);
+		border-left: 2px solid transparent;
+		margin-left: -1px;
+		transition: color var(--transition-fast), border-color var(--transition-fast);
+		text-decoration: none;
+	}
+
+	.toc-link:hover {
+		color: var(--color-text-secondary);
+	}
+
+	.toc-link.active {
+		color: var(--color-primary);
+		border-left-color: var(--color-primary);
+		font-weight: 500;
+	}
+
+	/* Legal Content */
+	.legal-content {
+		font-family: var(--font-body);
+		font-size: var(--font-size-base);
+		line-height: var(--line-height-relaxed);
+		color: var(--color-text-secondary);
+	}
+
+	.legal-content :global(h2) {
+		font-family: var(--font-display);
+		font-size: var(--font-size-2xl);
+		color: var(--color-text-primary);
+		margin-top: var(--space-lg);
+		margin-bottom: var(--space-sm);
+	}
+
+	.legal-content :global(h3) {
+		font-family: var(--font-display);
+		font-size: var(--font-size-xl);
+		color: var(--color-text-primary);
+		margin-top: var(--space-md);
+		margin-bottom: var(--space-sm);
+	}
+
+	.legal-content :global(p) {
+		margin-bottom: var(--space-sm);
+	}
+
+	.legal-content :global(ul),
+	.legal-content :global(ol) {
+		margin-bottom: var(--space-sm);
+		padding-left: var(--space-md);
+	}
+
+	.legal-content :global(li) {
+		margin-bottom: 8px;
+	}
+
+	.legal-content :global(a) {
+		color: var(--color-primary);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	.legal-content :global(a:hover) {
+		color: var(--color-primary-light);
+	}
+
+	.legal-content :global(strong) {
+		color: var(--color-text-primary);
+		font-weight: 600;
+	}
+
+	.legal-content :global(hr) {
+		border: none;
+		border-top: 1px solid var(--color-border);
+		margin: var(--space-lg) 0;
+	}
+</style>
